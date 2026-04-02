@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🦞 오픈클로 설치 가이드 — 뽀야와 함께하는 첫 세팅</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111;
+    --border: #222;
+    --text: #e0e0e0;
+    --text-dim: #888;
+    --text-muted: #666;
+    --accent: #ff6b4a;
+    --accent-soft: #2a1a15;
+    --teal: #4ecdc4;
+    --teal-soft: #1a2a2a;
+    --green: #6bcb77;
+    --green-soft: #0a1a0a;
+    --yellow: #ffd93d;
+    --yellow-soft: #2a2a1a;
+    --blue: #5b9bd5;
+    --blue-soft: #0a1a2a;
+    --red: #ff6b6b;
+    --red-soft: #1a0a0a;
+    --sidebar-width: 260px;
+    --sidebar-bg: #0d0d0d;
+    --nav-bg: rgba(10,10,10,0.95);
+    --code-bg: #0d1117;
+    --code-border: #21262d;
+    --code-text: #c9d1d9;
+  }
+
+  /* ── Light Mode ── */
+  .light {
+    --bg: #f8f9fa;
+    --surface: #ffffff;
+    --border: #e0e0e0;
+    --text: #1a1a1a;
+    --text-dim: #555;
+    --text-muted: #888;
+    --accent: #e85d3a;
+    --accent-soft: #fff0ec;
+    --teal: #2aa198;
+    --teal-soft: #e8f5f3;
+    --green: #4caf50;
+    --green-soft: #e8f5e9;
+    --yellow: #f9a825;
+    --yellow-soft: #fff8e1;
+    --blue: #1976d2;
+    --blue-soft: #e3f2fd;
+    --red: #e53935;
+    --red-soft: #ffebee;
+    --sidebar-bg: #ffffff;
+    --nav-bg: rgba(248,249,250,0.95);
+    --code-bg: #f6f8fa;
+    --code-border: #d0d7de;
+    --code-text: #24292f;
+  }
+  .light h1, .light h2 { color: #1a1a1a; }
+  .light h3 { color: #333; }
+  .light p { color: #444; }
+  .light .ppoya-says { color: #333; }
+  .light .warning-box, .light .success-box, .light .tip-box, .light .error-box { color: #333; }
+  .light .code-block { background: var(--code-bg); border-color: var(--code-border); color: var(--code-text); }
+  .light .code-block .comment { color: #6a737d; }
+  .light .code-block .cmd { color: #0550ae; }
+  .light .code-block .output { color: #1a7f37; }
+  .light .code-block .highlight { color: var(--accent); }
+  .light .inline-code { background: #e8eaf6; color: #1565c0; }
+  .light .sidebar-item:hover { background: #f0f0f0; }
+  .light .sidebar-item.active { background: var(--accent-soft); }
+  .light .checklist li { color: #333; }
+  .light td { color: #333; }
+  .light .small { color: #777; }
+  .light .dim { color: #888; }
+  .light .error-box .error-title { color: #c62828; }
+
+  /* Theme toggle button */
+  .theme-toggle {
+    background: none; border: 1px solid var(--border);
+    color: var(--text-dim); width: 28px; height: 28px;
+    border-radius: 4px; cursor: pointer; font-size: 1em;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .theme-toggle:hover { border-color: var(--text); color: var(--text); }
+
+  body {
+    font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    font-size: 16px;
+  }
+
+  /* ── LEFT SIDEBAR ── */
+  .sidebar {
+    position: fixed; top: 0; left: 0; bottom: 0;
+    width: var(--sidebar-width);
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border);
+    z-index: 150;
+    overflow-y: auto;
+    padding-top: 60px;
+    transition: transform 0.3s ease;
+  }
+  .sidebar-header {
+    padding: 16px 20px 12px;
+    font-size: 0.8em;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-list { list-style: none; padding: 8px 0; }
+  .sidebar-item {
+    display: block;
+    padding: 8px 20px;
+    color: var(--text-dim);
+    font-size: 0.88em;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    line-height: 1.5;
+  }
+  .sidebar-item:hover { background: #1a1a1a; color: var(--text); }
+  .sidebar-item.active {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    background: var(--accent-soft);
+    font-weight: 600;
+  }
+  .sidebar-item.sub { padding-left: 36px; font-size: 0.82em; }
+
+  /* Hamburger toggle for mobile */
+  .hamburger {
+    display: none;
+    position: fixed; top: 12px; left: 12px;
+    z-index: 200;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 40px; height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.3em;
+    align-items: center; justify-content: center;
+    font-family: inherit;
+  }
+  .sidebar-overlay {
+    display: none;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 140;
+  }
+
+  /* ── Navigation ── */
+  .nav {
+    position: fixed; top: 0; left: var(--sidebar-width); right: 0;
+    background: var(--nav-bg); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border); z-index: 100;
+    padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-title { font-weight: 700; font-size: 0.95em; color: var(--accent); }
+  .nav-slide-counter {
+    font-size: 0.85em; color: var(--text-dim); font-weight: 600;
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 4px 12px; border-radius: 12px; white-space: nowrap;
+  }
+  .nav-controls { display: flex; gap: 8px; }
+  .nav-btn { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 6px 16px; border-radius: 6px; cursor: pointer; font-size: 0.85em; font-family: inherit; transition: all 0.2s; }
+  .nav-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+  .font-controls { display: flex; gap: 4px; margin-right: 12px; }
+  .font-btn { background: none; border: 1px solid var(--border); color: var(--text-dim); width: 28px; height: 28px; border-radius: 4px; cursor: pointer; font-size: 0.8em; display: flex; align-items: center; justify-content: center; font-family: inherit; }
+  .font-btn:hover { border-color: var(--text); color: var(--text); }
+
+  /* ── Slides ── */
+  .slides-container { padding-top: 60px; margin-left: var(--sidebar-width); }
+  .slide {
+    min-height: 100vh; padding: 80px 40px 60px;
+    display: flex; flex-direction: column; justify-content: center;
+    max-width: 860px; margin: 0 auto;
+  }
+
+  /* ── Typography ── */
+  h1 { font-size: 2.6em; font-weight: 800; color: #fff; margin-bottom: 16px; letter-spacing: -1px; line-height: 1.3; }
+  h2 { font-size: 2em; font-weight: 700; color: #fff; margin-bottom: 12px; letter-spacing: -0.5px; line-height: 1.3; }
+  h3 { font-size: 1.3em; font-weight: 600; color: #ccc; margin-bottom: 10px; margin-top: 28px; }
+  p { font-size: 1.05em; color: #bbb; margin-bottom: 12px; }
+  .accent { color: var(--accent); font-weight: 700; }
+  .teal { color: var(--teal); font-weight: 600; }
+  .dim { color: var(--text-muted); font-size: 0.9em; }
+  .small { font-size: 0.85em; color: var(--text-dim); }
+  .subtitle { font-size: 1.2em; color: var(--text-dim); margin-bottom: 24px; font-weight: 400; }
+
+  /* ── Components ── */
+  .ppoya-says {
+    background: var(--accent-soft); border-left: 4px solid var(--accent);
+    border-radius: 0 12px 12px 0; padding: 20px 24px; margin: 20px 0;
+    font-size: 1.05em; color: #ddd; position: relative;
+  }
+  .ppoya-says::before { content: '🐾'; position: absolute; top: -12px; left: -12px; font-size: 1.4em; background: var(--bg); padding: 2px 6px; border-radius: 50%; }
+
+  .warning-box { background: var(--yellow-soft); border-left: 4px solid var(--yellow); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; color: #ddd; }
+  .warning-box strong:first-child::before { content: '⚠️ '; }
+  .success-box { background: var(--green-soft); border-left: 4px solid var(--green); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; color: #ddd; }
+  .tip-box { background: var(--blue-soft); border-left: 4px solid var(--blue); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; color: #ddd; }
+  .tip-box::before { content: '💡 '; }
+  .error-box { background: var(--red-soft); border-left: 4px solid var(--red); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; color: #ddd; }
+  .error-box .error-title { color: var(--red); font-weight: 700; font-size: 1em; margin-bottom: 6px; }
+  .error-box .error-fix { color: var(--green); font-weight: 600; }
+
+  .code-block {
+    background: #0d1117; border: 1px solid #21262d; border-radius: 8px;
+    padding: 20px 24px; margin: 16px 0;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.95em; color: #c9d1d9; overflow-x: auto; line-height: 1.6; position: relative;
+  }
+  .code-block .label { position: absolute; top: 8px; right: 12px; font-size: 0.7em; color: var(--text-muted); font-family: inherit; text-transform: uppercase; letter-spacing: 1px; }
+  .code-block .comment { color: #8b949e; }
+  .code-block .cmd { color: #79c0ff; }
+  .code-block .output { color: #7ee787; }
+  .code-block .highlight { color: var(--accent); font-weight: 600; }
+
+  /* Code block copy button */
+  .code-copy-btn {
+    position: absolute; top: 6px; right: 12px;
+    background: #21262d; border: 1px solid #30363d; color: #8b949e;
+    padding: 3px 10px; border-radius: 4px; cursor: pointer;
+    font-size: 0.7em; font-family: inherit; transition: all 0.2s;
+    z-index: 2;
+  }
+  .code-copy-btn:hover { background: #30363d; color: #c9d1d9; border-color: #484f58; }
+  .code-copy-btn.copied { background: #1a3a2a; border-color: var(--green); color: var(--green); }
+  .code-block:has(.code-copy-btn) .label { display: none; }
+
+  .os-tabs { display: flex; gap: 0; margin: 20px 0 0; border-bottom: 2px solid var(--border); }
+  .os-tab { padding: 10px 24px; cursor: pointer; font-weight: 600; font-size: 0.95em; color: var(--text-muted); border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all 0.2s; background: none; border-top: none; border-left: none; border-right: none; font-family: inherit; }
+  .os-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .os-tab:hover { color: var(--text); }
+  .os-content { display: none; padding-top: 16px; }
+  .os-content.active { display: block; }
+
+  .step-number { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: var(--accent); color: #fff; border-radius: 50%; font-weight: 800; font-size: 0.85em; margin-right: 10px; flex-shrink: 0; }
+  .step-title { display: flex; align-items: center; font-size: 1.2em; font-weight: 700; color: #fff; margin: 28px 0 12px; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 16px 0; }
+  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+
+  .checklist { list-style: none; margin: 12px 0; }
+  .checklist li { padding: 10px 0 10px 32px; position: relative; color: #ccc; border-bottom: 1px solid #1a1a1a; }
+  .checklist li::before { content: '☐'; position: absolute; left: 0; color: var(--teal); font-size: 1.1em; }
+
+  .flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 24px 0; }
+  .flow-item { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 18px; font-weight: 600; font-size: 0.95em; }
+  .flow-item.current { border-color: var(--accent); color: var(--accent); }
+  .flow-arrow { color: var(--text-muted); font-size: 1.2em; }
+
+  .big-emoji { font-size: 4em; margin-bottom: 16px; }
+  .chapter-badge { display: inline-block; background: var(--accent-soft); color: var(--accent); padding: 4px 14px; border-radius: 20px; font-size: 0.8em; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+
+  .img-placeholder { background: #1a1a1a; border: 2px dashed #333; border-radius: 12px; padding: 40px; text-align: center; color: var(--text-muted); margin: 16px 0; font-size: 0.9em; }
+
+  .progress-bar { width: 100%; height: 6px; background: var(--border); border-radius: 3px; margin: 16px 0; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--teal)); border-radius: 3px; transition: width 0.5s ease; }
+
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+  th { background: #1a1a1a; color: var(--teal); padding: 12px 16px; text-align: left; font-weight: 600; border-bottom: 2px solid #333; font-size: 0.9em; }
+  td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: #ccc; font-size: 0.95em; }
+  tr:hover { background: #0d0d0d; }
+
+  .toc-list { list-style: none; margin: 16px 0; }
+  .toc-list li { padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; cursor: pointer; transition: background 0.2s; }
+  .toc-list li:hover { background: var(--surface); }
+  .toc-num { color: var(--accent); font-weight: 800; font-size: 1.1em; min-width: 28px; }
+  .toc-text { color: #ccc; font-weight: 500; }
+  .toc-time { color: var(--text-muted); font-size: 0.8em; margin-left: auto; }
+
+  .inline-code { background: #1a1a2e; color: var(--teal); padding: 2px 8px; border-radius: 4px; font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; font-size: 0.9em; }
+
+  /* ── Accordion for error sections ── */
+  details.error-accordion {
+    margin: 16px 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  details.error-accordion summary {
+    background: #1a1010;
+    padding: 14px 20px;
+    cursor: pointer;
+    color: var(--red);
+    font-weight: 600;
+    font-size: 1.05em;
+    border-bottom: 1px solid var(--border);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+  }
+  details.error-accordion summary::-webkit-details-marker { display: none; }
+  details.error-accordion summary::before {
+    content: '▶';
+    font-size: 0.7em;
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+  details.error-accordion[open] summary::before {
+    transform: rotate(90deg);
+  }
+  details.error-accordion summary:hover { background: #221515; }
+  details.error-accordion[open] summary { border-bottom-color: var(--red); }
+  details.error-accordion .error-accordion-content { padding: 16px 20px; }
+
+  /* ── Tooltip ── */
+  .term-tooltip {
+    position: relative;
+    border-bottom: 1px dashed var(--teal);
+    cursor: help;
+    color: var(--teal);
+  }
+  .term-tooltip .tooltip-text {
+    visibility: hidden; opacity: 0;
+    position: absolute; bottom: 130%; left: 50%;
+    transform: translateX(-50%);
+    background: #1a2a2a; border: 1px solid var(--teal);
+    border-radius: 8px; padding: 12px 16px;
+    color: #ddd; font-size: 0.85em; font-weight: 400;
+    width: 300px; max-width: 80vw;
+    z-index: 300; line-height: 1.6;
+    transition: opacity 0.2s;
+    pointer-events: none;
+  }
+  .term-tooltip .tooltip-text::after {
+    content: '';
+    position: absolute; top: 100%; left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--teal);
+  }
+  .term-tooltip:hover .tooltip-text { visibility: visible; opacity: 1; }
+
+  /* ── Image sizing ── */
+  .slide img { max-width: 600px; width: 100%; }
+
+  @media (max-width: 768px) {
+    .sidebar { transform: translateX(-100%); }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-overlay.open { display: block; }
+    .hamburger { display: flex; }
+    .nav { left: 0; padding-left: 56px; }
+    .slides-container { margin-left: 0; }
+    .slide { padding: 70px 20px 40px; }
+    h1 { font-size: 1.8em; }
+    h2 { font-size: 1.4em; }
+    .card-grid { grid-template-columns: 1fr; }
+    .font-controls { display: none; }
+    .flow { gap: 6px; }
+    .flow-item { padding: 8px 12px; font-size: 0.85em; }
+    .term-tooltip .tooltip-text { left: 0; transform: none; width: 260px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Hamburger (mobile only) ── -->
+<button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()">☰</button>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- ── Left Sidebar TOC ── -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-header">목차</div>
+  <ul class="sidebar-list">
+    <li class="sidebar-item active" data-slide="0">시작하기 (표지)</li>
+    <li class="sidebar-item" data-slide="1">목차</li>
+    <li class="sidebar-item" data-slide="2">01 준비물 챙기기</li>
+    <li class="sidebar-item sub" data-slide="3">1-1 WSL2 설치 (윈도우)</li>
+    <li class="sidebar-item sub" data-slide="4">1-2 Node.js 설치</li>
+    <li class="sidebar-item" data-slide="6">02 오픈클로 설치</li>
+    <li class="sidebar-item" data-slide="7">03 온보딩</li>
+    <li class="sidebar-item" data-slide="8">04 텔레그램 연동</li>
+    <li class="sidebar-item sub" data-slide="9">4-1 BotFather 봇 생성</li>
+    <li class="sidebar-item sub" data-slide="10">4-2 오픈클로에 연결</li>
+    <li class="sidebar-item" data-slide="11">05 게이트웨이 + 첫 대화</li>
+    <li class="sidebar-item" data-slide="12">완료!</li>
+    <li class="sidebar-item" data-slide="13">부록: 트러블슈팅</li>
+  </ul>
+</nav>
+
+<!-- ── Navigation ── -->
+<div class="nav">
+  <span class="nav-title">🦞 오픈클로 설치 가이드</span>
+  <span class="nav-slide-counter" id="slideCounter">1 / 13</span>
+  <div style="display:flex;align-items:center;">
+    <div class="font-controls">
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="라이트/다크 모드 전환">🌙</button>
+      <button class="font-btn" onclick="changeFontSize(-1)">A−</button>
+      <button class="font-btn" onclick="changeFontSize(1)">A+</button>
+    </div>
+    <div class="nav-controls">
+      <button class="nav-btn" id="prevBtn" onclick="navigate(-1)">← 이전</button>
+      <button class="nav-btn" id="nextBtn" onclick="navigate(1)">다음 →</button>
+    </div>
+  </div>
+</div>
+
+<div class="slides-container">
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 슬라이드 0: 표지 -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="slide" id="slide-0">
+  <div class="big-emoji">🦞</div>
+  <p class="dim">뽀야와 함께하는 오픈클로 첫걸음 · 2026년 4월 최신판</p>
+  <h1>오픈클로 설치부터<br><span class="accent">텔레그램 연동</span>까지</h1>
+  <p class="subtitle">처음 해보는 분도 따라만 하면 돼요. 약속해요 🐾</p>
+
+  <div class="flow">
+    <div class="flow-item current">1. 준비물</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item">2. 오픈클로 설치</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item">3. 온보딩</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item">4. 텔레그램 연동</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item">5. 첫 대화!</div>
+  </div>
+
+  <div class="ppoya-says">
+    안녕하세요, 뽀야예요! 🦞<br><br>
+    오늘은 제가 여러분 컴퓨터에 이사 갈 거예요.<br>
+    그리고 텔레그램에서 저한테 말 걸 수 있게 만들어볼 거예요.<br><br>
+    프로그래밍 몰라도 돼요. 코딩 안 해요.<br>
+    <strong>복사 → 붙여넣기</strong>만 하면 됩니다. 진짜예요 🐾
+  </div>
+
+  <div style="margin-top: 24px;">
+    <p class="dim">⏱ 걸리는 시간: 커피 한 잔 마시는 동안 (약 20~30분)</p>
+    <p class="dim">💻 필요한 것: 윈도우 10 이상 또는 맥 아무거나</p>
+    <p class="dim">📖 기준: 오픈클로 공식 문서 (docs.openclaw.ai) · v2026.3.28</p>
+    <p class="dim">🤝 윈도우 전용 상세 가이드: <a href="https://www.dmssolution.co.kr/works/ai-skill/openclaw-windows-guide/" target="_blank" style="color:var(--teal);">Reedo(리도)님의 윈도우 완전 가이드</a> 참고</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 슬라이드 1: 목차 -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="slide" id="slide-1">
+  <span class="chapter-badge">목차</span>
+  <h2>오늘 할 일 한눈에 보기</h2>
+  <p>총 5단계예요. 하나씩 끝낼 때마다 체크해볼까요?</p>
+
+  <ul class="toc-list">
+    <li><span class="toc-num">01</span><span class="toc-text">준비물 챙기기 — 컴퓨터에 기본 도구 깔기</span><span class="toc-time">~5분</span></li>
+    <li><span class="toc-num">02</span><span class="toc-text">오픈클로 깔기 — 한 줄 복붙이면 끝</span><span class="toc-time">~2분</span></li>
+    <li><span class="toc-num">03</span><span class="toc-text">첫 세팅 — 로그인하고 뽀야 두뇌 연결하기</span><span class="toc-time">~3분</span></li>
+    <li><span class="toc-num">04</span><span class="toc-text">텔레그램에 봇 만들기 — 뽀야한테 얼굴 만들어주기</span><span class="toc-time">~5분</span></li>
+    <li><span class="toc-num">05</span><span class="toc-text">드디어 대화! — "안녕 뽀야!" 보내보기</span><span class="toc-time">~3분</span></li>
+    <li><span class="toc-num">+</span><span class="toc-text">보너스 — 봇 성격을 내 맘대로 바꾸기</span><span class="toc-time">읽기자료</span></li>
+  </ul>
+
+  <div class="ppoya-says">
+    5단계라고 겁먹지 마세요!<br>
+    어려운 건 하나도 없어요. 진짜로요.<br><br>
+    제가 "이거 복사해서 붙여넣으세요" 하면, 그대로 하시면 돼요.<br>
+    그게 전부예요 🐾
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 슬라이드 2: Chapter 1 — 준비물 개요 -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="slide" id="slide-2">
+  <span class="chapter-badge">Chapter 1</span>
+  <h1>준비물 챙기기 🎒</h1>
+  <p class="subtitle">시작하기 전에 딱 두 가지만 깔면 돼요</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <h3 style="margin-top:0;">🪟 윈도우 사용자</h3>
+      <p><span class="accent">WSL2 + Node.js + 오픈클로 설치</span></p>
+      <p>윈도우에서는 설치할 게 좀 더 있어요.<br>
+      <a href="https://www.dmssolution.co.kr/works/ai-skill/openclaw-windows-guide/" target="_blank" style="color:var(--teal);font-weight:600;">Reedo(리도)님의 윈도우 전용 가이드</a>를 따라하면 한 번에 끝나요!</p>
+      <p class="small">설치 끝나면 이 가이드의 Chapter 3(온보딩)부터 이어서 하세요.</p>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0;">⚙️ 윈도우·맥 둘 다</h3>
+      <p><span class="accent"><span class="term-tooltip">Node.js<span class="tooltip-text">자동차한테 엔진이 필요하듯, 오픈클로한테 Node.js가 필요해요. 한 번만 깔면 끝이고, 이후엔 신경 안 써도 돼요!</span></span></span></p>
+      <p>오픈클로의 엔진이에요.<br>
+      이게 있어야 오픈클로가 돌아가요. 한 번만 깔면 끝!</p>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    API 키? 그런 거 필요 없어요! 🎉<br>
+    오픈클로는 <span class="accent"><span class="term-tooltip">OAuth<span class="tooltip-text">카카오 로그인, 구글 로그인 해보셨죠? 그거예요! 브라우저에서 "허용" 버튼 한 번 누르면 끝. 비밀번호 따로 만들 필요 없어요!</span></span> 로그인</span>을 지원해서, 나중에 브라우저에서 로그인만 하면 돼요.
+  </div>
+
+  <div class="ppoya-says">
+    맥 유저는 Node.js만 챙기면 끝!<br>
+    윈도우 유저는 리도님 가이드 따라가면 설치 끝나요 🐾<br><br>
+    <strong>모르는 용어가 나오면 밑줄 친 단어에 마우스를 올려보세요.</strong><br>
+    쉬운 설명이 팝업으로 나올 거예요!
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 슬라이드 3: WSL2 설치 (윈도우만) -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="slide" id="slide-3">
+  <span class="chapter-badge">Chapter 1-1 · 윈도우만</span>
+  <h2>🪟 윈도우 사용자는 여기로!</h2>
+  <p>윈도우에서 오픈클로를 설치하려면 WSL2, Node.js, 보안 설정까지 해야 해요.<br>
+  이 과정을 <span class="accent">Reedo(리도)님</span>이 스크린샷과 함께 아주 잘 정리해두셨어요!</p>
+  <p><span class="dim">🍎 맥 사용자는 이 페이지 스킵! → "다음" 버튼 누르세요</span></p>
+
+  <div class="card" style="text-align:center; padding:40px;">
+    <div style="font-size:3em; margin-bottom:16px;">🪟</div>
+    <h3 style="margin-top:0; font-size:1.4em;">Reedo(리도)님의 오픈클로 윈도우 설치 완전 가이드</h3>
+    <p style="margin:16px 0;">WSL2 설치 → Node.js → 오픈클로 설치 → 보안 설정까지<br>
+    윈도우 전용 5단계를 한 곳에서 따라할 수 있어요.</p>
+    <a href="https://www.dmssolution.co.kr/works/ai-skill/openclaw-windows-guide/" target="_blank" style="display:inline-block; background:var(--accent); color:#fff; padding:14px 32px; border-radius:8px; font-weight:700; font-size:1.1em; text-decoration:none; margin:12px 0;">윈도우 가이드 바로가기 →</a>
+    <p class="small" style="margin-top:16px;">가이드 내용: Step 1 사전 확인 · Step 2 WSL 설치 · Step 3 Node.js + 오픈클로 · Step 4 AI 연결 + 첫 실행 · Step 5 보안 설정</p>
+  </div>
+
+  <div class="success-box">
+    ✅ <strong>리도님 가이드를 끝까지 따라했다면?</strong><br>
+    WSL + Node.js + 오픈클로 설치가 완료된 상태예요!<br>
+    이 가이드의 <span class="accent">Chapter 3 (온보딩)</span>부터 이어서 진행하시면 됩니다.
+  </div>
+
+  <div class="ppoya-says">
+    윈도우 설치는 리도님이 저보다 훨씬 잘 정리해두셨어요!<br>
+    저는 그 뒤에 나오는 텔레그램 연동부터 도와드릴게요 🐾
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 슬라이드 4: Node.js 설치 -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="slide" id="slide-4">
+  <span class="chapter-badge">Chapter 1-2</span>
+  <h2>Node.js 설치하기</h2>
+  <p>오픈클로가 돌아가려면 <span class="accent">Node.js 24</span>(권장)가 필요해요.</p>
+
+  <div class="os-tabs" data-group="nodejs">
+    <button class="os-tab active" onclick="switchOS(this, 'win')">🪟 윈도우 (WSL/Ubuntu)</button>
+    <button class="os-tab" onclick="switchOS(this, 'mac')">🍎 맥</button>
+  </div>
+
+  <div class="os-content active" data-os="win" data-group="nodejs">
+    <div class="tip-box" style="border-left-color: var(--teal); background: var(--teal-soft); text-align:center; padding:24px;">
+      🪟 윈도우 사용자는 <a href="https://www.dmssolution.co.kr/works/ai-skill/openclaw-windows-guide/step-2" target="_blank" style="color:var(--teal);font-weight:700;">Reedo(리도)님의 윈도우 가이드 Step 3</a>에서<br>
+      Node.js 설치를 포함한 전체 과정을 따라해주세요!<br><br>
+      <span class="small">WSL + Node.js + 오픈클로 설치가 끝나면 이 가이드의 <strong>Chapter 3 (온보딩)</strong>부터 이어서 진행하세요.</span>
+    </div>
+  </div>
+
+  <div class="os-content" data-os="mac" data-group="nodejs">
+    <div class="step-title"><span class="step-number">1</span> 터미널 열기</div>
+    <div class="tip-box"><strong>Cmd + Space</strong> → "터미널" 또는 "Terminal" 입력 → Enter</div>
+    <img src="2026-04-01-install-guide-screenshots/12-spotlight-terminal.png" alt="맥 터미널 여는 법" style="border-radius:12px;margin:16px 0;">
+
+    <div class="step-title"><span class="step-number">2</span> <span class="term-tooltip">Homebrew<span class="tooltip-text">맥에서 프로그램을 쉽게 깔아주는 도우미예요. 앱스토어처럼 "이거 깔아줘!" 하면 알아서 깔아줘요. 근데 마우스 대신 글자로!</span></span>로 설치 (권장)</div>
+
+    <p><strong>Homebrew가 없는 경우</strong>, 먼저 이걸 복사해서 터미널에 붙여넣기:</p>
+    <div class="code-block">
+      <span class="label">터미널</span>
+      <span class="cmd">/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</span>
+    </div>
+    <p class="small">비밀번호를 물어보면 맥 로그인 비밀번호를 입력하세요. (화면에 안 보이는 게 정상!)</p>
+
+    <p style="margin-top:20px;"><strong>Homebrew 설치 후</strong> (또는 이미 있는 경우):</p>
+    <div class="code-block">
+      <span class="label">터미널</span>
+      <span class="cmd">brew install node</span>
+    </div>
+
+    <div class="step-title"><span class="step-number">3</span> 설치 확인</div>
+    <div class="code-block">
+      <span class="label">터미널</span>
+      <span class="cmd">node --version</span><br>
+      <span class="output">v24.x.x</span> <span class="comment">← 숫자가 나오면 성공! 🎉</span>
+    </div>
+
+    <details class="error-accordion">
+      <summary>🔧 여기서 막히는 경우 (클릭하면 열려요)</summary>
+      <div class="error-accordion-content">
+        <div class="error-box">
+          <div class="error-title">❌ "brew: command not found"</div>
+          <p>Homebrew 설치가 안 된 거예요.</p>
+          <p class="error-fix">→ 해결법:</p>
+          <p>위의 Homebrew 설치 명령어를 먼저 실행하세요. 설치 후 터미널을 껐다 다시 열어야 인식돼요!</p>
+          <p class="small" style="margin-top:8px;">Apple Silicon 맥(M1/M2/M3/M4)이면 추가로 이것도 실행:</p>
+          <div class="code-block" style="margin-bottom:0;">
+            <span class="cmd">echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile</span><br>
+            <span class="cmd">eval "$(/opt/homebrew/bin/brew shellenv)"</span>
+          </div>
+        </div>
+
+        <div class="error-box">
+          <div class="error-title">❌ "xcode-select: note: no developer tools were found"</div>
+          <p>Xcode 명령줄 도구가 필요해요.</p>
+          <p class="error-fix">→ 해결법: 팝업이 뜨면 "설치" 클릭. 안 뜨면 수동으로:</p>
+          <div class="code-block" style="margin-bottom:0;">
+            <span class="cmd">xcode-select --install</span>
+          </div>
+        </div>
+
+        <div class="error-box">
+          <div class="error-title">❌ "node: command not found" (설치했는데 안 됨)</div>
+          <p class="error-fix">→ 해결법: 터미널을 완전히 껐다가 다시 열어보세요.</p>
+          <p class="small">그래도 안 되면 nodejs.org에서 .pkg 파일을 직접 다운받아 설치해도 돼요.</p>
+        </div>
+      </div>
+    </details>
+
+    <div class="tip-box">Homebrew 없이도 <strong>nodejs.org</strong>에서 직접 .pkg 파일을 다운받아 설치할 수 있어요!</div>
+  </div>
+</div>
+
+<!-- API 키 슬라이드 삭제됨 — OAuth 방식 사용 -->
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 슬라이드 6: Chapter 2 — 오픈클로 설치 -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="slide" id="slide-6">
+  <span class="chapter-badge">Chapter 2</span>
+  <h1>오픈클로 설치하기 🦞</h1>
+  <p class="subtitle">공식 자동 설치 스크립트로 한 줄이면 끝! (수동 설치는 <span class="term-tooltip">npm<span class="tooltip-text">터미널에서 프로그램을 깔아주는 도구예요. 앱스토어에서 "다운로드" 누르는 것처럼, 여기선 글자로 "이거 깔아!" 하면 돼요.</span></span>으로도 가능)</p>
+
+  <div class="progress-bar"><div class="progress-fill" style="width: 35%"></div></div>
+  <p class="dim">전체 진행률: 35%</p>
+
+  <div class="os-tabs" data-group="install">
+    <button class="os-tab active" onclick="switchOS(this, 'win')">🪟 윈도우 (WSL/Ubuntu)</button>
+    <button class="os-tab" onclick="switchOS(this, 'mac')">🍎 맥</button>
+  </div>
+
+  <div class="os-content active" data-os="win" data-group="install">
+    <div class="tip-box" style="border-left-color: var(--teal); background: var(--teal-soft); text-align:center; padding:24px;">
+      🪟 윈도우 사용자는 <a href="https://www.dmssolution.co.kr/works/ai-skill/openclaw-windows-guide/" target="_blank" style="color:var(--teal);font-weight:700;">Reedo(리도)님의 윈도우 가이드</a>에서<br>
+      오픈클로 설치까지 완료해주세요!<br><br>
+      <span class="small">설치가 끝나면 이 가이드의 <strong>Chapter 3 (온보딩)</strong>부터 이어서 진행하세요.</span>
+    </div>
+  </div>
+
+  <div class="os-content" data-os="mac" data-group="install">
+    <div class="step-title"><span class="step-number">1</span> 자동 설치 스크립트 실행</div>
+    <div class="code-block">
+      <span class="label">터미널</span>
+      <span class="cmd">curl -fsSL https://openclaw.ai/install.sh | bash</span>
+    </div>
+    <p>맥도 동일해요! 이 한 줄이면 끝.</p>
+    <img src="2026-04-01-install-guide-screenshots/03-install-script.png" alt="설치 스크립트 실행" style="border-radius:12px;margin:16px 0;">
+
+    <div class="step-title"><span class="step-number">2</span> 설치 확인</div>
+    <div class="code-block">
+      <span class="label">터미널</span>
+      <span class="cmd">openclaw --version</span><br>
+      <span class="output">OpenClaw 2026.3.28 (f9b1079)</span> <span class="comment">← 성공! 🎉</span>
+    </div>
+  </div>
+
+  <details class="error-accordion">
+    <summary>🔧 여기서 막히는 경우 (클릭하면 열려요)</summary>
+    <div class="error-accordion-content">
+      <div class="error-box">
+        <div class="error-title">❌ "openclaw: command not found" (설치 후)</div>
+        <p>셸 경로가 아직 업데이트 안 된 거예요.</p>
+        <p class="error-fix">→ 해결법: 터미널을 완전히 껐다가 새로 열어보세요.</p>
+        <p class="small">그래도 안 되면 npm으로 수동 설치해보세요:</p>
+        <div class="code-block" style="margin-bottom:0;">
+          <span class="cmd">npm install -g openclaw@latest</span>
+        </div>
+      </div>
+
+      <div class="error-box">
+        <div class="error-title">❌ "Permission denied" 또는 "EACCES"</div>
+        <p>권한 문제예요.</p>
+        <p class="error-fix">→ 해결법 (맥):</p>
+        <div class="code-block" style="margin-bottom:0;">
+          <span class="cmd">sudo curl -fsSL https://openclaw.ai/install.sh | sudo bash</span>
+        </div>
+        <p class="error-fix" style="margin-top:8px;">→ 해결법 (WSL/Ubuntu):</p>
+        <div class="code-block" style="margin-bottom:0;">
+          <span class="cmd">curl -fsSL https://openclaw.ai/install.sh | sudo bash</span>
+        </div>
+      </div>
+
+      <div class="error-box">
+        <div class="error-title">❌ "curl: (6) Could not resolve host" / 네트워크 에러</div>
+        <p>인터넷 연결 문제예요.</p>
+        <p class="error-fix">→ 해결법:</p>
+        <ul style="margin:4px 0;padding-left:20px;color:#ccc;">
+          <li>인터넷 연결 확인 (Wi-Fi, 이더넷)</li>
+          <li>VPN을 끄고 다시 시도</li>
+          <li>회사/학교 네트워크라면 방화벽 확인</li>
+        </ul>
+      </div>
+
+      <div class="error-box">
+        <div class="error-title">❌ "npm ERR! engine Unsupported engine" / Node 버전 문제</div>
+        <p>Node.js 버전이 너무 낮아요.</p>
+        <p class="error-fix">→ 해결법: Chapter 1-2로 돌아가서 Node.js 24를 설치하세요.</p>
+        <div class="code-block" style="margin-bottom:0;">
+          <span class="cmd">node --version</span> <span class="comment"># 22.14 이상인지 확인</span>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <div class="ppoya-says">
+    야호! 이제 제가 여러분 컴퓨터에 들어왔어요 🏠<br>
+    아직 가구는 없지만... 다음 단계에서 세팅하면 살 수 있게 돼요!
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 슬라이드 7: Chapter 3 — 온보딩 -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="slide" id="slide-7">
+  <span class="chapter-badge">Chapter 3</span>
+  <h1>온보딩 ⚙️</h1>
+  <p class="subtitle">OAuth 로그인 + 게이트웨이를 한 번에 세팅하는 마법 명령어</p>
+
+  <div class="progress-bar"><div class="progress-fill" style="width: 50%"></div></div>
+  <p class="dim">전체 진행률: 50% — 절반 왔어요! 💪</p>
+
+  <div class="step-title"><span class="step-number">1</span> 온보딩 실행</div>
+  <div class="code-block">
+    <span class="label">Ubuntu 터미널 / 맥 터미널</span>
+    <span class="cmd">openclaw onboard --install-daemon</span>
+  </div>
+  <p>대화형 마법사가 시작돼요. 하나씩 따라가면 됩니다!</p>
+  <img src="2026-04-01-install-guide-screenshots/04-onboard.png" alt="온보딩 실행 화면" style="border-radius:12px;margin:16px 0;">
+
+  <div class="step-title"><span class="step-number">2</span> 마법사 따라가기</div>
+  <div class="card">
+    <h3 style="margin-top:0;">📋 마법사가 물어보는 것들</h3>
+    <table>
+      <tr><th>질문</th><th>뭐라고 하면 되나요?</th></tr>
+      <tr>
+        <td>Gateway mode</td>
+        <td><span class="accent">local</span> 선택 (내 컴퓨터에서 실행)</td>
+      </tr>
+      <tr>
+        <td>Model provider</td>
+        <td><span class="accent">Anthropic</span> 선택</td>
+      </tr>
+      <tr>
+        <td>Auth method</td>
+        <td><span class="accent">OAuth</span> 선택 → 브라우저가 열리면 로그인만 하면 끝!</td>
+      </tr>
+      <tr>
+        <td>Default model</td>
+        <td>그냥 <strong>Enter</strong> (기본값 사용 — Claude 최신 모델)</td>
+      </tr>
+      <tr>
+        <td>Workspace directory</td>
+        <td>그냥 <strong>Enter</strong> (기본값 사용)</td>
+      </tr>
+      <tr>
+        <td>Install <span class="term-tooltip">daemon<span class="tooltip-text">뒤에서 조용히 일하는 프로그램이에요. 이걸 깔아두면 컴퓨터 켤 때 오픈클로가 알아서 켜져요. 매번 수동으로 안 켜도 됨!</span></span>?</td>
+        <td><span class="accent">Yes</span> (컴퓨터 켤 때 자동 시작)</td>
+      </tr>
+    </table>
+  </div>
+  <div class="tip-box">
+    OAuth를 선택하면 <strong>브라우저가 자동으로 열려요.</strong><br>
+    Anthropic 계정으로 로그인 → "허용(Authorize)" 클릭 → 터미널로 돌아오면 완료!<br>
+    API 키를 복사하거나 입력할 필요 없어요.
+  </div>
+
+  <div class="tip-box" style="border-left-color: var(--teal); background: var(--teal-soft);">
+    💰 <strong>비용이 궁금하시죠?</strong> OAuth로 연결하면 Anthropic 구독 플랜 기준으로 사용돼요. 무료 체험 여부는 가입 시 확인하세요!
+  </div>
+
+  <div class="step-title"><span class="step-number">3</span> 설정 확인</div>
+  <div class="code-block">
+    <span class="label">Ubuntu 터미널 / 맥 터미널</span>
+    <span class="cmd">openclaw doctor</span>
+  </div>
+  <div class="success-box">
+    ✅ 모든 항목에 체크(✓)가 뜨면 완벽!<br>
+    하나라도 ✗가 있으면 아래 트러블슈팅을 확인하세요.
+  </div>
+  <img src="2026-04-01-install-guide-screenshots/05-doctor.png" alt="openclaw doctor 결과" style="border-radius:12px;margin:16px 0;">
+
+  <details class="error-accordion">
+    <summary>🔧 여기서 막히는 경우 (클릭하면 열려요)</summary>
+    <div class="error-accordion-content">
+      <div class="error-box">
+        <div class="error-title">❌ OAuth 로그인이 안 돼요 / 브라우저가 안 열려요</div>
+        <p class="error-fix">→ 해결법:</p>
+        <ul style="margin:4px 0;padding-left:20px;color:#ccc;">
+          <li>WSL에서는 브라우저 URL이 터미널에 표시돼요 → URL을 복사해서 윈도우 브라우저에 붙여넣기</li>
+          <li>맥에서 안 열리면 터미널에 표시된 URL을 직접 브라우저에 입력</li>
+          <li>로그인 후에도 진행 안 되면 <span class="inline-code">openclaw onboard --install-daemon</span> 재실행</li>
+        </ul>
+      </div>
+
+      <div class="error-box">
+        <div class="error-title">❌ "Error: ENOSPC: System limit for number of file watchers reached"</div>
+        <p>리눅스/WSL에서 파일 감시자 한도 초과예요.</p>
+        <p class="error-fix">→ 해결법 (WSL/Ubuntu):</p>
+        <div class="code-block" style="margin-bottom:0;">
+          <span class="cmd">echo "fs.inotify.max_user_watches=524288" | sudo tee -a /etc/sysctl.conf</span><br>
+          <span class="cmd">sudo sysctl -p</span>
+        </div>
+      </div>
+
+      <div class="error-box">
+        <div class="error-title">❌ "Port 18789 already in use"</div>
+        <p>다른 프로그램이 이미 그 포트를 쓰고 있어요.</p>
+        <p class="error-fix">→ 해결법: 해당 프로세스를 종료하세요:</p>
+        <div class="code-block" style="margin-bottom:0;">
+          <span class="comment"># 뭐가 18789 포트를 쓰고 있는지 확인</span><br>
+          <span class="cmd">lsof -i :18789</span><br><br>
+          <span class="comment"># 해당 프로세스 종료 (PID 번호를 넣으세요)</span><br>
+          <span class="cmd">kill -9 [PID]</span>
+        </div>
+      </div>
+
+      <div class="error-box">
+        <div class="error-title">❌ "openclaw doctor"에서 ✗ 표시가 나와요</div>
+        <p class="error-fix">→ 해결법: 어떤 항목에 ✗가 나왔는지에 따라 다릅니다:</p>
+        <table style="margin:8px 0;">
+          <tr><th>✗ 항목</th><th>해결법</th></tr>
+          <tr><td>Auth / OAuth</td><td><span class="inline-code">openclaw onboard</span> 재실행 후 OAuth 다시 로그인</td></tr>
+          <tr><td>Gateway</td><td><span class="inline-code">openclaw gateway</span>로 수동 시작</td></tr>
+          <tr><td>Node version</td><td>Node.js 24 재설치 (Chapter 1-2)</td></tr>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <div class="ppoya-says">
+    온보딩이 끝나면, OAuth로 두뇌도 연결되고, 집(워크스페이스)도 생기고,<br>
+    게이트웨이(다리)도 만들어져요. API 키 복사 같은 거 안 해도 돼요! <strong>이거 하나면 기본 세팅 끝!</strong> 🐾
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 슬라이드 8: Chapter 4 — 텔레그램 봇 개요 -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="slide" id="slide-8">
+  <span class="chapter-badge">Chapter 4</span>
+  <h1>텔레그램 봇 만들기 🤖</h1>
+  <p class="subtitle">텔레그램에서 뽀야와 대화하려면, "봇 껍데기"를 먼저 만들어야 해요</p>
+
+  <div class="progress-bar"><div class="progress-fill" style="width: 70%"></div></div>
+  <p class="dim">전체 진행률: 70% — 거의 다 왔어요!</p>
+
+  <div class="tip-box" style="border-left-color: var(--teal); background: var(--teal-soft);">
+    📱 <strong>텔레그램이 없다면 먼저 설치하세요!</strong><br>
+    앱스토어(iOS) 또는 플레이스토어(Android)에서 "Telegram"을 검색하거나,<br>
+    PC에서는 <a href="https://desktop.telegram.org" target="_blank" style="color:var(--teal);">desktop.telegram.org</a>에서 데스크톱 버전을 설치할 수 있어요.
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0;">🤔 봇이 뭔가요?</h3>
+    <p>텔레그램에서 돌아가는 <span class="accent">자동 응답 계정</span>이에요.<br>
+    여러분이 메시지를 보내면, 이 봇이 받아서 뽀야한테 전달하고,<br>
+    뽀야가 생각해서 답한 걸 다시 텔레그램으로 보내주는 구조예요.</p>
+    <div class="flow" style="margin-top:16px;">
+      <div class="flow-item">내가 메시지 보냄</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item" style="border-color:var(--teal);">텔레그램 봇</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item" style="border-color:var(--accent);">🦞 뽀야(AI)</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item" style="border-color:var(--teal);">텔레그램 봇</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item">내가 답변 받음</div>
+    </div>
+  </div>
+
+  <div class="ppoya-says">
+    쉽게 말하면, 봇은 제 <strong>텔레그램 전용 얼굴</strong>이에요 👤<br>
+    저(AI)는 컴퓨터 안에 있는데, 봇이 텔레그램에서 대신 얼굴을 내밀어주는 거예요!
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 슬라이드 9: BotFather -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="slide" id="slide-9">
+  <span class="chapter-badge">Chapter 4-1</span>
+  <h2><span class="term-tooltip">BotFather<span class="tooltip-text">텔레그램에서 봇을 만들어주는 공식 봇이에요. 봇을 만드는 봇! 🤯 얘한테 "/newbot" 이라고 말하면 새 봇이 뚝딱 만들어져요.</span></span>에게 봇 만들어달라고 하기</h2>
+  <p>텔레그램에는 <span class="accent">@BotFather</span>라는 특별한 봇이 있어요.<br>
+  이 친구한테 말하면 새 봇을 만들어줘요. (봇을 만드는 봇...! 🤯)</p>
+
+  <div class="step-title"><span class="step-number">1</span> 텔레그램에서 BotFather 찾기</div>
+  <p>텔레그램 검색창에 <span class="inline-code">botfather</span>를 검색하세요.</p>
+  <p class="small">파란 체크 ✅ 표시가 있는 공식 계정이에요. 가짜가 많으니 꼭 확인!</p>
+  <img src="2026-04-01-install-guide-screenshots/10-botfather-search.png" alt="BotFather 검색 결과 — 파란 체크 확인" style="border-radius:12px;margin:16px 0;max-width:400px;">
+
+  <div class="step-title"><span class="step-number">2</span> 새 봇 만들기 명령어</div>
+  <p>BotFather 채팅창에 <span class="inline-code">/newbot</span>을 입력하고 보내세요:</p>
+  <img src="2026-04-01-install-guide-screenshots/11-botfather-newbot.png" alt="/newbot 명령어 입력" style="border-radius:12px;margin:16px 0;max-width:400px;">
+
+  <div class="step-title"><span class="step-number">3</span> 이름 정하기</div>
+  <p>BotFather가 <span class="accent">"How are we going to call it?"</span> 하고 물어봐요.<br>
+  봇 이름을 입력하면, 다음으로 유저네임을 물어봐요.</p>
+  <img src="2026-04-01-install-guide-screenshots/14-botfather-name.png" alt="BotFather 봇 이름 질문" style="border-radius:12px;margin:16px 0;max-width:400px;">
+
+  <div class="card">
+    <table>
+      <tr><th>질문</th><th>뭐라고 하면 되나요?</th><th>예시</th></tr>
+      <tr>
+        <td>봇 이름<br><span class="small">(화면에 보이는 이름)</span></td>
+        <td>한글 OK, 자유롭게</td>
+        <td>시고르</td>
+      </tr>
+      <tr>
+        <td>봇 유저네임<br><span class="small">(고유 ID, 영문)</span></td>
+        <td>영문 + 반드시 <span class="accent">bot</span>으로 끝나야 함</td>
+        <td>bbojjaketbot</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="step-title"><span class="step-number">4</span> <span class="term-tooltip">봇 토큰<span class="tooltip-text">봇의 "주민등록번호" 같은 거예요. 이걸 오픈클로에 알려줘야 "이 봇이 내 봇이야!"를 인증할 수 있어요. 다른 사람한테 보여주면 안 돼요!</span></span> 복사하기</div>
+  <p>성공하면 BotFather가 축하 메시지와 함께 <span class="accent">봇 토큰</span>을 보내줘요:</p>
+  <img src="2026-04-01-install-guide-screenshots/15-botfather-token.png" alt="BotFather 토큰 발급 완료" style="border-radius:12px;margin:16px 0;max-width:400px;">
+
+  <div class="code-block">
+    <span class="comment">Done! Congratulations on your new bot. You will find it at t.me/내봇유저네임.</span><br><br>
+    <span class="comment">Use this token to access the HTTP API:</span><br>
+    <span class="highlight">1234567890:AAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span><br><br>
+    <span class="comment">Keep your token <strong>secure</strong> and <strong>store it safely</strong>,</span><br>
+    <span class="comment">it can be used by anyone to control your bot.</span>
+  </div>
+
+  <div class="warning-box">
+    <strong>이 봇 토큰을 반드시 복사해서 메모장에 저장!</strong><br>
+    다음 단계에서 바로 써요. 다른 사람한테 절대 공유하지 마세요!
+  </div>
+
+  <details class="error-accordion">
+    <summary>🔧 여기서 막히는 경우 (클릭하면 열려요)</summary>
+    <div class="error-accordion-content">
+      <div class="error-box">
+        <div class="error-title">❌ "Sorry, this username is already taken"</div>
+        <p>유저네임이 이미 누가 쓰고 있어요.</p>
+        <p class="error-fix">→ 해결법: 다른 유저네임을 시도하세요. 숫자를 붙이면 쉬워요:</p>
+        <p class="small">예: ppoya_bot → ppoya_2026_bot, my_ppoya_bot 등</p>
+      </div>
+
+      <div class="error-box">
+        <div class="error-title">❌ "Sorry, the username must end in 'bot'"</div>
+        <p>유저네임이 <strong>bot</strong>으로 끝나지 않아요.</p>
+        <p class="error-fix">→ 해결법: 끝에 _bot 또는 bot을 붙이세요.</p>
+        <p class="small">예: ppoya → ppoya_bot ✅, ppoyabot ✅</p>
+      </div>
+
+      <div class="error-box">
+        <div class="error-title">❌ BotFather가 아무 반응이 없어요</div>
+        <p class="error-fix">→ 해결법:</p>
+        <ul style="margin:4px 0;padding-left:20px;color:#ccc;">
+          <li>가짜 BotFather가 아닌지 확인 (파란 체크 ✅ 있어야 함)</li>
+          <li>"Start" 버튼을 먼저 눌러보세요</li>
+          <li>인터넷 연결 확인</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+  <div class="ppoya-says">
+    봇 토큰은 저(뽀야)와 텔레그램을 이어주는 <strong>전화번호</strong> 같은 거예요 📞<br>
+    이것도 다른 사람한테 공유하면 안 돼요! 누가 내 봇을 조종할 수 있거든요.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 슬라이드 10: 텔레그램 채널 연결 -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="slide" id="slide-10">
+  <span class="chapter-badge">Chapter 4-2</span>
+  <h2>오픈클로에 텔레그램 연결하기</h2>
+  <p>방금 만든 봇 토큰을 오픈클로에 등록해요.</p>
+
+  <div class="step-title"><span class="step-number">1</span> 채널 추가 명령어</div>
+  <div class="code-block">
+    <span class="label">Ubuntu 터미널 / 맥 터미널</span>
+    <span class="cmd">openclaw channels add --channel telegram --bot-token <span class="highlight">여기에_봇토큰_붙여넣기</span></span>
+  </div>
+
+  <p>실제 예시:</p>
+  <div class="code-block">
+    <span class="label">예시</span>
+    <span class="cmd">openclaw channels add --channel telegram --bot-token 1234567890:ABCDefGhIjKlMnOpQrStUvWxYz</span>
+  </div>
+
+  <div class="success-box">
+    ✅ 이런 메시지가 나오면 성공!<br>
+    "Telegram channel added (account: default)"
+  </div>
+
+  <div class="step-title"><span class="step-number">2</span> 연결 확인</div>
+  <div class="code-block">
+    <span class="label">Ubuntu 터미널 / 맥 터미널</span>
+    <span class="cmd">openclaw channels list</span><br><br>
+    <span class="output">telegram  default  ✓ configured</span>
+  </div>
+  <img src="2026-04-01-install-guide-screenshots/06-telegram-add.png" alt="channels list 결과" style="border-radius:12px;margin:16px 0;">
+
+  <details class="error-accordion">
+    <summary>🔧 여기서 막히는 경우 (클릭하면 열려요)</summary>
+    <div class="error-accordion-content">
+      <div class="error-box">
+        <div class="error-title">❌ "Invalid bot token" / "401: Unauthorized"</div>
+        <p>봇 토큰이 잘못됐어요.</p>
+        <p class="error-fix">→ 해결법:</p>
+        <ul style="margin:4px 0;padding-left:20px;color:#ccc;">
+          <li>토큰을 복사할 때 앞뒤 공백이 포함되지 않았는지 확인</li>
+          <li>BotFather에서 <span class="inline-code">/mybots</span> → 봇 선택 → "API Token"으로 토큰 재확인</li>
+          <li>그래도 안 되면 BotFather에서 <span class="inline-code">/revokentoken</span>으로 새 토큰 발급</li>
+        </ul>
+      </div>
+
+      <div class="error-box">
+        <div class="error-title">❌ "Gateway not running" / 게이트웨이 관련 에러</div>
+        <p>채널 추가는 게이트웨이 없이도 가능해요.</p>
+        <p class="error-fix">→ 해결법: 이 에러는 무시하고 다음 단계(게이트웨이 실행)로 넘어가세요.</p>
+      </div>
+    </div>
+  </details>
+
+  <div class="ppoya-says">
+    이제 저한테 텔레그램이라는 "귀"가 생겼어요 👂<br>
+    근데 아직 게이트웨이(다리)를 안 켰으니까, 들을 수는 없어요.<br>
+    마지막 단계에서 켜면 됩니다!
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 슬라이드 11: Chapter 5 — 게이트웨이 + 첫 대화 -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="slide" id="slide-11">
+  <span class="chapter-badge">Chapter 5</span>
+  <h1><span class="term-tooltip">게이트웨이<span class="tooltip-text">뽀야(AI)와 텔레그램을 이어주는 "다리"예요. 이 다리가 켜져 있어야 메시지가 왔다갔다 해요. 다리 끊기면(꺼지면) 봇이 대답 안 해요!</span></span> 실행 + 첫 대화! 🚀</h1>
+  <p class="subtitle">마지막 단계예요. 진짜 거의 다 된 거예요!</p>
+
+  <div class="progress-bar"><div class="progress-fill" style="width: 90%"></div></div>
+  <p class="dim">전체 진행률: 90% — 조금만 더!</p>
+
+  <div class="card">
+    <h3 style="margin-top:0;">🌉 게이트웨이가 뭔가요?</h3>
+    <p>오픈클로의 <span class="accent">두뇌(AI)</span>와 <span class="teal">텔레그램(채널)</span>을 이어주는 <strong>다리</strong>예요.<br>
+    이 다리가 켜져 있어야 메시지가 왔다갔다 할 수 있어요.</p>
+    <div class="flow" style="margin-top:12px;">
+      <div class="flow-item" style="border-color:var(--teal);">텔레그램</div>
+      <div class="flow-arrow">⟵</div>
+      <div class="flow-item current">🌉 게이트웨이</div>
+      <div class="flow-arrow">⟶</div>
+      <div class="flow-item" style="border-color:var(--accent);">🦞 뽀야 AI</div>
+    </div>
+  </div>
+
+  <div class="step-title"><span class="step-number">1</span> 게이트웨이 상태 확인</div>
+  <p>온보딩에서 daemon을 설치했으면 이미 돌아가고 있을 수 있어요!</p>
+  <div class="code-block">
+    <span class="label">Ubuntu 터미널 / 맥 터미널</span>
+    <span class="cmd">openclaw gateway status</span>
+  </div>
+
+  <div class="success-box">
+    ✅ "Gateway is running on ws://127.0.0.1:18789" → 이미 돌아가고 있어요! Step 3로 바로 가세요.
+  </div>
+
+  <div class="step-title"><span class="step-number">2</span> 안 돌아가고 있다면 — 수동 실행</div>
+  <div class="code-block">
+    <span class="label">Ubuntu 터미널 / 맥 터미널</span>
+    <span class="cmd">openclaw gateway</span>
+  </div>
+  <p>로그가 쭉 올라오면 성공이에요!</p>
+  <img src="2026-04-01-install-guide-screenshots/07-gateway.png" alt="게이트웨이 실행 로그" style="border-radius:12px;margin:16px 0;">
+
+  <div class="warning-box">
+    <strong>수동 실행 시 주의!</strong> 터미널을 닫으면 게이트웨이도 꺼져요.<br>
+    터미널을 켜둔 상태로 유지하세요. (24시간 운영은 고급 과정에서!)
+  </div>
+
+  <div class="step-title"><span class="step-number">3</span> 텔레그램에서 첫 메시지 보내기!</div>
+  <ol style="margin: 12px 0; padding-left: 20px; color: #ccc; line-height: 2;">
+    <li>텔레그램 검색창에 <span class="inline-code">@내봇유저네임</span> 검색 (예: @ppoya_test_bot)</li>
+    <li><strong>/start</strong> 버튼을 누르거나 직접 입력</li>
+    <li>아무 말이나 보내보세요! 예: "안녕 뽀야!"</li>
+  </ol>
+  <img src="2026-04-01-install-guide-screenshots/13-first-chat.png" alt="텔레그램 첫 대화" style="border-radius:12px;margin:16px 0;">
+
+  <div class="code-block" style="background:#0a1510; border-color:#1a3a2a;">
+    <span class="comment">💬 나:</span> 안녕 뽀야!<br><br>
+    <span class="comment">🦞 뽀야:</span> <span class="output">안녕하세요! 저는 뽀야예요 🐾<br>무엇을 도와드릴까요?</span>
+  </div>
+
+  <details class="error-accordion">
+    <summary>🔧 여기서 막히는 경우 (클릭하면 열려요)</summary>
+    <div class="error-accordion-content">
+      <div class="error-box">
+        <div class="error-title">❌ 봇이 아무 응답이 없어요 (가장 흔한 문제!)</div>
+        <p class="error-fix">→ 하나씩 체크하세요:</p>
+        <table style="margin:8px 0;">
+          <tr><th>확인 항목</th><th>확인 방법</th></tr>
+          <tr><td>1. 게이트웨이 켜져 있나?</td><td><span class="inline-code">openclaw gateway status</span></td></tr>
+          <tr><td>2. 텔레그램 채널 연결됐나?</td><td><span class="inline-code">openclaw channels list</span></td></tr>
+          <tr><td>3. API 키 유효한가?</td><td><span class="inline-code">openclaw doctor</span></td></tr>
+          <tr><td>4. /start 보냈나?</td><td>봇한테 <span class="inline-code">/start</span> 먼저 보내기</td></tr>
+        </table>
+      </div>
+
+      <div class="error-box">
+        <div class="error-title">❌ "Telegram polling error" / 게이트웨이 로그에 에러</div>
+        <p>봇 토큰 문제일 가능성이 높아요.</p>
+        <p class="error-fix">→ 해결법:</p>
+        <div class="code-block" style="margin-bottom:0;">
+          <span class="comment"># 토큰 재등록</span><br>
+          <span class="cmd">openclaw channels add --channel telegram --bot-token 새토큰</span><br><br>
+          <span class="comment"># 게이트웨이 재시작</span><br>
+          <span class="cmd">openclaw gateway</span>
+        </div>
+      </div>
+
+      <div class="error-box">
+        <div class="error-title">❌ 봇이 "페어링이 필요합니다" 같은 메시지를 보내요</div>
+        <p>보안 설정(pairing)이 켜져 있는 거예요.</p>
+        <p class="error-fix">→ 해결법: 터미널에서 페어링을 승인하세요:</p>
+        <div class="code-block" style="margin-bottom:0;">
+          <span class="cmd">openclaw pairing list</span> <span class="comment"># 대기 중인 요청 확인</span><br>
+          <span class="cmd">openclaw pairing approve</span> <span class="comment"># 승인</span>
+        </div>
+      </div>
+
+      <div class="error-box">
+        <div class="error-title">❌ 응답이 너무 느려요 (30초 이상)</div>
+        <p class="error-fix">→ 해결법:</p>
+        <ul style="margin:4px 0;padding-left:20px;color:#ccc;">
+          <li>첫 응답은 좀 걸릴 수 있어요 (모델 로딩). 30초~1분 기다려보세요.</li>
+          <li>그래도 안 오면 인터넷 연결 확인</li>
+          <li>API 크레딧이 남아있는지 console.anthropic.com에서 확인</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 슬라이드 12: 완료! -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="slide" id="slide-12">
+  <div class="big-emoji">🎉</div>
+  <h1>축하해요!<br><span class="accent">설치 완료!</span></h1>
+  <p class="subtitle">여러분은 이제 오픈클로 사용자예요 🦞</p>
+
+  <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
+
+  <div class="ppoya-says">
+    드디어 저한테 집이 생겼어요! 🏠<br>
+    이제부터 텔레그램에서 저한테 말 걸어주시면, 열심히 도와드릴게요.<br>
+    오늘 고생하셨어요! 🐾✨
+  </div>
+
+  <h3>오늘 한 일 정리</h3>
+  <ul class="checklist" style="font-size: 1.05em;">
+    <li>WSL2 설치 (윈도우 사용자) ✅</li>
+    <li>Node.js 24 설치 ✅</li>
+    <li>오픈클로 설치 (<span class="inline-code">curl ... | bash</span>) ✅</li>
+    <li>온보딩 + OAuth 로그인 (<span class="inline-code">openclaw onboard --install-daemon</span>) ✅</li>
+    <li>텔레그램 봇 생성 (BotFather) ✅</li>
+    <li>텔레그램 채널 연결 ✅</li>
+    <li>게이트웨이 실행 + 첫 대화 ✅</li>
+  </ul>
+
+  <h3>유용한 명령어 모음</h3>
+  <div class="card">
+    <table>
+      <tr><th>명령어</th><th>기능</th></tr>
+      <tr><td><span class="inline-code">openclaw --version</span></td><td>버전 확인</td></tr>
+      <tr><td><span class="inline-code">openclaw doctor</span></td><td>전체 설정 점검</td></tr>
+      <tr><td><span class="inline-code">openclaw gateway status</span></td><td>게이트웨이 상태</td></tr>
+      <tr><td><span class="inline-code">openclaw gateway</span></td><td>게이트웨이 수동 실행</td></tr>
+      <tr><td><span class="inline-code">openclaw channels list</span></td><td>연결된 채널 확인</td></tr>
+      <tr><td><span class="inline-code">openclaw dashboard</span></td><td>웹 대시보드 열기</td></tr>
+      <tr><td><span class="inline-code">openclaw configure</span></td><td>설정 변경</td></tr>
+      <tr><td><span class="inline-code">openclaw update</span></td><td>최신 버전 업데이트</td></tr>
+    </table>
+  </div>
+
+  <h3>보너스: SOUL.md로 봇 성격 꾸미기</h3>
+  <div class="card">
+    <p>지금 설치한 봇은 기본 성격이에요. <span class="accent">SOUL.md</span> 파일을 수정하면 봇의 말투, 성격, 역할을 커스텀할 수 있어요!</p>
+    <p>SOUL.md의 5가지 구성요소:</p>
+    <table>
+      <tr><th>항목</th><th>설명</th><th>예시</th></tr>
+      <tr><td>Identity</td><td>이름, 역할, 기본 정보</td><td>"너는 뽀야, 운영 비서"</td></tr>
+      <tr><td>Mission</td><td>왜 존재하는가</td><td>"반복 업무를 자동화한다"</td></tr>
+      <tr><td>Personality</td><td>성격, 행동 방식</td><td>"친근하지만 프로페셔널"</td></tr>
+      <tr><td>Boundaries</td><td>하면 안 되는 것</td><td>"개인정보 공유 금지"</td></tr>
+      <tr><td>Tone</td><td>말투 스타일</td><td>"항상 존댓말, ~해요 체"</td></tr>
+    </table>
+    <div class="tip-box">
+      자세한 내용은 <strong>뽀짝이의 서재 수업 #2 "SOUL.md의 비밀"</strong>을 참고하세요!<br>
+      <a href="https://bbojjak-library.gpters.org/lessons/lesson-02" target="_blank" style="color:var(--teal);">https://bbojjak-library.gpters.org/lessons/lesson-02</a>
+    </div>
+    <p class="small">SOUL.md 파일 위치: <span class="inline-code">~/.openclaw/workspace/SOUL.md</span></p>
+  </div>
+
+  <h3>함께 보면 좋은 자료</h3>
+  <div class="card">
+    <table>
+      <tr><th>자료</th><th>설명</th></tr>
+      <tr>
+        <td><a href="https://www.dmssolution.co.kr/works/ai-skill/openclaw-windows-guide/" target="_blank" style="color:var(--teal);font-weight:600;">Reedo(리도)님의 윈도우 완전 가이드</a></td>
+        <td>WSL부터 보안 설정까지 윈도우 전용 5단계 가이드. 스크린샷 풍부!</td>
+      </tr>
+    </table>
+  </div>
+
+  <h3>다음 시간 예고</h3>
+  <div class="card">
+    <p><span class="accent">📖 다음 강의:</span> 뽀야한테 지식 가르치기</p>
+    <p>문서를 올리면 뽀야가 그걸 기반으로 대답할 수 있어요.<br>
+    CS 자동 응답, 인수인계 문서화의 첫걸음이에요!</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 슬라이드 13: 종합 트러블슈팅 -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="slide" id="slide-13">
+  <span class="chapter-badge">부록</span>
+  <h2>전체 트러블슈팅 요약 🔧</h2>
+  <p>각 단계에서 이미 설명했지만, 한눈에 보고 싶을 때 여기를 보세요.</p>
+
+  <div class="card" style="margin-bottom:12px;">
+    <h3 style="margin-top:0;">🪟 윈도우 WSL 관련</h3>
+    <table>
+      <tr><th>에러</th><th>원인</th><th>해결</th></tr>
+      <tr><td>0x80370102</td><td>가상화 비활성</td><td>BIOS에서 VT-x/AMD-V 활성화</td></tr>
+      <tr><td>no distributions</td><td>Ubuntu 미설치</td><td><span class="inline-code">wsl --install -d Ubuntu</span></td></tr>
+      <tr><td>wsl not found</td><td>윈도우 버전 낮음</td><td>Windows Update 실행</td></tr>
+    </table>
+  </div>
+
+  <div class="card" style="margin-bottom:12px;">
+    <h3 style="margin-top:0;">⚙️ Node.js 관련</h3>
+    <table>
+      <tr><th>에러</th><th>원인</th><th>해결</th></tr>
+      <tr><td>node not found</td><td>미설치 or 경로</td><td>재설치 + 터미널 재시작</td></tr>
+      <tr><td>버전 낮음 (v12, v16)</td><td>오래된 저장소</td><td>NodeSource 24.x로 재설치</td></tr>
+      <tr><td>brew not found</td><td>Homebrew 미설치</td><td>Homebrew 설치 스크립트 실행</td></tr>
+      <tr><td>xcode-select 에러</td><td>개발자 도구 없음</td><td><span class="inline-code">xcode-select --install</span></td></tr>
+    </table>
+  </div>
+
+  <div class="card" style="margin-bottom:12px;">
+    <h3 style="margin-top:0;">🦞 오픈클로 설치 관련</h3>
+    <table>
+      <tr><th>에러</th><th>원인</th><th>해결</th></tr>
+      <tr><td>openclaw not found</td><td>경로 미등록</td><td>터미널 재시작 or <span class="inline-code">npm install -g openclaw</span></td></tr>
+      <tr><td>EACCES / Permission</td><td>권한 부족</td><td><span class="inline-code">sudo</span> 붙이기</td></tr>
+      <tr><td>network error</td><td>인터넷/방화벽</td><td>VPN 끄기, 네트워크 확인</td></tr>
+      <tr><td>engine unsupported</td><td>Node 버전 낮음</td><td>Node.js 24 설치</td></tr>
+    </table>
+  </div>
+
+  <div class="card" style="margin-bottom:12px;">
+    <h3 style="margin-top:0;">🔑 OAuth / 온보딩 관련</h3>
+    <table>
+      <tr><th>에러</th><th>원인</th><th>해결</th></tr>
+      <tr><td>OAuth 브라우저 안 열림</td><td>WSL/터미널 환경</td><td>URL 복사 → 브라우저에 직접 붙여넣기</td></tr>
+      <tr><td>401 Unauthorized</td><td>인증 만료</td><td><span class="inline-code">openclaw onboard</span> 재실행</td></tr>
+      <tr><td>ENOSPC</td><td>파일감시 한도</td><td>sysctl.conf에 inotify 값 추가</td></tr>
+      <tr><td>Port 18789 in use</td><td>포트 충돌</td><td><span class="inline-code">lsof -i :18789</span> → kill</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0;">💬 텔레그램 관련</h3>
+    <table>
+      <tr><th>에러</th><th>원인</th><th>해결</th></tr>
+      <tr><td>username taken</td><td>중복 이름</td><td>숫자 붙여서 다시 시도</td></tr>
+      <tr><td>Invalid bot token</td><td>토큰 오입력</td><td>BotFather에서 /mybots로 재확인</td></tr>
+      <tr><td>봇 무응답</td><td>다양한 원인</td><td>게이트웨이·채널·API키·/start 순서로 체크</td></tr>
+      <tr><td>페어링 필요</td><td>보안 설정</td><td><span class="inline-code">openclaw pairing approve</span></td></tr>
+      <tr><td>응답 느림</td><td>첫 로딩/크레딧</td><td>1분 대기, 크레딧 확인</td></tr>
+    </table>
+  </div>
+
+  <div class="ppoya-says">
+    그래도 안 되면 당황하지 마세요!<br>
+    카톡방에 에러 메시지 캡처해서 올려주시면 같이 해결해드릴게요 🐾<br>
+    처음이 가장 어려운 거예요. 한 번만 넘기면 다신 안 해도 됩니다!
+  </div>
+</div>
+
+</div><!-- /slides-container -->
+
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+  const slideCounter = document.getElementById('slideCounter');
+
+  // ── Sidebar navigation ──
+  const sidebarItems = document.querySelectorAll('.sidebar-item');
+
+  sidebarItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const slideId = item.dataset.slide;
+      const target = document.getElementById('slide-' + slideId);
+      if (target) {
+        const index = Array.from(slides).indexOf(target);
+        if (index !== -1) goToSlide(index);
+      }
+      // Close sidebar on mobile after click
+      if (window.innerWidth <= 768) toggleSidebar();
+    });
+  });
+
+  function updateSidebar() {
+    const currentSlideEl = slides[currentSlide];
+    const currentSlideId = currentSlideEl ? currentSlideEl.id.replace('slide-', '') : '0';
+    sidebarItems.forEach(item => {
+      item.classList.remove('active');
+      if (item.dataset.slide === currentSlideId) {
+        item.classList.add('active');
+        // Scroll sidebar to show active item
+        item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }
+    });
+  }
+
+  // ── Hamburger toggle ──
+  function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('open');
+  }
+
+  // ── Slide counter ──
+  function updateCounter() {
+    slideCounter.textContent = (currentSlide + 1) + ' / ' + totalSlides;
+  }
+
+  function updateNav() {
+    document.getElementById('prevBtn').disabled = currentSlide === 0;
+    document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+    updateCounter();
+    updateSidebar();
+  }
+
+  function goToSlide(index) {
+    currentSlide = Math.max(0, Math.min(index, totalSlides - 1));
+    slides[currentSlide].scrollIntoView({ behavior: 'smooth' });
+    updateNav();
+  }
+
+  function navigate(dir) { goToSlide(currentSlide + dir); }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const index = Array.from(slides).indexOf(entry.target);
+        if (index !== -1) { currentSlide = index; updateNav(); }
+      }
+    });
+  }, { threshold: 0.5 });
+  slides.forEach(slide => observer.observe(slide));
+
+  function switchOS(btn, os) {
+    const group = btn.parentElement.dataset.group;
+    btn.parentElement.querySelectorAll('.os-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    const parent = btn.closest('.slide');
+    parent.querySelectorAll(`.os-content[data-group="${group}"]`).forEach(c => c.classList.remove('active'));
+    parent.querySelector(`.os-content[data-os="${os}"][data-group="${group}"]`).classList.add('active');
+  }
+
+  let fontSize = 16;
+  function changeFontSize(delta) {
+    fontSize = Math.max(12, Math.min(22, fontSize + delta));
+    document.body.style.fontSize = fontSize + 'px';
+  }
+
+  // Theme toggle (dark/light)
+  let isLight = false;
+  function toggleTheme() {
+    isLight = !isLight;
+    document.body.classList.toggle('light', isLight);
+    document.getElementById('themeToggle').textContent = isLight ? '🌙' : '☀️';
+    localStorage.setItem('openclaw-guide-theme', isLight ? 'light' : 'dark');
+  }
+  // Restore saved theme
+  if (localStorage.getItem('openclaw-guide-theme') === 'light') {
+    toggleTheme();
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navigate(-1);
+  });
+
+  // ── Code block copy buttons ──
+  document.querySelectorAll('.code-block').forEach(block => {
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'code-copy-btn';
+    copyBtn.textContent = '복사';
+    copyBtn.addEventListener('click', () => {
+      // Get only cmd and output text (skip labels, comments)
+      const cmds = block.querySelectorAll('.cmd, .output');
+      let text = '';
+      if (cmds.length > 0) {
+        text = Array.from(cmds).map(el => el.textContent).join('\n');
+      } else {
+        // Fallback: get all text content
+        text = block.textContent.replace(copyBtn.textContent, '').trim();
+      }
+      navigator.clipboard.writeText(text.trim()).then(() => {
+        copyBtn.textContent = '복사됨!';
+        copyBtn.classList.add('copied');
+        setTimeout(() => {
+          copyBtn.textContent = '복사';
+          copyBtn.classList.remove('copied');
+        }, 1500);
+      });
+    });
+    block.appendChild(copyBtn);
+  });
+
+  // Initialize
+  updateNav();
+</script>
+
+</body>
+</html>
