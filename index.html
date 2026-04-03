@@ -386,7 +386,9 @@
     <li class="sidebar-item sub" data-slide="3">1-1 WSL2 설치 (윈도우)</li>
     <li class="sidebar-item sub" data-slide="4">1-2 Node.js 설치</li>
     <li class="sidebar-item" data-slide="6">02 오픈클로 설치</li>
-    <li class="sidebar-item" data-slide="7">03 온보딩</li>
+    <li class="sidebar-item" data-slide="7">03 온보딩 — 보안 동의</li>
+    <li class="sidebar-item sub" data-slide="7a">3-1 AI 모델 선택</li>
+    <li class="sidebar-item sub" data-slide="7b">3-2 설정 완료 + 확인</li>
     <li class="sidebar-item" data-slide="8">04 텔레그램 연동</li>
     <li class="sidebar-item sub" data-slide="9">4-1 BotFather 봇 생성</li>
     <li class="sidebar-item sub" data-slide="10">4-2 오픈클로에 연결</li>
@@ -488,10 +490,10 @@
   <div class="card-grid">
     <div class="card">
       <h3 style="margin-top:0;">🪟 윈도우 사용자</h3>
-      <p><span class="accent">WSL2 + Node.js + 오픈클로 설치</span></p>
-      <p>윈도우에서는 설치할 게 좀 더 있어요.<br>
-      <a href="https://www.dmssolution.co.kr/works/ai-skill/openclaw-windows-guide/" target="_blank" style="color:var(--teal);font-weight:600;">Reedo(리도)님의 윈도우 전용 가이드</a>를 따라하면 한 번에 끝나요!</p>
-      <p class="small">설치 끝나면 이 가이드의 Chapter 3(온보딩)부터 이어서 하세요.</p>
+      <p><span class="accent">WSL2 설치 → 명령어 한 줄이면 끝!</span></p>
+      <p>맥이랑 거의 똑같아요.<br>
+      WSL(리눅스 환경)만 먼저 깔면, 그 다음은 맥과 동일한 명령어 한 줄!</p>
+      <p class="small">다음 슬라이드에서 2단계로 끝내요.</p>
     </div>
     <div class="card">
       <h3 style="margin-top:0;">⚙️ 윈도우·맥 둘 다</h3>
@@ -508,7 +510,7 @@
 
   <div class="ppoya-says">
     맥 유저는 Node.js만 챙기면 끝!<br>
-    윈도우 유저는 리도님 가이드 따라가면 설치 끝나요 🐾<br><br>
+    윈도우 유저도 명령어 2줄이면 설치 끝나요 🐾<br><br>
     <strong>모르는 용어가 나오면 밑줄 친 단어에 마우스를 올려보세요.</strong><br>
     쉬운 설명이 팝업으로 나올 거예요!
   </div>
@@ -520,28 +522,67 @@
 <div class="slide" id="slide-3">
   <span class="chapter-badge">Chapter 1-1 · 윈도우만</span>
   <h2>🪟 윈도우 사용자는 여기로!</h2>
-  <p>윈도우에서 오픈클로를 설치하려면 WSL2, Node.js, 보안 설정까지 해야 해요.<br>
-  이 과정을 <span class="accent">Reedo(리도)님</span>이 스크린샷과 함께 아주 잘 정리해두셨어요!</p>
+  <p>윈도우에서 오픈클로 설치, 생각보다 <span class="accent">훨씬 간단</span>해요.<br>
+  WSL(리눅스 환경)만 깔면, 그 다음은 맥과 완전히 동일합니다!</p>
   <p><span class="dim">🍎 맥 사용자는 이 페이지 스킵! → "다음" 버튼 누르세요</span></p>
 
-  <div class="card" style="text-align:center; padding:40px;">
-    <div style="font-size:3em; margin-bottom:16px;">🪟</div>
-    <h3 style="margin-top:0; font-size:1.4em;">Reedo(리도)님의 오픈클로 윈도우 설치 완전 가이드</h3>
-    <p style="margin:16px 0;">WSL2 설치 → Node.js → 오픈클로 설치 → 보안 설정까지<br>
-    윈도우 전용 5단계를 한 곳에서 따라할 수 있어요.</p>
-    <a href="https://www.dmssolution.co.kr/works/ai-skill/openclaw-windows-guide/" target="_blank" style="display:inline-block; background:var(--accent); color:#fff; padding:14px 32px; border-radius:8px; font-weight:700; font-size:1.1em; text-decoration:none; margin:12px 0;">윈도우 가이드 바로가기 →</a>
-    <p class="small" style="margin-top:16px;">가이드 내용: Step 1 사전 확인 · Step 2 WSL 설치 · Step 3 Node.js + 오픈클로 · Step 4 AI 연결 + 첫 실행 · Step 5 보안 설정</p>
+  <div class="step-title"><span class="step-number">1</span> 파워셸을 <strong>관리자 권한</strong>으로 실행</div>
+  <p>키보드에서 <strong>Windows 키</strong> → "PowerShell" 검색 → <span class="accent">"관리자로 실행"</span> 클릭</p>
+
+  <div class="step-title"><span class="step-number">2</span> WSL 설치 (명령어 한 줄!)</div>
+  <div class="code-block">
+    <span class="label">파워셸 (관리자)</span>
+    <span class="cmd">wsl --install</span>
   </div>
+  <p class="small">Ubuntu가 자동으로 함께 설치돼요. 끝나면 <strong>컴퓨터를 재시작</strong>하세요.</p>
+
+  <div class="step-title"><span class="step-number">3</span> 재시작 후 Ubuntu 열기</div>
+  <p>시작 메뉴에서 <strong>"Ubuntu"</strong> 검색 → 클릭하면 터미널이 열려요.</p>
+  <p>처음 실행하면 사용자 이름/비밀번호를 만들라고 해요:</p>
+  <ul style="margin:8px 0 8px 20px;">
+    <li><strong>사용자 이름</strong>: 영어 소문자 (예: myname)</li>
+    <li><strong>비밀번호</strong>: 아무거나 (입력할 때 화면에 안 보이는 게 정상!)</li>
+  </ul>
+
+  <div class="step-title"><span class="step-number">4</span> 오픈클로 설치 (이것도 한 줄!)</div>
+  <div class="code-block">
+    <span class="label">Ubuntu 터미널</span>
+    <span class="cmd">curl -fsSL https://openclaw.ai/install.sh | bash</span>
+  </div>
+  <p class="small">Node.js가 없으면 자동으로 설치해줘요. 약 7분 정도 걸려요.</p>
 
   <div class="success-box">
-    ✅ <strong>리도님 가이드를 끝까지 따라했다면?</strong><br>
-    WSL + Node.js + 오픈클로 설치가 완료된 상태예요!<br>
-    이 가이드의 <span class="accent">Chapter 3 (온보딩)</span>부터 이어서 진행하시면 됩니다.
+    ✅ <strong>이게 끝이에요!</strong><br>
+    WSL 설치 + 오픈클로 설치 = <span class="accent">명령어 딱 2줄</span>.<br>
+    설치가 끝나면 자동으로 온보딩이 시작돼요 → 이 가이드의 <span class="accent">Chapter 3 (온보딩)</span>부터 이어서!
   </div>
 
+  <details class="error-accordion">
+    <summary>🔧 혹시 안 되나요? (클릭하면 열려요)</summary>
+    <div class="error-accordion-content">
+      <div class="error-box">
+        <div class="error-title">❌ wsl --install이 안 돼요</div>
+        <p>Windows 10 버전 2004 이상이어야 해요. <strong>설정 → 시스템 → 정보</strong>에서 버전 확인!</p>
+        <p class="error-fix">→ 그래도 안 되면 <a href="https://www.dmssolution.co.kr/works/ai-skill/openclaw-windows-guide/" target="_blank" style="color:var(--teal);font-weight:700;">Reedo(리도)님의 윈도우 상세 가이드</a>를 따라해보세요.</p>
+      </div>
+      <div class="error-box">
+        <div class="error-title">❌ Ubuntu가 시작 메뉴에 안 보여요</div>
+        <p class="error-fix">→ 컴퓨터를 재시작했는지 확인! 재시작 후에도 안 보이면 Microsoft Store에서 "Ubuntu"를 검색해서 직접 설치하세요.</p>
+      </div>
+      <div class="error-box">
+        <div class="error-title">❌ curl 명령어가 안 먹어요</div>
+        <p class="error-fix">→ 파워셸이 아니라 <strong>Ubuntu 터미널</strong>에서 실행해야 해요! 시작 메뉴에서 "Ubuntu"를 열어주세요.</p>
+      </div>
+      <div class="tip-box" style="margin-top:16px;">
+        위 방법으로 해결이 안 되면, <a href="https://www.dmssolution.co.kr/works/ai-skill/openclaw-windows-guide/" target="_blank" style="color:var(--teal);font-weight:700;">Reedo(리도)님의 윈도우 전용 상세 가이드</a>에서<br>
+        스크린샷과 함께 하나하나 따라할 수 있어요!
+      </div>
+    </div>
+  </details>
+
   <div class="ppoya-says">
-    윈도우 설치는 리도님이 저보다 훨씬 잘 정리해두셨어요!<br>
-    저는 그 뒤에 나오는 텔레그램 연동부터 도와드릴게요 🐾
+    진짜 명령어 2줄이에요! 맥이랑 다를 게 없어요 🐾<br>
+    혹시 막히면 리도님 가이드가 든든한 백업이 되어줄 거예요!
   </div>
 </div>
 
@@ -559,10 +600,11 @@
   </div>
 
   <div class="os-content active" data-os="win" data-group="nodejs">
-    <div class="tip-box" style="border-left-color: var(--teal); background: var(--teal-soft); text-align:center; padding:24px;">
-      🪟 윈도우 사용자는 <a href="https://www.dmssolution.co.kr/works/ai-skill/openclaw-windows-guide/step-2" target="_blank" style="color:var(--teal);font-weight:700;">Reedo(리도)님의 윈도우 가이드 Step 3</a>에서<br>
-      Node.js 설치를 포함한 전체 과정을 따라해주세요!<br><br>
-      <span class="small">WSL + Node.js + 오픈클로 설치가 끝나면 이 가이드의 <strong>Chapter 3 (온보딩)</strong>부터 이어서 진행하세요.</span>
+    <div class="success-box" style="text-align:center; padding:24px;">
+      ✅ <strong>별도 설치 필요 없어요!</strong><br><br>
+      앞 단계에서 <span class="cmd" style="background:var(--code-bg);padding:2px 8px;border-radius:4px;">curl -fsSL https://openclaw.ai/install.sh | bash</span> 를 실행하면<br>
+      Node.js가 없을 경우 <span class="accent">자동으로 설치</span>해줘요.<br><br>
+      <span class="small">이미 Chapter 1-1을 완료했다면 → 바로 Chapter 3 (온보딩)으로!</span>
     </div>
   </div>
 
@@ -648,10 +690,22 @@
   </div>
 
   <div class="os-content active" data-os="win" data-group="install">
-    <div class="tip-box" style="border-left-color: var(--teal); background: var(--teal-soft); text-align:center; padding:24px;">
-      🪟 윈도우 사용자는 <a href="https://www.dmssolution.co.kr/works/ai-skill/openclaw-windows-guide/" target="_blank" style="color:var(--teal);font-weight:700;">Reedo(리도)님의 윈도우 가이드</a>에서<br>
-      오픈클로 설치까지 완료해주세요!<br><br>
-      <span class="small">설치가 끝나면 이 가이드의 <strong>Chapter 3 (온보딩)</strong>부터 이어서 진행하세요.</span>
+    <div class="step-title"><span class="step-number">1</span> Ubuntu 터미널에서 설치 스크립트 실행</div>
+    <div class="code-block">
+      <span class="label">Ubuntu 터미널</span>
+      <span class="cmd">curl -fsSL https://openclaw.ai/install.sh | bash</span>
+    </div>
+    <p>맥과 완전히 동일한 명령어예요! Node.js도 없으면 자동 설치.</p>
+
+    <div class="step-title"><span class="step-number">2</span> 설치 확인</div>
+    <div class="code-block">
+      <span class="label">Ubuntu 터미널</span>
+      <span class="cmd">openclaw --version</span><br>
+      <span class="output">OpenClaw 2026.3.28 (f9b1079)</span> <span class="comment">← 성공! 🎉</span>
+    </div>
+
+    <div class="tip-box">
+      혹시 안 되면? <a href="https://www.dmssolution.co.kr/works/ai-skill/openclaw-windows-guide/" target="_blank" style="color:var(--teal);font-weight:700;">Reedo(리도)님의 윈도우 상세 가이드</a>에서 스크린샷과 함께 따라해보세요!
     </div>
   </div>
 
@@ -727,15 +781,15 @@
 </div>
 
 <!-- ═══════════════════════════════════════════ -->
-<!-- 슬라이드 7: Chapter 3 — 온보딩 -->
+<!-- 슬라이드 7: Chapter 3 — 온보딩 (보안 동의 + 시작) -->
 <!-- ═══════════════════════════════════════════ -->
 <div class="slide" id="slide-7">
   <span class="chapter-badge">Chapter 3</span>
-  <h1>온보딩 ⚙️</h1>
-  <p class="subtitle">OAuth 로그인 + 게이트웨이를 한 번에 세팅하는 마법 명령어</p>
+  <h1>온보딩 시작 ⚙️</h1>
+  <p class="subtitle">보안 동의 → AI 모델 선택 → 게이트웨이 설정을 한 번에!</p>
 
-  <div class="progress-bar"><div class="progress-fill" style="width: 50%"></div></div>
-  <p class="dim">전체 진행률: 50% — 절반 왔어요! 💪</p>
+  <div class="progress-bar"><div class="progress-fill" style="width: 45%"></div></div>
+  <p class="dim">전체 진행률: 45%</p>
 
   <div class="step-title"><span class="step-number">1</span> 온보딩 실행</div>
   <div class="code-block">
@@ -745,48 +799,240 @@
   <p>대화형 마법사가 시작돼요. 하나씩 따라가면 됩니다!</p>
   <img src="2026-04-01-install-guide-screenshots/04-onboard.png" alt="온보딩 실행 화면" style="border-radius:12px;margin:16px 0;">
 
-  <div class="step-title"><span class="step-number">2</span> 마법사 따라가기</div>
-  <div class="card">
-    <h3 style="margin-top:0;">📋 마법사가 물어보는 것들</h3>
-    <table>
-      <tr><th>질문</th><th>뭐라고 하면 되나요?</th></tr>
-      <tr>
-        <td>Gateway mode</td>
-        <td><span class="accent">local</span> 선택 (내 컴퓨터에서 실행)</td>
-      </tr>
-      <tr>
-        <td>Model provider</td>
-        <td><span class="accent">Anthropic</span> 선택</td>
-      </tr>
-      <tr>
-        <td>Auth method</td>
-        <td><span class="accent">OAuth</span> 선택 → 브라우저가 열리면 로그인만 하면 끝!</td>
-      </tr>
-      <tr>
-        <td>Default model</td>
-        <td>그냥 <strong>Enter</strong> (기본값 사용 — Claude 최신 모델)</td>
-      </tr>
-      <tr>
-        <td>Workspace directory</td>
-        <td>그냥 <strong>Enter</strong> (기본값 사용)</td>
-      </tr>
-      <tr>
-        <td>Install <span class="term-tooltip">daemon<span class="tooltip-text">뒤에서 조용히 일하는 프로그램이에요. 이걸 깔아두면 컴퓨터 켤 때 오픈클로가 알아서 켜져요. 매번 수동으로 안 켜도 됨!</span></span>?</td>
-        <td><span class="accent">Yes</span> (컴퓨터 켤 때 자동 시작)</td>
-      </tr>
+  <div class="step-title"><span class="step-number">2</span> 보안 경고 — "Yes" 선택</div>
+  <p>온보딩을 시작하면 <strong>가장 먼저 보안 경고 화면</strong>이 나타나요.</p>
+  <div class="card" style="background:#1a0a0a; border-color:#333;">
+    <h3 style="margin-top:0; color:var(--yellow);">Security warning — please read</h3>
+    <p style="font-size:0.92em;">
+      OpenClaw is a hobby project and still in beta.<br>
+      This bot can read files and run actions if tools are enabled.<br>
+      A bad prompt can trick it into doing unsafe things.
+    </p>
+    <p style="font-size:0.88em; color:var(--text-muted);">
+      (요약: "오픈클로는 개인용 에이전트이고, 아직 베타입니다. 도구가 켜져 있으면 파일을 읽거나 실행할 수 있어요.")
+    </p>
+    <div style="margin-top:12px; padding:10px 16px; background:#0d1117; border-radius:8px; border:1px solid #21262d;">
+      <span style="color:var(--teal);">◆</span> I understand this is personal-by-default and shared/multi-user use requires lock-down. Continue?<br>
+      <span style="color:var(--green); font-weight:700;">&nbsp;&nbsp;● Yes</span> <span style="color:var(--text-muted);">/ ○ No</span>
+    </div>
+  </div>
+  <div class="warning-box">
+    <strong>겁먹지 마세요!</strong> 이건 "나 혼자 쓸 거예요, 알겠습니다"라고 동의하는 거예요.<br>
+    <span class="accent">→ Yes</span>를 선택하고 넘어가면 됩니다.
+  </div>
+
+  <div class="step-title"><span class="step-number">3</span> QuickStart 설정 확인</div>
+  <p>보안 동의 후, 기본 설정 요약이 나와요. 그냥 넘어가면 됩니다!</p>
+  <div class="card" style="background:#0d1117; border-color:#21262d;">
+    <h3 style="margin-top:0; color:var(--teal);">QuickStart</h3>
+    <table style="margin:0;">
+      <tr><td style="color:var(--text-muted);">Gateway port</td><td><span class="inline-code">18789</span></td></tr>
+      <tr><td style="color:var(--text-muted);">Gateway bind</td><td>Loopback (127.0.0.1) — 내 컴퓨터에서만</td></tr>
+      <tr><td style="color:var(--text-muted);">Gateway auth</td><td>Token (기본값)</td></tr>
+      <tr><td style="color:var(--text-muted);">Tailscale</td><td>Off</td></tr>
     </table>
   </div>
   <div class="tip-box">
-    OAuth를 선택하면 <strong>브라우저가 자동으로 열려요.</strong><br>
-    Anthropic 계정으로 로그인 → "허용(Authorize)" 클릭 → 터미널로 돌아오면 완료!<br>
-    API 키를 복사하거나 입력할 필요 없어요.
+    이 값들은 기본값 그대로 두면 돼요. 나중에 <span class="inline-code">openclaw configure</span>로 언제든 바꿀 수 있어요.
+  </div>
+
+  <div class="ppoya-says">
+    보안 경고가 무섭게 생겼지만, 그냥 "나 혼자 쓸 거예요~" 하고 넘기면 돼요!<br>
+    QuickStart 설정도 건드릴 거 없어요. 다음 단계가 핵심이에요 — AI 모델을 고르러 가볼까요? 🐾
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 슬라이드 7a: Chapter 3-1 — AI 모델/인증 선택 -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="slide" id="slide-7a">
+  <span class="chapter-badge">Chapter 3-1</span>
+  <h2>AI 모델 선택하기 🧠</h2>
+  <p class="subtitle">뽀야의 두뇌를 골라주세요! 어떤 AI를 쓸 건가요?</p>
+
+  <div class="progress-bar"><div class="progress-fill" style="width: 55%"></div></div>
+  <p class="dim">전체 진행률: 55% — 핵심 단계!</p>
+
+  <p>이제 <strong>"Model/auth provider"</strong> 선택 화면이 나타나요.<br>
+  뽀야한테 어떤 AI 두뇌를 연결할지 고르는 거예요!</p>
+
+  <div class="card" style="background:#0d1117; border-color:#21262d;">
+    <h3 style="margin-top:0; color:var(--teal);">◆ Model/auth provider</h3>
+    <div style="font-family:'SF Mono','Fira Code',monospace; font-size:0.9em; line-height:2;">
+      <span style="color:var(--green);">● OpenAI (Codex OAuth + API key)</span><br>
+      <span style="color:var(--text-dim);">○ Anthropic</span><br>
+      <span style="color:var(--text-dim);">○ Chutes</span><br>
+      <span style="color:var(--text-dim);">○ vLLM</span><br>
+      <span style="color:var(--text-dim);">○ Ollama</span><br>
+      <span style="color:var(--text-dim);">○ MiniMax</span><br>
+      <span style="color:var(--text-dim);">○ Moonshot AI (Kimi K2.5)</span><br>
+      <span style="color:var(--text-dim);">○ Google (Gemini)</span><br>
+      <span style="color:var(--text-dim);">○ xAI (Grok)</span><br>
+      <span style="color:var(--text-dim);">○ Mistral AI</span><br>
+      <span style="color:var(--text-dim);">○ OpenRouter</span><br>
+      <span style="color:var(--text-dim);">○ ...</span>
+    </div>
+  </div>
+
+  <h3>어떤 걸 고르면 되나요?</h3>
+  <div class="card-grid">
+    <div class="card" style="border-color:var(--accent);">
+      <h3 style="margin-top:0; color:var(--accent);">추천 — Anthropic</h3>
+      <p style="font-size:0.92em;">Claude 모델 사용. 한국어 잘 하고, 안정적이에요.</p>
+      <ul style="padding-left:16px; font-size:0.88em; color:#ccc;">
+        <li>인증: <strong>OAuth</strong> (브라우저 로그인만 하면 끝)</li>
+        <li>비용: Anthropic 구독 기준</li>
+        <li>모델: Claude Sonnet/Opus 자동 설정</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:var(--teal);">
+      <h3 style="margin-top:0; color:var(--teal);">추천 — OpenAI</h3>
+      <p style="font-size:0.92em;">GPT 모델 사용. Codex OAuth로 간편하게.</p>
+      <ul style="padding-left:16px; font-size:0.88em; color:#ccc;">
+        <li>인증: <strong>Codex OAuth</strong> 또는 API 키</li>
+        <li>비용: OpenAI 구독/크레딧 기준</li>
+        <li>모델: GPT-4o 등 자동 설정</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card-grid">
+    <div class="card" style="border-color:var(--green);">
+      <h3 style="margin-top:0; color:var(--green);">무료 옵션</h3>
+      <p style="font-size:0.92em;">돈 안 쓰고 해보고 싶다면!</p>
+      <ul style="padding-left:16px; font-size:0.88em; color:#ccc;">
+        <li><strong>Ollama</strong> — 내 컴퓨터에서 무료로 AI 실행 (RAM 8GB+ 권장)</li>
+        <li><strong>Chutes</strong> — 무료 크레딧 제공 클라우드</li>
+        <li><strong>OpenRouter</strong> — 일부 모델 무료</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:var(--yellow);">
+      <h3 style="margin-top:0; color:var(--yellow);">기타 옵션</h3>
+      <p style="font-size:0.92em;">다른 AI 서비스 계정이 있다면!</p>
+      <ul style="padding-left:16px; font-size:0.88em; color:#ccc;">
+        <li><strong>Google</strong> — Gemini 모델</li>
+        <li><strong>xAI</strong> — Grok 모델</li>
+        <li><strong>Mistral</strong> — 유럽산 AI</li>
+        <li><strong>MiniMax / Moonshot</strong> — 중국 모델</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>선택 후 인증 방법</h3>
+  <div class="card">
+    <table>
+      <tr><th>Provider</th><th>인증 방식</th><th>뭘 하면 되나요?</th></tr>
+      <tr>
+        <td>Anthropic</td>
+        <td>OAuth</td>
+        <td>브라우저가 열리면 로그인 → "허용" 클릭 → 끝!</td>
+      </tr>
+      <tr>
+        <td>OpenAI</td>
+        <td>Codex OAuth / API 키</td>
+        <td>브라우저 로그인 또는 API 키 붙여넣기</td>
+      </tr>
+      <tr>
+        <td>Ollama</td>
+        <td>없음 (로컬)</td>
+        <td>Ollama가 설치되어 있으면 자동 연결!</td>
+      </tr>
+      <tr>
+        <td>기타</td>
+        <td>API 키</td>
+        <td>해당 서비스 사이트에서 API 키 복사 → 붙여넣기</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="tip-box">
+    처음이라 뭘 골라야 할지 모르겠다면? → <span class="accent">Anthropic (OAuth)</span>를 추천해요!<br>
+    브라우저 로그인 한 번이면 API 키 복사 같은 거 안 해도 돼요.
+  </div>
+
+  <details class="error-accordion">
+    <summary>🔧 여기서 막히는 경우 (클릭하면 열려요)</summary>
+    <div class="error-accordion-content">
+      <div class="error-box">
+        <div class="error-title">❌ OAuth 로그인이 안 돼요 / 브라우저가 안 열려요</div>
+        <p class="error-fix">→ 해결법:</p>
+        <ul style="margin:4px 0;padding-left:20px;color:#ccc;">
+          <li>WSL에서는 브라우저 URL이 터미널에 표시돼요 → URL을 복사해서 윈도우 브라우저에 붙여넣기</li>
+          <li>맥에서 안 열리면 터미널에 표시된 URL을 직접 브라우저에 입력</li>
+          <li>로그인 후에도 진행 안 되면 <span class="inline-code">openclaw onboard --install-daemon</span> 재실행</li>
+        </ul>
+      </div>
+      <div class="error-box">
+        <div class="error-title">❌ API 키를 어디서 구하나요?</div>
+        <p class="error-fix">→ 각 서비스의 API 키 발급 페이지:</p>
+        <ul style="margin:4px 0;padding-left:20px;color:#ccc;">
+          <li>Anthropic: <span class="inline-code">console.anthropic.com → API Keys</span></li>
+          <li>OpenAI: <span class="inline-code">platform.openai.com → API Keys</span></li>
+          <li>Google: <span class="inline-code">aistudio.google.com → API Keys</span></li>
+        </ul>
+      </div>
+      <div class="error-box">
+        <div class="error-title">❌ "401 Unauthorized" / "Invalid API key"</div>
+        <p>키를 잘못 입력했거나 만료됐어요.</p>
+        <p class="error-fix">→ 해결법: <span class="inline-code">openclaw onboard</span> 재실행 후 키를 다시 붙여넣으세요. 앞뒤 공백이 없는지 확인!</p>
+      </div>
+    </div>
+  </details>
+
+  <div class="ppoya-says">
+    가장 중요한 단계였어요! 이제 제 두뇌가 연결됐어요 🧠<br>
+    다음은 나머지 설정을 마무리하고 건강 체크를 할 거예요!
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 슬라이드 7b: Chapter 3-2 — 나머지 설정 + doctor -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="slide" id="slide-7b">
+  <span class="chapter-badge">Chapter 3-2</span>
+  <h2>설정 마무리 + 건강 체크 🩺</h2>
+  <p class="subtitle">나머지 질문에 답하고, 모든 게 잘 됐는지 확인해요</p>
+
+  <div class="progress-bar"><div class="progress-fill" style="width: 60%"></div></div>
+  <p class="dim">전체 진행률: 60%</p>
+
+  <div class="step-title"><span class="step-number">1</span> 나머지 마법사 질문들</div>
+  <p>AI 모델을 골랐으면, 마법사가 몇 가지 더 물어봐요. <strong>대부분 Enter(기본값)로 넘기면 됩니다!</strong></p>
+  <div class="card">
+    <h3 style="margin-top:0;">📋 나머지 질문 + 추천 답변</h3>
+    <table>
+      <tr><th>질문</th><th>뭐라고 하면 되나요?</th></tr>
+      <tr>
+        <td>Default model</td>
+        <td>그냥 <strong>Enter</strong> (기본값 사용 — 선택한 AI의 최신 모델)</td>
+      </tr>
+      <tr>
+        <td>Workspace directory</td>
+        <td>그냥 <strong>Enter</strong> (기본값: <span class="inline-code">~/.openclaw/workspace</span>)</td>
+      </tr>
+      <tr>
+        <td>Install <span class="term-tooltip">daemon<span class="tooltip-text">뒤에서 조용히 일하는 프로그램이에요. 이걸 깔아두면 컴퓨터 켤 때 오픈클로가 알아서 켜져요. 매번 수동으로 안 켜도 됨!</span></span>?</td>
+        <td><span class="accent">Yes</span> (컴퓨터 켤 때 자동 시작) — 강력 추천!</td>
+      </tr>
+      <tr>
+        <td>Chat channels</td>
+        <td>지금은 <strong>Skip</strong> — 다음 챕터에서 텔레그램을 따로 설정할 거예요</td>
+      </tr>
+      <tr>
+        <td>Skills setup</td>
+        <td>그냥 <strong>Enter</strong> (기본 스킬 자동 설치)</td>
+      </tr>
+    </table>
   </div>
 
   <div class="tip-box" style="border-left-color: var(--teal); background: var(--teal-soft);">
-    💰 <strong>비용이 궁금하시죠?</strong> OAuth로 연결하면 Anthropic 구독 플랜 기준으로 사용돼요. 무료 체험 여부는 가입 시 확인하세요!
+    💰 <strong>비용이 궁금하시죠?</strong><br>
+    - OAuth(Anthropic/OpenAI): 해당 서비스 구독 플랜 기준으로 사용돼요<br>
+    - API 키: 사용한 만큼 과금 (토큰 기반)<br>
+    - Ollama: 내 컴퓨터에서 돌리니까 완전 무료!
   </div>
 
-  <div class="step-title"><span class="step-number">3</span> 설정 확인</div>
+  <div class="step-title"><span class="step-number">2</span> 건강 체크 — openclaw doctor</div>
   <div class="code-block">
     <span class="label">Ubuntu 터미널 / 맥 터미널</span>
     <span class="cmd">openclaw doctor</span>
@@ -801,16 +1047,6 @@
     <summary>🔧 여기서 막히는 경우 (클릭하면 열려요)</summary>
     <div class="error-accordion-content">
       <div class="error-box">
-        <div class="error-title">❌ OAuth 로그인이 안 돼요 / 브라우저가 안 열려요</div>
-        <p class="error-fix">→ 해결법:</p>
-        <ul style="margin:4px 0;padding-left:20px;color:#ccc;">
-          <li>WSL에서는 브라우저 URL이 터미널에 표시돼요 → URL을 복사해서 윈도우 브라우저에 붙여넣기</li>
-          <li>맥에서 안 열리면 터미널에 표시된 URL을 직접 브라우저에 입력</li>
-          <li>로그인 후에도 진행 안 되면 <span class="inline-code">openclaw onboard --install-daemon</span> 재실행</li>
-        </ul>
-      </div>
-
-      <div class="error-box">
         <div class="error-title">❌ "Error: ENOSPC: System limit for number of file watchers reached"</div>
         <p>리눅스/WSL에서 파일 감시자 한도 초과예요.</p>
         <p class="error-fix">→ 해결법 (WSL/Ubuntu):</p>
@@ -823,7 +1059,7 @@
       <div class="error-box">
         <div class="error-title">❌ "Port 18789 already in use"</div>
         <p>다른 프로그램이 이미 그 포트를 쓰고 있어요.</p>
-        <p class="error-fix">→ 해결법: 해당 프로세스를 종료하세요:</p>
+        <p class="error-fix">→ 해결법:</p>
         <div class="code-block" style="margin-bottom:0;">
           <span class="comment"># 뭐가 18789 포트를 쓰고 있는지 확인</span><br>
           <span class="cmd">lsof -i :18789</span><br><br>
@@ -837,17 +1073,27 @@
         <p class="error-fix">→ 해결법: 어떤 항목에 ✗가 나왔는지에 따라 다릅니다:</p>
         <table style="margin:8px 0;">
           <tr><th>✗ 항목</th><th>해결법</th></tr>
-          <tr><td>Auth / OAuth</td><td><span class="inline-code">openclaw onboard</span> 재실행 후 OAuth 다시 로그인</td></tr>
+          <tr><td>Auth / OAuth</td><td><span class="inline-code">openclaw onboard</span> 재실행 후 인증 다시 진행</td></tr>
           <tr><td>Gateway</td><td><span class="inline-code">openclaw gateway</span>로 수동 시작</td></tr>
           <tr><td>Node version</td><td>Node.js 24 재설치 (Chapter 1-2)</td></tr>
+          <tr><td>Model</td><td><span class="inline-code">openclaw models status</span>로 확인 후 재설정</td></tr>
         </table>
+      </div>
+
+      <div class="error-box">
+        <div class="error-title">❌ 설정을 처음부터 다시 하고 싶어요</div>
+        <p class="error-fix">→ 해결법: 온보딩을 리셋하고 처음부터 다시 할 수 있어요:</p>
+        <div class="code-block" style="margin-bottom:0;">
+          <span class="cmd">openclaw onboard --reset --install-daemon</span>
+        </div>
       </div>
     </div>
   </details>
 
   <div class="ppoya-says">
-    온보딩이 끝나면, OAuth로 두뇌도 연결되고, 집(워크스페이스)도 생기고,<br>
-    게이트웨이(다리)도 만들어져요. API 키 복사 같은 거 안 해도 돼요! <strong>이거 하나면 기본 세팅 끝!</strong> 🐾
+    온보딩 끝! 두뇌(AI 모델)도 연결되고, 집(워크스페이스)도 생기고,<br>
+    게이트웨이(다리)도 만들어졌어요. <strong>기본 세팅 완료!</strong><br><br>
+    이제 텔레그램에서 저한테 말 걸 수 있게 만들어볼까요? 🐾
   </div>
 </div>
 
@@ -1277,13 +1523,17 @@
   </div>
 
   <div class="card" style="margin-bottom:12px;">
-    <h3 style="margin-top:0;">🔑 OAuth / 온보딩 관련</h3>
+    <h3 style="margin-top:0;">🔑 온보딩 / 인증 관련</h3>
     <table>
       <tr><th>에러</th><th>원인</th><th>해결</th></tr>
+      <tr><td>보안 경고에서 막힘</td><td>Yes 안 누름</td><td>"Yes" 선택 후 진행</td></tr>
       <tr><td>OAuth 브라우저 안 열림</td><td>WSL/터미널 환경</td><td>URL 복사 → 브라우저에 직접 붙여넣기</td></tr>
-      <tr><td>401 Unauthorized</td><td>인증 만료</td><td><span class="inline-code">openclaw onboard</span> 재실행</td></tr>
+      <tr><td>401 Unauthorized</td><td>인증 만료/키 오류</td><td><span class="inline-code">openclaw onboard</span> 재실행</td></tr>
+      <tr><td>Invalid API key</td><td>키 오입력/공백 포함</td><td>키 다시 복사 (앞뒤 공백 제거)</td></tr>
+      <tr><td>모델 선택 모르겠음</td><td>15개+ 옵션 혼란</td><td>Anthropic(OAuth) 또는 OpenAI 추천</td></tr>
       <tr><td>ENOSPC</td><td>파일감시 한도</td><td>sysctl.conf에 inotify 값 추가</td></tr>
       <tr><td>Port 18789 in use</td><td>포트 충돌</td><td><span class="inline-code">lsof -i :18789</span> → kill</td></tr>
+      <tr><td>처음부터 다시 하고 싶음</td><td>설정 꼬임</td><td><span class="inline-code">openclaw onboard --reset</span></td></tr>
     </table>
   </div>
 
