@@ -100,7 +100,7 @@
 
   /* ── LEFT SIDEBAR ── */
   .sidebar {
-    position: fixed; top: 0; left: 0; bottom: 0;
+    position: fixed; top: 40px; left: 0; bottom: 0;
     width: var(--sidebar-width);
     background: var(--sidebar-bg);
     border-right: 1px solid var(--border);
@@ -163,7 +163,7 @@
 
   /* ── Navigation ── */
   .nav {
-    position: fixed; top: 0; left: var(--sidebar-width); right: 0;
+    position: fixed; top: 40px; left: var(--sidebar-width); right: 0;
     background: var(--nav-bg); backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border); z-index: 100;
     padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;
@@ -183,7 +183,7 @@
   .font-btn:hover { border-color: var(--text); color: var(--text); }
 
   /* ── Slides ── */
-  .slides-container { padding-top: 60px; margin-left: var(--sidebar-width); }
+  .slides-container { padding-top: 100px; margin-left: var(--sidebar-width); }
   .slide {
     min-height: 100vh; padding: 80px 40px 60px;
     display: flex; flex-direction: column; justify-content: center;
@@ -373,7 +373,7 @@
 <body>
 
 <!-- ── Top Banner: 뽀짝이의서재 ── -->
-<div style="background:linear-gradient(90deg,#1a1a2e,#16213e);border-bottom:2px solid var(--accent);padding:10px 20px;text-align:center;font-size:0.85rem;color:#ccc;display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap;">
+<div id="topBanner" style="position:fixed;top:0;left:0;right:0;z-index:200;background:linear-gradient(90deg,#1a1a2e,#16213e);border-bottom:2px solid var(--accent);padding:10px 20px;text-align:center;font-size:0.85rem;color:#ccc;display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap;">
   <span style="color:#fff;font-weight:700;">ⓒ 뽀짝이의서재</span>
   <a href="https://bbojjak-library.gpters.org/" target="_blank" style="color:var(--teal);text-decoration:none;">📚 뽀짝이의서재</a>
   <a href="https://open.kakao.com/o/gWXzUtli" target="_blank" style="color:var(--yellow);text-decoration:none;">🔥 덕후방</a>
