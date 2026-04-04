@@ -1258,13 +1258,13 @@
   <div class="step-title"><span class="step-number">1</span> 채널 추가 명령어</div>
   <div class="code-block">
     <span class="label">Ubuntu 터미널 / 맥 터미널</span>
-    <span class="cmd">openclaw channels add --channel telegram --bot-token <span class="highlight">여기에_봇토큰_붙여넣기</span></span>
+    <span class="cmd">openclaw channels add --channel telegram --token <span class="highlight">여기에_봇토큰_붙여넣기</span></span>
   </div>
 
   <p>실제 예시:</p>
   <div class="code-block">
     <span class="label">예시</span>
-    <span class="cmd">openclaw channels add --channel telegram --bot-token 1234567890:ABCDefGhIjKlMnOpQrStUvWxYz</span>
+    <span class="cmd">openclaw channels add --channel telegram --token 1234567890:ABCDefGhIjKlMnOpQrStUvWxYz</span>
   </div>
 
   <div class="success-box">
@@ -1391,7 +1391,7 @@
         <p class="error-fix">→ 해결법:</p>
         <div class="code-block" style="margin-bottom:0;">
           <span class="comment"># 토큰 재등록</span><br>
-          <span class="cmd">openclaw channels add --channel telegram --bot-token 새토큰</span><br><br>
+          <span class="cmd">openclaw channels add --channel telegram --token 새토큰</span><br><br>
           <span class="comment"># 게이트웨이 재시작</span><br>
           <span class="cmd">openclaw gateway</span>
         </div>
