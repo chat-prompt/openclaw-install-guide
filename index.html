@@ -450,7 +450,7 @@
     <p class="dim">⏱ 걸리는 시간: 커피 한 잔 마시는 동안 (약 20~30분)</p>
     <p class="dim">💻 필요한 것: 윈도우 10 이상 또는 맥 아무거나</p>
     <p class="dim">📖 기준: 오픈클로 공식 문서 (docs.openclaw.ai) · v2026.3.28</p>
-    <p class="dim">🤝 윈도우 전용 상세 가이드: <a href="https://www.dmssolution.co.kr/works/ai-skill/openclaw-windows-guide/" target="_blank" style="color:var(--teal);">Reedo(리도)님의 윈도우 완전 가이드</a> 참고</p>
+    <p class="dim">🤝 윈도우 전용 상세 가이드: <a href="https://slashpage.com/conanssam/n5w9812gkpw3g24kpgze" target="_blank" style="color:var(--teal);">코난쌤의 WSL 설치 가이드</a> · <a href="https://www.dmssolution.co.kr/works/ai-skill/openclaw-windows-guide/" target="_blank" style="color:var(--teal);">Reedo(리도)님의 윈도우 완전 가이드</a> 참고</p>
   </div>
 </div>
 
@@ -488,12 +488,15 @@
   <p class="subtitle">시작하기 전에 딱 두 가지만 깔면 돼요</p>
 
   <div class="card-grid">
-    <div class="card">
-      <h3 style="margin-top:0;">🪟 윈도우 사용자</h3>
-      <p><span class="accent">WSL2 설치 → 명령어 한 줄이면 끝!</span></p>
-      <p>맥이랑 거의 똑같아요.<br>
-      WSL(리눅스 환경)만 먼저 깔면, 그 다음은 맥과 동일한 명령어 한 줄!</p>
-      <p class="small">다음 슬라이드에서 2단계로 끝내요.</p>
+    <div class="card" style="border:2px solid var(--teal);position:relative;">
+      <h3 style="margin-top:0;">🪟 윈도우 사용자는 여길 먼저 봐주세요!</h3>
+      <p><span class="accent">다음 슬라이드에서 WSL + Ubuntu 설치부터 진행해주세요.</span></p>
+      <p>파워셸(관리자)에서 아래 명령어 한 줄이면 끝!</p>
+      <div class="code-block" style="margin:8px 0;">
+        <span class="label">파워셸 (관리자)</span>
+        <span class="cmd">wsl --install -d Ubuntu</span>
+      </div>
+      <p class="small">이것만 깔면 그 다음은 맥과 동일해요. → 다음 슬라이드에서 상세 안내!</p>
     </div>
     <div class="card">
       <h3 style="margin-top:0;">⚙️ 윈도우·맥 둘 다</h3>
@@ -521,20 +524,21 @@
 <!-- ═══════════════════════════════════════════ -->
 <div class="slide" id="slide-3">
   <span class="chapter-badge">Chapter 1-1 · 윈도우만</span>
-  <h2>🪟 윈도우 사용자는 여기로!</h2>
+  <h2>🪟 윈도우 사용자는 여기부터!</h2>
   <p>윈도우에서 오픈클로 설치, 생각보다 <span class="accent">훨씬 간단</span>해요.<br>
-  WSL(리눅스 환경)만 깔면, 그 다음은 맥과 완전히 동일합니다!</p>
+  <strong>wsl --install -d Ubuntu</strong> 명령어 한 줄로 리눅스 환경이 세팅되고,<br>
+  그 다음은 맥과 완전히 동일합니다!</p>
   <p><span class="dim">🍎 맥 사용자는 이 페이지 스킵! → "다음" 버튼 누르세요</span></p>
 
   <div class="step-title"><span class="step-number">1</span> 파워셸을 <strong>관리자 권한</strong>으로 실행</div>
   <p>키보드에서 <strong>Windows 키</strong> → "PowerShell" 검색 → <span class="accent">"관리자로 실행"</span> 클릭</p>
 
-  <div class="step-title"><span class="step-number">2</span> WSL 설치 (명령어 한 줄!)</div>
+  <div class="step-title"><span class="step-number">2</span> WSL + Ubuntu 설치 (명령어 한 줄!)</div>
   <div class="code-block">
     <span class="label">파워셸 (관리자)</span>
-    <span class="cmd">wsl --install</span>
+    <span class="cmd">wsl --install -d Ubuntu</span>
   </div>
-  <p class="small">Ubuntu가 자동으로 함께 설치돼요. 끝나면 <strong>컴퓨터를 재시작</strong>하세요.</p>
+  <p class="small">WSL과 Ubuntu가 함께 설치돼요. 끝나면 <strong>컴퓨터를 재시작</strong>하세요.</p>
 
   <div class="step-title"><span class="step-number">3</span> 재시작 후 Ubuntu 열기</div>
   <p>시작 메뉴에서 <strong>"Ubuntu"</strong> 검색 → 클릭하면 터미널이 열려요.</p>
@@ -561,9 +565,22 @@
     <summary>🔧 혹시 안 되나요? (클릭하면 열려요)</summary>
     <div class="error-accordion-content">
       <div class="error-box">
-        <div class="error-title">❌ wsl --install이 안 돼요</div>
-        <p>Windows 10 버전 2004 이상이어야 해요. <strong>설정 → 시스템 → 정보</strong>에서 버전 확인!</p>
-        <p class="error-fix">→ 그래도 안 되면 <a href="https://www.dmssolution.co.kr/works/ai-skill/openclaw-windows-guide/" target="_blank" style="color:var(--teal);font-weight:700;">Reedo(리도)님의 윈도우 상세 가이드</a>를 따라해보세요.</p>
+        <div class="error-title">❌ "가상 머신 플랫폼" 오류 / WslRegisterDistribution failed</div>
+        <p>BIOS에서 가상화(VT-x / AMD-V)가 꺼져있을 때 나와요.</p>
+        <p class="error-fix">→ 컴퓨터 재부팅 → BIOS 진입(보통 F2/DEL) → <strong>Virtualization Technology</strong>를 Enabled로 변경 → 저장 후 재부팅</p>
+      </div>
+      <div class="error-box">
+        <div class="error-title">❌ wsl --install 자체가 안 먹어요 (명령어를 찾을 수 없음)</div>
+        <p>Windows 10 버전 2004 미만이면 WSL 명령어 자체가 없어요.</p>
+        <p class="error-fix">→ <strong>설정 → 시스템 → 정보</strong>에서 버전 확인! → Windows Update로 최신 버전 업데이트 먼저!</p>
+        <p class="error-fix">→ 그래도 안 되면 <a href="https://slashpage.com/conanssam/n5w9812gkpw3g24kpgze" target="_blank" style="color:var(--teal);font-weight:700;">코난쌤의 WSL 상세 가이드</a> 또는 <a href="https://www.dmssolution.co.kr/works/ai-skill/openclaw-windows-guide/" target="_blank" style="color:var(--teal);font-weight:700;">리도님의 윈도우 가이드</a>를 따라해보세요.</p>
+      </div>
+      <div class="error-box">
+        <div class="error-title">❌ Microsoft Store 관련 오류 (0x80070422 등)</div>
+        <p>회사/학교 PC에서 Microsoft Store가 정책으로 막혀있을 때 발생해요.</p>
+        <p class="error-fix">→ 파워셸(관리자)에서 수동 설치:<br>
+        <span class="cmd" style="font-size:0.85em;">wsl --install -d Ubuntu --web-download</span><br>
+        Store를 거치지 않고 웹에서 직접 다운로드해요.</p>
       </div>
       <div class="error-box">
         <div class="error-title">❌ Ubuntu가 시작 메뉴에 안 보여요</div>
@@ -574,15 +591,16 @@
         <p class="error-fix">→ 파워셸이 아니라 <strong>Ubuntu 터미널</strong>에서 실행해야 해요! 시작 메뉴에서 "Ubuntu"를 열어주세요.</p>
       </div>
       <div class="tip-box" style="margin-top:16px;">
-        위 방법으로 해결이 안 되면, <a href="https://www.dmssolution.co.kr/works/ai-skill/openclaw-windows-guide/" target="_blank" style="color:var(--teal);font-weight:700;">Reedo(리도)님의 윈도우 전용 상세 가이드</a>에서<br>
-        스크린샷과 함께 하나하나 따라할 수 있어요!
+        위 방법으로 해결이 안 되면, 스크린샷과 함께 하나하나 따라할 수 있는 가이드가 있어요!<br><br>
+        📘 <a href="https://slashpage.com/conanssam/n5w9812gkpw3g24kpgze" target="_blank" style="color:var(--teal);font-weight:700;">코난쌤의 WSL 설치 상세 가이드</a> — 가상 머신 플랫폼 활성화, 커널 업데이트까지 단계별 설명<br>
+        📘 <a href="https://www.dmssolution.co.kr/works/ai-skill/openclaw-windows-guide/" target="_blank" style="color:var(--teal);font-weight:700;">Reedo(리도)님의 윈도우 전용 상세 가이드</a> — 보안 설정까지 윈도우 전용 5단계 가이드
       </div>
     </div>
   </details>
 
   <div class="ppoya-says">
     진짜 명령어 2줄이에요! 맥이랑 다를 게 없어요 🐾<br>
-    혹시 막히면 리도님 가이드가 든든한 백업이 되어줄 거예요!
+    혹시 막히면 코난쌤, 리도님 가이드가 든든한 백업이 되어줄 거예요!
   </div>
 </div>
 
@@ -705,7 +723,7 @@
     </div>
 
     <div class="tip-box">
-      혹시 안 되면? <a href="https://www.dmssolution.co.kr/works/ai-skill/openclaw-windows-guide/" target="_blank" style="color:var(--teal);font-weight:700;">Reedo(리도)님의 윈도우 상세 가이드</a>에서 스크린샷과 함께 따라해보세요!
+      혹시 안 되면? <a href="https://slashpage.com/conanssam/n5w9812gkpw3g24kpgze" target="_blank" style="color:var(--teal);font-weight:700;">코난쌤의 WSL 가이드</a> 또는 <a href="https://www.dmssolution.co.kr/works/ai-skill/openclaw-windows-guide/" target="_blank" style="color:var(--teal);font-weight:700;">리도님의 윈도우 가이드</a>에서 스크린샷과 함께 따라해보세요!
     </div>
   </div>
 
@@ -1468,6 +1486,10 @@
     <table>
       <tr><th>자료</th><th>설명</th></tr>
       <tr>
+        <td><a href="https://slashpage.com/conanssam/n5w9812gkpw3g24kpgze" target="_blank" style="color:var(--teal);font-weight:600;">코난쌤의 WSL 설치 상세 가이드</a></td>
+        <td>가상 머신 플랫폼 활성화, 커널 업데이트까지 단계별 상세 설명!</td>
+      </tr>
+      <tr>
         <td><a href="https://www.dmssolution.co.kr/works/ai-skill/openclaw-windows-guide/" target="_blank" style="color:var(--teal);font-weight:600;">Reedo(리도)님의 윈도우 완전 가이드</a></td>
         <td>WSL부터 보안 설정까지 윈도우 전용 5단계 가이드. 스크린샷 풍부!</td>
       </tr>
@@ -1494,7 +1516,8 @@
     <h3 style="margin-top:0;">🪟 윈도우 WSL 관련</h3>
     <table>
       <tr><th>에러</th><th>원인</th><th>해결</th></tr>
-      <tr><td>0x80370102</td><td>가상화 비활성</td><td>BIOS에서 VT-x/AMD-V 활성화</td></tr>
+      <tr><td>0x80370102 / WslRegisterDistribution failed</td><td>가상화 비활성</td><td>BIOS에서 VT-x/AMD-V 활성화</td></tr>
+      <tr><td>0x80070422 / Store 오류</td><td>Microsoft Store 차단</td><td><span class="inline-code">wsl --install -d Ubuntu --web-download</span></td></tr>
       <tr><td>no distributions</td><td>Ubuntu 미설치</td><td><span class="inline-code">wsl --install -d Ubuntu</span></td></tr>
       <tr><td>wsl not found</td><td>윈도우 버전 낮음</td><td>Windows Update 실행</td></tr>
     </table>
