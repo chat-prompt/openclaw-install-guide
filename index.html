@@ -81,6 +81,24 @@
   .light .dim { color: #888; }
   .light .error-box .error-title { color: #c62828; }
 
+  /* ── Light mode: dark-bg cards/boxes 안 글자 보호 ──
+     인라인 style="background:#0d1117 / #1a0a0a / #0a1410" 으로 강제 다크인 영역은
+     light 모드의 .light td/p/h3 룰(#333/#444)과 충돌해서 글자가 안 보임.
+     attribute selector로 그 안의 글자만 보호. */
+  .light [style*="background:#0d1117"],
+  .light [style*="background:#1a0a0a"],
+  .light [style*="background:#0a1410"],
+  .light [style*="background:#000"] { color: #d1d5db; }
+  .light [style*="background:#0d1117"] p,
+  .light [style*="background:#0d1117"] td,
+  .light [style*="background:#1a0a0a"] p,
+  .light [style*="background:#1a0a0a"] td,
+  .light [style*="background:#0a1410"] p,
+  .light [style*="background:#0a1410"] td { color: #d1d5db; }
+  .light [style*="background:#0d1117"] h3:not([style*="color"]),
+  .light [style*="background:#1a0a0a"] h3:not([style*="color"]),
+  .light [style*="background:#0a1410"] h3:not([style*="color"]) { color: #e5e7eb; }
+
   /* Theme toggle button */
   .theme-toggle {
     background: none; border: 1px solid var(--border);
@@ -818,9 +836,14 @@
   <div class="step-title"><span class="step-number">1</span> 온보딩 실행</div>
   <div class="code-block">
     <span class="label">Ubuntu 터미널 / 맥 터미널</span>
-    <span class="cmd">openclaw onboard --install-daemon</span>
+    <span class="cmd">openclaw onboard --install-daemon --skip-skills --skip-channels --skip-search</span>
   </div>
   <p>대화형 마법사가 시작돼요. 하나씩 따라가면 됩니다!</p>
+  <div class="tip-box" style="border-left-color: var(--teal); background: var(--teal-soft);">
+    💡 <strong>왜 <span class="inline-code">--skip-*</span> 플래그가 붙어있나요?</strong><br>
+    스킬·채널·서치는 처음엔 건너뛰는 게 깔끔해요. 텔레그램은 <strong>Chapter 4</strong>에서 따로 연결할 거고,
+    스킬·서치는 나중에 필요할 때 <span class="inline-code">openclaw skills install</span>로 하나씩 추가하면 됩니다.
+  </div>
   <img src="2026-04-01-install-guide-screenshots/04-onboard.png" alt="온보딩 실행 화면" style="border-radius:12px;margin:16px 0;">
 
   <div class="step-title"><span class="step-number">2</span> 보안 경고 — "Yes" 선택</div>
@@ -881,36 +904,65 @@
   뽀야한테 어떤 AI 두뇌를 연결할지 고르는 거예요!</p>
 
   <div class="card" style="background:#0d1117; border-color:#21262d;">
-    <h3 style="margin-top:0; color:var(--teal);">◆ Model/auth provider</h3>
+    <h3 style="margin-top:0; color:#4ecdc4;">◆ Step 1 — Model/auth provider 선택</h3>
     <div style="font-family:'SF Mono','Fira Code',monospace; font-size:0.9em; line-height:2;">
-      <span style="color:var(--green);">● OpenAI (Codex OAuth + API key)</span><br>
-      <span style="color:var(--text-dim);">○ Anthropic</span><br>
-      <span style="color:var(--text-dim);">○ Chutes</span><br>
-      <span style="color:var(--text-dim);">○ vLLM</span><br>
-      <span style="color:var(--text-dim);">○ Ollama</span><br>
-      <span style="color:var(--text-dim);">○ MiniMax</span><br>
-      <span style="color:var(--text-dim);">○ Moonshot AI (Kimi K2.5)</span><br>
-      <span style="color:var(--text-dim);">○ Google (Gemini)</span><br>
-      <span style="color:var(--text-dim);">○ xAI (Grok)</span><br>
-      <span style="color:var(--text-dim);">○ Mistral AI</span><br>
-      <span style="color:var(--text-dim);">○ OpenRouter</span><br>
-      <span style="color:var(--text-dim);">○ ...</span>
+      <span style="color:#6bcb77; font-weight:700;">● Anthropic <span style="color:#ff6b4a; font-weight:400;">(Claude — 한국어 강함, Claude CLI 옵션 포함)</span></span><br>
+      <span style="color:#9ca3af;">○ OpenAI (Codex OAuth + API key)</span><br>
+      <span style="color:#9ca3af;">○ Chutes</span><br>
+      <span style="color:#9ca3af;">○ vLLM</span><br>
+      <span style="color:#9ca3af;">○ Ollama</span><br>
+      <span style="color:#9ca3af;">○ MiniMax</span><br>
+      <span style="color:#9ca3af;">○ Moonshot AI (Kimi K2.5)</span><br>
+      <span style="color:#9ca3af;">○ Google (Gemini)</span><br>
+      <span style="color:#9ca3af;">○ xAI (Grok)</span><br>
+      <span style="color:#9ca3af;">○ Mistral AI</span><br>
+      <span style="color:#9ca3af;">○ OpenRouter</span><br>
+      <span style="color:#9ca3af;">○ ...</span>
     </div>
   </div>
+  <p class="dim" style="font-size:0.88em; margin-top:8px;">
+    ※ <strong>Claude CLI는 Provider 목록 1티어가 아니라 Anthropic provider 안의 인증 방식</strong>이에요.
+    그래서 먼저 <span class="accent">Anthropic</span>을 고르고, 다음 단계에서 인증 방식을 <span class="accent">Claude CLI</span>로 선택하면 돼요.
+  </p>
+
+  <div class="card" style="background:#0d1117; border-color:#21262d; margin-top:14px;">
+    <h3 style="margin-top:0; color:#4ecdc4;">◆ Step 2 — Anthropic 인증 방식 선택</h3>
+    <div style="font-family:'SF Mono','Fira Code',monospace; font-size:0.9em; line-height:2;">
+      <span style="color:#6bcb77; font-weight:700;">● Claude CLI <span style="color:#ff6b4a; font-weight:400;">(Max/Pro 구독자 — 토큰 한도 안 씀)</span></span><br>
+      <span style="color:#9ca3af;">○ OAuth (Anthropic Console 로그인)</span><br>
+      <span style="color:#9ca3af;">○ API key (직접 붙여넣기)</span>
+    </div>
+  </div>
+  <p class="dim" style="font-size:0.88em; margin-top:8px;">
+    ※ 실제 항목 라벨/순서는 OpenClaw 버전에 따라 살짝 다를 수 있어요. 핵심은 <strong>Anthropic → Claude CLI</strong> 두 단계.
+  </p>
 
   <h3>어떤 걸 고르면 되나요?</h3>
   <div class="card-grid">
+    <div class="card" style="border-color:var(--green); position:relative;">
+      <span style="position:absolute; top:-10px; right:12px; background:var(--green); color:#0d1117; font-size:0.72em; font-weight:700; padding:2px 8px; border-radius:6px;">🥇 1순위 추천</span>
+      <h3 style="margin-top:0; color:var(--green);">Anthropic → Claude CLI</h3>
+      <p style="font-size:0.92em;"><strong>Claude Max/Pro 구독자라면 이거!</strong> Provider에서 <strong>Anthropic</strong>을 고른 다음, 인증 방식에서 <strong>Claude CLI</strong>를 선택하세요.</p>
+      <ul style="padding-left:16px; font-size:0.88em; color:#ccc;">
+        <li>인증: <strong>토큰 자동 공유</strong> (이미 <span class="inline-code">claude</span>로 로그인돼있으면 끝)</li>
+        <li>비용: <strong>구독 한도 내에서 무료</strong> (API 토큰 안 씀!)</li>
+        <li>사전조건: <a href="https://docs.anthropic.com/claude/docs/claude-code" target="_blank" style="color:var(--accent);">Claude Code CLI</a> 설치 + <span class="inline-code">claude /login</span> 완료</li>
+      </ul>
+    </div>
     <div class="card" style="border-color:var(--accent);">
-      <h3 style="margin-top:0; color:var(--accent);">추천 — Anthropic</h3>
-      <p style="font-size:0.92em;">Claude 모델 사용. 한국어 잘 하고, 안정적이에요.</p>
+      <h3 style="margin-top:0; color:var(--accent);">Anthropic → OAuth</h3>
+      <p style="font-size:0.92em;">Claude 모델을 OAuth로. 구독자 아닌 분도 OK. Provider에서 <strong>Anthropic</strong> → 인증 방식에서 <strong>OAuth</strong>.</p>
       <ul style="padding-left:16px; font-size:0.88em; color:#ccc;">
         <li>인증: <strong>OAuth</strong> (브라우저 로그인만 하면 끝)</li>
-        <li>비용: Anthropic 구독 기준</li>
+        <li>비용: Anthropic API 사용량 기준</li>
         <li>모델: Claude Sonnet/Opus 자동 설정</li>
       </ul>
     </div>
+  </div>
+
+  <div class="card-grid">
     <div class="card" style="border-color:var(--teal);">
-      <h3 style="margin-top:0; color:var(--teal);">추천 — OpenAI</h3>
+      <h3 style="margin-top:0; color:var(--teal);">OpenAI</h3>
       <p style="font-size:0.92em;">GPT 모델 사용. Codex OAuth로 간편하게.</p>
       <ul style="padding-left:16px; font-size:0.88em; color:#ccc;">
         <li>인증: <strong>Codex OAuth</strong> 또는 API 키</li>
@@ -918,26 +970,12 @@
         <li>모델: GPT-4o 등 자동 설정</li>
       </ul>
     </div>
-  </div>
-
-  <div class="card-grid">
-    <div class="card" style="border-color:var(--green);">
-      <h3 style="margin-top:0; color:var(--green);">무료 옵션</h3>
-      <p style="font-size:0.92em;">돈 안 쓰고 해보고 싶다면!</p>
+    <div class="card" style="border-color:var(--text-dim);">
+      <h3 style="margin-top:0;">기타 / 무료 옵션</h3>
+      <p style="font-size:0.92em;">Ollama(로컬), Chutes(무료 크레딧), OpenRouter, Google, xAI, Mistral 등.</p>
       <ul style="padding-left:16px; font-size:0.88em; color:#ccc;">
-        <li><strong>Ollama</strong> — 내 컴퓨터에서 무료로 AI 실행 (RAM 8GB+ 권장)</li>
-        <li><strong>Chutes</strong> — 무료 크레딧 제공 클라우드</li>
-        <li><strong>OpenRouter</strong> — 일부 모델 무료</li>
-      </ul>
-    </div>
-    <div class="card" style="border-color:var(--yellow);">
-      <h3 style="margin-top:0; color:var(--yellow);">기타 옵션</h3>
-      <p style="font-size:0.92em;">다른 AI 서비스 계정이 있다면!</p>
-      <ul style="padding-left:16px; font-size:0.88em; color:#ccc;">
-        <li><strong>Google</strong> — Gemini 모델</li>
-        <li><strong>xAI</strong> — Grok 모델</li>
-        <li><strong>Mistral</strong> — 유럽산 AI</li>
-        <li><strong>MiniMax / Moonshot</strong> — 중국 모델</li>
+        <li>대부분 <strong>API 키 붙여넣기</strong> 방식</li>
+        <li>Ollama는 로컬 실행 — 인증 불필요</li>
       </ul>
     </div>
   </div>
@@ -946,9 +984,14 @@
   <div class="card">
     <table>
       <tr><th>Provider</th><th>인증 방식</th><th>뭘 하면 되나요?</th></tr>
+      <tr style="background:rgba(34,197,94,0.06);">
+        <td><strong style="color:var(--green);">Anthropic → Claude CLI</strong></td>
+        <td>토큰 자동 공유</td>
+        <td>이미 <span class="inline-code">claude</span>로 로그인돼있으면 자동 연결! 안 깔렸으면 <a href="https://docs.anthropic.com/claude/docs/claude-code" target="_blank" style="color:var(--accent);">Claude Code CLI</a> 먼저 설치 후 <span class="inline-code">claude /login</span></td>
+      </tr>
       <tr>
-        <td>Anthropic</td>
-        <td>OAuth</td>
+        <td>Anthropic → OAuth</td>
+        <td>브라우저 로그인</td>
         <td>브라우저가 열리면 로그인 → "허용" 클릭 → 끝!</td>
       </tr>
       <tr>
@@ -970,8 +1013,28 @@
   </div>
 
   <div class="tip-box">
-    처음이라 뭘 골라야 할지 모르겠다면? → <span class="accent">Anthropic (OAuth)</span>를 추천해요!<br>
-    브라우저 로그인 한 번이면 API 키 복사 같은 거 안 해도 돼요.
+    뭘 골라야 할지 모르겠다면? 두 가지 모두 <strong>Provider 단계에서 Anthropic 선택</strong>이에요.<br>
+    🥇 <strong>Claude Max/Pro 구독자</strong> → 인증 방식에서 <span class="accent">Claude CLI</span> (토큰 한도 안 씀!)<br>
+    🥈 <strong>그 외</strong> → 인증 방식에서 <span class="accent">OAuth</span> (브라우저 로그인 한 번)
+  </div>
+
+  <div class="card" style="background:#0a1410; border-color:#6bcb77; border-width:2px; margin-top:16px;">
+    <h3 style="margin-top:0; color:#6bcb77;">🦞 Anthropic → Claude CLI 흐름은 이렇게 떠요</h3>
+    <p style="font-size:0.9em; color:#d1d5db;">Provider에서 <strong>Anthropic</strong>을 고르면, 다음 화면에서 인증 방식을 묻습니다. 여기서 <strong>Claude CLI</strong>를 고르면 이미 깔려있는 <span class="inline-code">claude</span> CLI의 토큰을 자동으로 빌려 쓰고, 별도 OAuth 브라우저가 안 떠요!</p>
+    <div style="background:#000; border-radius:8px; padding:14px 16px; font-family:'SF Mono','Fira Code',monospace; font-size:0.85em; line-height:1.7; margin-top:10px; border:1px solid #21262d;">
+      <span style="color:#9ca3af;">[Provider 선택 후]</span><br>
+      <span style="color:#a78bfa;">◆</span> <span style="color:#e5e7eb;">Auth method for</span> <strong style="color:#ff6b4a;">Anthropic</strong><br>
+      <span style="color:#6bcb77; font-weight:700;">&nbsp;&nbsp;● Claude CLI</span> <span style="color:#9ca3af;">— Reuse existing claude CLI token</span><br>
+      <span style="color:#9ca3af;">&nbsp;&nbsp;○ OAuth (Anthropic Console)</span><br>
+      <span style="color:#9ca3af;">&nbsp;&nbsp;○ API key (paste)</span><br>
+      <br>
+      <span style="color:#9ca3af;">↳ Detected:</span> <span style="color:#6bcb77;">~/.claude/credentials.json ✓</span><br>
+      <span style="color:#9ca3af;">↳ Linking to OpenClaw...</span> <span style="color:#6bcb77;">done</span><br>
+      <span style="color:#9ca3af;">↳ Default model:</span> <span style="color:#ff6b4a;">claude-sonnet-4-6</span>
+    </div>
+    <p style="font-size:0.82em; margin-top:10px; margin-bottom:0; color:#9ca3af;">
+      ※ 실제 화면 라벨/문구는 OpenClaw 버전에 따라 조금 다를 수 있어요.
+    </p>
   </div>
 
   <details class="error-accordion">
@@ -999,6 +1062,28 @@
         <div class="error-title">❌ "401 Unauthorized" / "Invalid API key"</div>
         <p>키를 잘못 입력했거나 만료됐어요.</p>
         <p class="error-fix">→ 해결법: <span class="inline-code">openclaw onboard</span> 재실행 후 키를 다시 붙여넣으세요. 앞뒤 공백이 없는지 확인!</p>
+      </div>
+      <div class="error-box">
+        <div class="error-title">❌ Claude CLI 인증 방식이 보이지 않거나 "Claude CLI not found"</div>
+        <p>Claude CLI는 <strong>Provider 1티어 메뉴가 아니라 Anthropic 안의 인증 방식</strong>이에요. 또 Claude Code CLI가 설치/로그인되지 않았으면 표시되지 않을 수 있어요.</p>
+        <p class="error-fix">→ 체크리스트:</p>
+        <ol style="margin:4px 0;padding-left:20px;color:#ccc;font-size:0.88em;">
+          <li>Provider 단계에서 <strong>Anthropic</strong>을 고른 다음 단계로 넘어갔나요?</li>
+          <li><span class="inline-code">claude --version</span>이 정상적으로 돌아가나요? 안 되면 아래 명령으로 설치/로그인:</li>
+        </ol>
+        <div class="code-block" style="margin:8px 0;">
+          <span class="comment"># 1) Claude Code CLI 설치 (맥/리눅스)</span><br>
+          <span class="cmd">curl -fsSL https://claude.ai/install.sh | bash</span><br>
+          <span class="comment"># 2) 로그인 (Max/Pro 계정)</span><br>
+          <span class="cmd">claude /login</span><br>
+          <span class="comment"># 3) 설치 확인</span><br>
+          <span class="cmd">claude --version</span>
+        </div>
+        <p style="font-size:0.88em;color:#ccc;">설치/로그인 끝나면 <span class="inline-code">openclaw onboard ...</span>를 재실행하세요.</p>
+      </div>
+      <div class="error-box">
+        <div class="error-title">❌ Claude CLI 골랐는데 "토큰 만료" / "credentials.json not found"</div>
+        <p class="error-fix">→ 해결법: <span class="inline-code">claude /login</span>으로 다시 로그인 후 <span class="inline-code">openclaw onboard ...</span> 재실행</p>
       </div>
     </div>
   </details>
@@ -1038,15 +1123,10 @@
         <td>Install <span class="term-tooltip">daemon<span class="tooltip-text">뒤에서 조용히 일하는 프로그램이에요. 이걸 깔아두면 컴퓨터 켤 때 오픈클로가 알아서 켜져요. 매번 수동으로 안 켜도 됨!</span></span>?</td>
         <td><span class="accent">Yes</span> (컴퓨터 켤 때 자동 시작) — 강력 추천!</td>
       </tr>
-      <tr>
-        <td>Chat channels</td>
-        <td>지금은 <strong>Skip</strong> — 다음 챕터에서 텔레그램을 따로 설정할 거예요</td>
-      </tr>
-      <tr>
-        <td>Skills setup</td>
-        <td>그냥 <strong>Enter</strong> (기본 스킬 자동 설치)</td>
-      </tr>
     </table>
+    <p class="dim" style="font-size:0.85em; margin-top:10px;">
+      ※ Chapter 3의 명령어에 <span class="inline-code">--skip-skills --skip-channels --skip-search</span>를 박아둬서, 스킬·채널·서치 단계는 <strong>아예 묻지 않고 건너뜁니다</strong>. 깔끔하죠? 🐾
+    </p>
   </div>
 
   <div class="tip-box" style="border-left-color: var(--teal); background: var(--teal-soft);">
