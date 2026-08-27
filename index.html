@@ -1332,6 +1332,39 @@
   </div>
   <img src="2026-04-01-install-guide-screenshots/06-telegram-add.png" alt="channels list 결과" style="border-radius:12px;margin:16px 0;">
 
+  <div class="step-title"><span class="step-number">3</span> 텔레그램에서 첫 인사</div>
+
+  <div class="tip-box" style="border-color:var(--yellow);">
+    <strong>⚠️ 먼저 알아두세요 — 첫 메시지엔 바로 대답 안 해요!</strong><br>
+    고장이 아니에요. 봇 아이디만 알면 <strong>아무나 말을 걸 수 있어서</strong>,
+    오픈클로는 처음 말 건 사람에게 <span class="accent">번호표(코드)</span>를 주고
+    주인이 승인해야 대화를 열어줘요. 4번에서 승인할 거예요.
+  </div>
+  <ol style="margin: 12px 0; padding-left: 20px; color: #ccc; line-height: 2;">
+    <li>텔레그램 검색창에 <span class="inline-code">@내봇유저네임</span> 검색 (예: @ppoya_test_bot)</li>
+    <li><strong>/start</strong> 버튼을 누르거나 직접 입력</li>
+    <li>아무 말이나 보내보세요! 예: "안녕 뽀야!"</li>
+  </ol>
+
+  <div class="step-title"><span class="step-number">4</span> 승인하기 <span style="font-size:0.8em;font-weight:400;">(여기가 마지막 관문!)</span></div>
+  <p>컴퓨터로 돌아와서, 기다리고 있는 요청을 봐요:</p>
+  <div class="code-block">
+    <span class="label">파워셸(윈도우) / 터미널(맥)</span>
+    <span class="cmd">openclaw pairing list telegram</span>
+  </div>
+  <p class="small">화면에 <strong>코드</strong>가 하나 보일 거예요. 그 코드로 승인해요 — <span class="inline-code">&lt;코드&gt;</span> 자리에 화면에 나온 값을 넣으세요(꺾쇠는 빼고):</p>
+  <div class="code-block">
+    <span class="label">파워셸(윈도우) / 터미널(맥)</span>
+    <span class="cmd">openclaw pairing approve telegram &lt;코드&gt;</span>
+  </div>
+
+  <div class="error-box">
+    <div class="error-title">⚠️ 목록이 비어 있다면</div>
+    <p>코드는 <strong>1시간이 지나면 사라져요.</strong> 또는 아직 메시지가 도착하지 않았을 수도 있어요.</p>
+    <p class="error-fix">→ 텔레그램에서 봇에게 <strong>말을 한 번 더 걸고</strong> <span class="inline-code">openclaw pairing list telegram</span> 을 다시 쳐보세요. 설정을 뜯어보기 전에 이것부터!</p>
+  </div>
+
+  
   <details class="error-accordion">
     <summary>🔧 여기서 막히는 경우 (클릭하면 열려요)</summary>
     <div class="error-accordion-content">
@@ -1642,36 +1675,9 @@
     터미널을 켜둔 상태로 유지하세요. (24시간 운영은 고급 과정에서!)
   </div>
 
-  <div class="step-title"><span class="step-number">3</span> 텔레그램에서 첫 메시지 보내기!</div>
-
-  <div class="tip-box" style="border-color:var(--yellow);">
-    <strong>⚠️ 먼저 알아두세요 — 첫 메시지엔 바로 대답 안 해요!</strong><br>
-    고장이 아니에요. 봇 아이디만 알면 <strong>아무나 말을 걸 수 있어서</strong>,
-    오픈클로는 처음 말 건 사람에게 <span class="accent">번호표(코드)</span>를 주고
-    주인이 승인해야 대화를 열어줘요. 4번에서 승인할 거예요.
-  </div>
-  <ol style="margin: 12px 0; padding-left: 20px; color: #ccc; line-height: 2;">
-    <li>텔레그램 검색창에 <span class="inline-code">@내봇유저네임</span> 검색 (예: @ppoya_test_bot)</li>
-    <li><strong>/start</strong> 버튼을 누르거나 직접 입력</li>
-    <li>아무 말이나 보내보세요! 예: "안녕 뽀야!"</li>
-  </ol>
-
-  <div class="step-title"><span class="step-number">4</span> 승인하기 <span style="font-size:0.8em;font-weight:400;">(여기가 마지막 관문!)</span></div>
-  <p>컴퓨터로 돌아와서, 기다리고 있는 요청을 봐요:</p>
-  <div class="code-block">
-    <span class="label">파워셸(윈도우) / 터미널(맥)</span>
-    <span class="cmd">openclaw pairing list telegram</span>
-  </div>
-  <p class="small">화면에 <strong>코드</strong>가 하나 보일 거예요. 그 코드로 승인해요 — <span class="inline-code">&lt;코드&gt;</span> 자리에 화면에 나온 값을 넣으세요(꺾쇠는 빼고):</p>
-  <div class="code-block">
-    <span class="label">파워셸(윈도우) / 터미널(맥)</span>
-    <span class="cmd">openclaw pairing approve telegram &lt;코드&gt;</span>
-  </div>
-
-  <div class="error-box">
-    <div class="error-title">⚠️ 목록이 비어 있다면</div>
-    <p>코드는 <strong>1시간이 지나면 사라져요.</strong> 또는 아직 메시지가 도착하지 않았을 수도 있어요.</p>
-    <p class="error-fix">→ 텔레그램에서 봇에게 <strong>말을 한 번 더 걸고</strong> <span class="inline-code">openclaw pairing list telegram</span> 을 다시 쳐보세요. 설정을 뜯어보기 전에 이것부터!</p>
+  <div class="success-box">
+    ✅ 게이트웨이가 켜져 있으면 준비 끝! 이제 <strong>앞에서 연결한 곳</strong>에서 봇을 불러보세요.<br>
+    <span class="small">텔레그램은 4-2, 슬랙은 4-3에서 각각 첫 인사까지 해봤어요. 아직 안 하셨으면 그쪽으로!</span>
   </div>
 
   <div class="success-box">
