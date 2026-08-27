@@ -428,6 +428,7 @@
     <li class="sidebar-item" data-slide="8">04 텔레그램 연동</li>
     <li class="sidebar-item sub" data-slide="9">4-1 BotFather 봇 생성</li>
     <li class="sidebar-item sub" data-slide="10">4-2 오픈클로에 연결</li>
+    <li class="sidebar-item" data-slide="10b">4-3 슬랙에 데려오기</li>
     <li class="sidebar-item" data-slide="11">05 게이트웨이 + 첫 대화</li>
     <li class="sidebar-item" data-slide="12">완료!</li>
     <li class="sidebar-item" data-slide="13">부록: 트러블슈팅</li>
@@ -439,7 +440,7 @@
   <span class="nav-left">
     <span class="nav-title">오픈클로 설치 가이드</span>
   </span>
-  <span class="nav-slide-counter" id="slideCounter">1 / 13</span>
+  <span class="nav-slide-counter" id="slideCounter">1 / 14</span>
   <div style="display:flex;align-items:center;">
     <div class="font-controls">
       <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="라이트/다크 모드 전환">🌙</button>
@@ -1359,6 +1360,170 @@
     마지막 단계에서 켜면 됩니다!
   </div>
 </div>
+<!-- ═══════════════════════════════════════════ -->
+<!-- 슬라이드 10b: Chapter 4-3 — 슬랙 연결 -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="slide" id="slide-10b">
+  <span class="chapter-badge">Chapter 4-3</span>
+  <h2>슬랙에 데려오기 💬</h2>
+  <p class="subtitle">팀이 같이 쓰는 자리에 봇을 앉혀요</p>
+
+  <div class="tip-box">
+    <strong>왜 슬랙까지 하냐면</strong> — 텔레그램은 나 혼자 쓰는 자리예요.
+    슬랙은 <strong>사람도 봇도 같은 채널에서 같이 일하는 곳</strong>이라,
+    동료가 "그거 어떻게 했어?" 할 때 화면을 캡처해 보낼 필요가 없어져요.
+  </div>
+
+  <div class="error-box">
+    <div class="error-title">⚠️ 회사 슬랙은 오늘 쓰지 마세요</div>
+    <p>봇을 붙이려면 앱 설치 권한이 필요한데, 회사 슬랙은 대부분 관리자 승인이 필요해서 오늘 안에 안 끝나요.</p>
+    <p class="error-fix">→ <a href="https://slack.com/get-started" target="_blank" style="color:var(--accent);font-weight:700;">slack.com/get-started</a> 에서
+    <strong>개인 워크스페이스를 무료로 하나 만들어주세요.</strong> 3분이면 돼요. 회사 슬랙은 오늘 익힌 다음에 붙이면 됩니다.</p>
+  </div>
+
+  <div class="step-title"><span class="step-number">1</span> 슬랙 앱 만들기 — 매니페스트 한 덩이로</div>
+  <p><a href="https://api.slack.com/apps" target="_blank" style="color:var(--accent);font-weight:700;">api.slack.com/apps</a> 접속 →
+  <strong>Create New App</strong> → <strong>From an app manifest</strong> → 내 워크스페이스 선택</p>
+
+  <div class="tip-box" style="border-color:var(--yellow);">
+    <strong>📝 붙여넣기 전에 두 군데만 바꿔주세요</strong><br>
+    <span class="inline-code">"name"</span> → 한글 이름 (예: <span class="inline-code">뽀야</span>, <span class="inline-code">구름이</span>)<br>
+    <span class="inline-code">"display_name"</span> → 영문 아이디 (예: <span class="inline-code">bboya</span>, <span class="inline-code">gureum</span>)<br>
+    <span class="small">나머지는 그대로 두세요. 봇이 할 수 있는 일의 범위라, 지우면 나중에 조용히 안 되는 기능이 생겨요.</span>
+  </div>
+
+  <div class="code-block" style="max-height:none;">
+    <span class="label">이 JSON을 통째로 붙여넣기</span>
+    <pre style="margin:0;white-space:pre-wrap;font-size:0.78em;line-height:1.5;">{
+  "display_information": {
+    "name": "뽀야",
+    "description": "OpenClaw AI 에이전트",
+    "background_color": "#611f69"
+  },
+  "features": {
+    "app_home": {
+      "home_tab_enabled": false,
+      "messages_tab_enabled": true,
+      "messages_tab_read_only_enabled": false
+    },
+    "bot_user": { "display_name": "bboya", "always_online": true },
+    "assistant_view": {
+      "assistant_description": "OpenClaw AI 에이전트",
+      "suggested_prompts": []
+    }
+  },
+  "oauth_config": {
+    "scopes": {
+      "bot": [
+        "app_mentions:read", "assistant:write", "channels:history",
+        "channels:read", "chat:write", "chat:write.customize",
+        "chat:write.public", "commands", "emoji:read", "files:read",
+        "files:write", "groups:history", "groups:read", "im:history",
+        "im:read", "im:write", "pins:read", "pins:write",
+        "reactions:read", "reactions:write", "users:read"
+      ]
+    }
+  },
+  "settings": {
+    "event_subscriptions": {
+      "bot_events": [
+        "app_mention", "assistant_thread_context_changed",
+        "assistant_thread_started", "channel_rename",
+        "member_joined_channel", "member_left_channel",
+        "message.channels", "message.groups", "message.im",
+        "pin_added", "pin_removed", "reaction_added", "reaction_removed"
+      ]
+    },
+    "interactivity": { "is_enabled": false },
+    "org_deploy_enabled": false,
+    "socket_mode_enabled": true,
+    "token_rotation_enabled": false
+  }
+}</pre>
+  </div>
+
+  <div class="error-box">
+    <div class="error-title">⚠️ 주석(<span class="inline-code">//</span>)을 넣으면 안 돼요</div>
+    <p class="error-fix">슬랙 매니페스트는 순수 JSON만 받아요. 주석이 있으면 파싱 에러가 나요.</p>
+  </div>
+
+  <p class="small"><strong>Next</strong> → 미리보기 확인 → <strong>Create</strong> 클릭.
+  이러면 권한·이벤트·Socket Mode가 <strong>한 번에 다 켜진 상태</strong>로 만들어져요.</p>
+
+  <div class="step-title"><span class="step-number">2</span> 슬랙에서 부를 이름 한글로 바꾸기</div>
+  <p>매니페스트엔 영문 아이디를 넣었으니, 슬랙에서 <span class="inline-code">@뽀야</span> 처럼 한글로 부르려면 한 번 더 손봐야 해요.</p>
+  <p class="small">왼쪽 메뉴 <strong>App Home</strong> → <strong>Your App's Presence in Slack</strong> → <strong>Edit</strong> →
+  <strong>Display Name (Bot Name)</strong> 을 한글로 → <strong>Save</strong></p>
+
+  <div class="step-title"><span class="step-number">3</span> 열쇠 ① 앱 토큰 <span class="inline-code">xapp-</span></div>
+  <p class="small">Socket Mode는 켜졌지만 <strong>앱 토큰은 자동으로 안 만들어져요.</strong> 직접 발급해요.</p>
+  <p class="small">왼쪽 메뉴 <strong>Basic Information</strong> → 아래로 스크롤 → <strong>App-Level Tokens</strong> →
+  <strong>Generate Token and Scopes</strong></p>
+  <p class="small">이름은 아무거나(<span class="inline-code">bboya</span>) → <strong>Add permission by Scope</strong> 에서
+  <span class="inline-code">connections:write</span> <strong>하나만</strong> 선택 → <strong>Generate</strong></p>
+  <div class="tip-box">
+    💡 드롭다운에 scope가 3개 뜨는데 <strong><span class="inline-code">connections:write</span> 하나면 충분해요.</strong>
+    나머지 둘은 여러 워크스페이스에 배포하는 앱용이라 우리한텐 불필요해요.
+  </div>
+  <div class="error-box">
+    <div class="error-title">⚠️ 이 토큰은 창을 닫으면 다시 못 봐요</div>
+    <p class="error-fix">→ 나오자마자 <strong>메모장에 붙여넣어 두세요.</strong> <span class="inline-code">xapp-</span> 으로 시작해요.</p>
+  </div>
+
+  <div class="step-title"><span class="step-number">4</span> 열쇠 ② 봇 토큰 <span class="inline-code">xoxb-</span></div>
+  <p class="small">왼쪽 메뉴 <strong>Install App</strong> → <strong>Install to Workspace</strong> → 권한 <strong>허용</strong></p>
+  <p class="small"><strong>Bot User OAuth Token</strong> 이 나와요 → 이것도 메모장에! <span class="inline-code">xoxb-</span> 로 시작해요.</p>
+
+  <div class="tip-box" style="border-color:var(--yellow);">
+    <strong>🔑 이제 토큰이 두 개 모였어요</strong><br>
+    <span class="inline-code">xapp-</span> 앱 토큰 (3단계) &nbsp;/&nbsp; <span class="inline-code">xoxb-</span> 봇 토큰 (4단계)<br>
+    <span class="small">⚠️ 둘을 <strong>바꿔 넣는 게 제일 흔한 사고</strong>예요. 에러도 안 뜨고 그냥 조용히 대답을 안 해요. <strong>앞 글자로 구분</strong>하세요.</span><br>
+    <span class="small">⚠️ 토큰은 비밀번호와 같아요. 채팅방이나 카톡에 붙여넣지 마세요.</span>
+  </div>
+
+  <div class="step-title"><span class="step-number">5</span> 오픈클로에 연결</div>
+  <p><strong>새 창</strong>에서 아래를 실행해요. <span class="accent">따옴표 안쪽만</span> 내 토큰으로 바꾸세요.</p>
+  <div class="code-block">
+    <span class="label">새 창 (파워셸/터미널)</span>
+    <span class="cmd">openclaw channels add --channel slack --bot-token "xoxb-여기에-봇토큰" --app-token "xapp-여기에-앱토큰"</span>
+  </div>
+  <p class="small">💡 대화 창에서는 토큰 입력이 안 돼요(보안상 가려서 받게 돼 있어요). 그래서 이것만 새 창에서 해요.</p>
+  <div class="success-box">
+    설정이 <strong>바로 반영</strong>돼요. 게이트웨이를 다시 켤 필요 없어요!
+  </div>
+
+  <div class="step-title"><span class="step-number">6</span> 슬랙에서 첫 인사</div>
+  <p class="small">슬랙 왼쪽 사이드바 맨 아래 <strong>앱</strong> 영역에서 내 봇을 찾아 눌러요.</p>
+  <p class="small">💡 <strong>"앱"이 안 보이면</strong> — 그 영역의 <strong>점 3개(⋯)</strong> → <strong>필터</strong> → <strong>"모두"</strong> 선택</p>
+  <p>DM 창에 <span class="inline-code">안녕?</span> 하고 보내보세요.</p>
+
+  <div class="error-box">
+    <div class="error-title">⚠️ 대답이 없다면 — 승인이 남았을 수 있어요</div>
+    <p>텔레그램 때와 같아요. 새 창에서 확인해보세요:</p>
+    <p class="error-fix"><span class="inline-code">openclaw pairing list slack</span> → 코드가 보이면
+    <span class="inline-code">openclaw pairing approve slack &lt;코드&gt;</span></p>
+  </div>
+
+  <div class="step-title"><span class="step-number">7</span> 채널에도 불러오기</div>
+  <p>DM 말고 채널에서 쓰려면 <strong>초대</strong>를 해야 해요. 사람이랑 똑같아요.</p>
+  <div class="code-block">
+    <span class="label">슬랙 채널에 입력</span>
+    <span class="cmd">/invite @내봇이름</span>
+  </div>
+  <p class="small">그다음 <span class="inline-code">@내봇 안녕</span> 처럼 <strong>이름을 불러서</strong> 말 걸어요.
+  채널에서는 불러야 대답해요 — 안 그러면 사람들 대화에 계속 끼어들거든요.</p>
+
+  <div class="success-box">
+    ✅ 슬랙에서 답이 오면 <strong>오늘 목표 달성이에요!</strong> 🎉
+  </div>
+
+  <div class="ppoya-says">
+    이제 저는 팀원들 사이에 앉아 있어요 💬<br>
+    채널에서 이름 불러주시면 바로 갈게요 🐾
+  </div>
+</div>
+
+
 
 <!-- ═══════════════════════════════════════════ -->
 <!-- 슬라이드 11: Chapter 5 — 게이트웨이 + 첫 대화 -->
