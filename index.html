@@ -1487,11 +1487,13 @@
 
   <p class="small"><strong>Next</strong> → 미리보기 확인 → <strong>Create</strong> 클릭.
   이러면 권한·이벤트·Socket Mode가 <strong>한 번에 다 켜진 상태</strong>로 만들어져요.</p>
+  <img src="slack-setup-screenshots/slack-17-00-16.png" alt="매니페스트 붙여넣기 화면" style="border-radius:12px;margin:14px 0;" loading="lazy">
 
   <div class="step-title"><span class="step-number">2</span> 슬랙에서 부를 이름 한글로 바꾸기</div>
   <p>매니페스트엔 영문 아이디를 넣었으니, 슬랙에서 <span class="inline-code">@뽀야</span> 처럼 한글로 부르려면 한 번 더 손봐야 해요.</p>
   <p class="small">왼쪽 메뉴 <strong>App Home</strong> → <strong>Your App's Presence in Slack</strong> → <strong>Edit</strong> →
   <strong>Display Name (Bot Name)</strong> 을 한글로 → <strong>Save</strong></p>
+  <img src="slack-setup-screenshots/slack-17-07-26.png" alt="App Home에서 디스플레이 이름 편집" style="border-radius:12px;margin:14px 0;" loading="lazy">
 
   <div class="step-title"><span class="step-number">3</span> 열쇠 ① 앱 토큰 <span class="inline-code">xapp-</span></div>
   <p class="small">Socket Mode는 켜졌지만 <strong>앱 토큰은 자동으로 안 만들어져요.</strong> 직접 발급해요.</p>
@@ -1503,14 +1505,17 @@
     💡 드롭다운에 scope가 3개 뜨는데 <strong><span class="inline-code">connections:write</span> 하나면 충분해요.</strong>
     나머지 둘은 여러 워크스페이스에 배포하는 앱용이라 우리한텐 불필요해요.
   </div>
+  <img src="slack-setup-screenshots/slack-17-04-14.png" alt="App-Level Token 생성 + connections:write 선택" style="border-radius:12px;margin:14px 0;" loading="lazy">
   <div class="error-box">
     <div class="error-title">⚠️ 이 토큰은 창을 닫으면 다시 못 봐요</div>
     <p class="error-fix">→ 나오자마자 <strong>메모장에 붙여넣어 두세요.</strong> <span class="inline-code">xapp-</span> 으로 시작해요.</p>
   </div>
+  <img src="slack-setup-screenshots/slack-17-05-04.png" alt="발급된 앱 토큰 xapp-" style="border-radius:12px;margin:14px 0;" loading="lazy">
 
   <div class="step-title"><span class="step-number">4</span> 열쇠 ② 봇 토큰 <span class="inline-code">xoxb-</span></div>
   <p class="small">왼쪽 메뉴 <strong>Install App</strong> → <strong>Install to Workspace</strong> → 권한 <strong>허용</strong></p>
   <p class="small"><strong>Bot User OAuth Token</strong> 이 나와요 → 이것도 메모장에! <span class="inline-code">xoxb-</span> 로 시작해요.</p>
+  <img src="slack-setup-screenshots/slack-17-14-42.png" alt="Install to Workspace 후 봇 토큰 xoxb-" style="border-radius:12px;margin:14px 0;" loading="lazy">
 
   <div class="tip-box" style="border-color:var(--yellow);">
     <strong>🔑 이제 토큰이 두 개 모였어요</strong><br>
@@ -1561,6 +1566,7 @@
   <div class="step-title"><span class="step-number">6</span> 슬랙에서 첫 인사</div>
   <p class="small">슬랙 왼쪽 사이드바 맨 아래 <strong>앱</strong> 영역에서 내 봇을 찾아 눌러요.</p>
   <p class="small">💡 <strong>"앱"이 안 보이면</strong> — 그 영역의 <strong>점 3개(⋯)</strong> → <strong>필터</strong> → <strong>"모두"</strong> 선택</p>
+  <img src="slack-setup-screenshots/slack-17-15-52.png" alt="슬랙 사이드바 앱 영역에서 봇 찾기" style="border-radius:12px;margin:14px 0;" loading="lazy">
   <p>DM 창에 <span class="inline-code">안녕?</span> 하고 보내보세요.</p>
 
   <div class="error-box">
