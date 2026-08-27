@@ -925,7 +925,7 @@
         <p class="error-fix">→ 해결법: 터미널을 완전히 껐다가 새로 열어보세요.</p>
         <p class="small">그래도 안 되면 npm으로 수동 설치해보세요:</p>
         <div class="code-block" style="margin-bottom:0;">
-          <span class="cmd">npm install -g openclaw@latest</span>
+          <span class="cmd">npm install -g openclaw@2026.7.1-2</span>
         </div>
       </div>
 
@@ -934,11 +934,11 @@
         <p>권한 문제예요.</p>
         <p class="error-fix">→ 해결법 (맥):</p>
         <div class="code-block" style="margin-bottom:0;">
-          <span class="cmd">sudo curl -fsSL https://openclaw.ai/install.sh | sudo bash</span>
+          <span class="cmd">curl -fsSL https://openclaw.ai/install.sh | bash -s -- --version 2026.7.1-2</span>
         </div>
         <p class="error-fix" style="margin-top:8px;">→ 해결법:</p>
         <div class="code-block" style="margin-bottom:0;">
-          <span class="cmd">curl -fsSL https://openclaw.ai/install.sh | sudo bash</span>
+          <span class="cmd">curl -fsSL https://openclaw.ai/install.sh | bash -s -- --version 2026.7.1-2</span>
         </div>
       </div>
 
@@ -1854,7 +1854,7 @@
     <table>
       <tr><th>에러</th><th>원인</th><th>해결</th></tr>
       <tr><td>openclaw not found</td><td>경로 미등록</td><td>터미널 재시작 or <span class="inline-code">npm install -g openclaw</span></td></tr>
-      <tr><td>EACCES / Permission</td><td>권한 부족</td><td><span class="inline-code">sudo</span> 붙이기</td></tr>
+      <tr><td>EACCES / Permission</td><td>권한 부족</td><td><strong>sudo 붙이지 말고</strong> 손 들어주세요</td></tr>
       <tr><td>network error</td><td>인터넷/방화벽</td><td>VPN 끄기, 네트워크 확인</td></tr>
       <tr><td>engine unsupported</td><td>Node 버전 낮음</td><td>Node.js 24 설치</td></tr>
     </table>
