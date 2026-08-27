@@ -1389,7 +1389,8 @@
     <strong>📝 붙여넣기 전에 두 군데만 바꿔주세요</strong><br>
     <span class="inline-code">"name"</span> → 한글 이름 (예: <span class="inline-code">뽀야</span>, <span class="inline-code">구름이</span>)<br>
     <span class="inline-code">"display_name"</span> → 영문 아이디 (예: <span class="inline-code">bboya</span>, <span class="inline-code">gureum</span>)<br>
-    <span class="small">나머지는 그대로 두세요. 봇이 할 수 있는 일의 범위라, 지우면 나중에 조용히 안 되는 기능이 생겨요.</span>
+    <span class="small">나머지는 그대로 두세요. 봇이 할 수 있는 일의 범위라, 지우면 나중에 조용히 안 되는 기능이 생겨요.<br>
+    (오픈클로 <strong>공식 권장 설정</strong>이에요 — 1:1 DM·채널·<strong>그룹 DM</strong>·파일·이모지 반응까지 다 됩니다.)</span>
   </div>
 
   <div class="code-block" style="max-height:none;">
@@ -1397,47 +1398,84 @@
     <pre style="margin:0;white-space:pre-wrap;font-size:0.78em;line-height:1.5;">{
   "display_information": {
     "name": "뽀야",
-    "description": "OpenClaw AI 에이전트",
-    "background_color": "#611f69"
+    "description": "OpenClaw AI 에이전트"
   },
   "features": {
+    "bot_user": { "display_name": "bboya", "always_online": true },
     "app_home": {
-      "home_tab_enabled": false,
+      "home_tab_enabled": true,
       "messages_tab_enabled": true,
       "messages_tab_read_only_enabled": false
     },
-    "bot_user": { "display_name": "bboya", "always_online": true },
     "assistant_view": {
       "assistant_description": "OpenClaw AI 에이전트",
-      "suggested_prompts": []
-    }
+      "suggested_prompts": [
+        { "title": "What can you do?", "message": "What can you help me with?" },
+        {
+          "title": "Summarize this channel",
+          "message": "Summarize the recent activity in this channel."
+        },
+        { "title": "Draft a reply", "message": "Help me draft a reply." }
+      ]
+    },
+    "slash_commands": [
+      {
+        "command": "/openclaw",
+        "description": "Send a message to OpenClaw",
+        "should_escape": false
+      }
+    ]
   },
   "oauth_config": {
     "scopes": {
       "bot": [
-        "app_mentions:read", "assistant:write", "channels:history",
-        "channels:read", "chat:write", "chat:write.customize",
-        "chat:write.public", "commands", "emoji:read", "files:read",
-        "files:write", "groups:history", "groups:read", "im:history",
-        "im:read", "im:write", "pins:read", "pins:write",
-        "reactions:read", "reactions:write", "users:read"
+        "app_mentions:read",
+        "assistant:write",
+        "channels:history",
+        "channels:read",
+        "chat:write",
+        "commands",
+        "emoji:read",
+        "files:read",
+        "files:write",
+        "groups:history",
+        "groups:read",
+        "im:history",
+        "im:read",
+        "im:write",
+        "mpim:history",
+        "mpim:read",
+        "mpim:write",
+        "pins:read",
+        "pins:write",
+        "reactions:read",
+        "reactions:write",
+        "usergroups:read",
+        "users:read"
       ]
     }
   },
   "settings": {
+    "socket_mode_enabled": true,
     "event_subscriptions": {
       "bot_events": [
-        "app_mention", "assistant_thread_context_changed",
-        "assistant_thread_started", "channel_rename",
-        "member_joined_channel", "member_left_channel",
-        "message.channels", "message.groups", "message.im",
-        "pin_added", "pin_removed", "reaction_added", "reaction_removed"
+        "app_home_opened",
+        "app_mention",
+        "assistant_thread_context_changed",
+        "assistant_thread_started",
+        "channel_rename",
+        "member_joined_channel",
+        "member_left_channel",
+        "message.channels",
+        "message.groups",
+        "message.im",
+        "message.mpim",
+        "pin_added",
+        "pin_removed",
+        "reaction_added",
+        "reaction_removed"
       ]
-    },
-    "interactivity": { "is_enabled": false },
-    "org_deploy_enabled": false,
-    "socket_mode_enabled": true,
-    "token_rotation_enabled": false
+    }
   }
 }</pre>
   </div>
@@ -1485,7 +1523,14 @@
   <p><strong>새 창</strong>에서 아래를 실행해요. <span class="accent">따옴표 안쪽만</span> 내 토큰으로 바꾸세요.</p>
   <div class="code-block">
     <span class="label">새 창 (파워셸/터미널)</span>
-    <span class="cmd">openclaw channels add --channel slack --bot-token "xoxb-여기에-봇토큰" --app-token "xapp-여기에-앱토큰"</span>
+    <span class="cmd">openclaw channels add --channel slack --account 내슬랙이름 --bot-token "xoxb-여기에-봇토큰" --app-token "xapp-여기에-앱토큰"</span>
+  </div>
+  <div class="tip-box">
+    <strong>바꿔 넣을 곳 3군데</strong><br>
+    <span class="inline-code">--account 내슬랙이름</span> → <strong>이 슬랙을 부르는 별명</strong>이에요.
+    영문 소문자로 짧게 (예: <span class="inline-code">mycompany</span>, <span class="inline-code">nodak</span>, <span class="inline-code">test</span>).<br>
+    <span class="small">나중에 회사 슬랙을 하나 더 붙일 때 이 이름으로 구분해요. 지금은 아무거나 정해도 괜찮아요.</span><br>
+    <span class="inline-code">xoxb-...</span> → 봇 토큰 &nbsp;/&nbsp; <span class="inline-code">xapp-...</span> → 앱 토큰
   </div>
   <p class="small">💡 대화 창에서는 토큰 입력이 안 돼요(보안상 가려서 받게 돼 있어요). 그래서 이것만 새 창에서 해요.</p>
   <div class="success-box">
