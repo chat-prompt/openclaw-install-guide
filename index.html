@@ -1526,39 +1526,36 @@
 
   <div class="step-title"><span class="step-number">5</span> 오픈클로에 연결</div>
 
-  <p>먼저 <strong>대화 창</strong>에서 이렇게 말해보세요:</p>
+  <p><strong>대화 창</strong>에서 이렇게 말해요:</p>
   <div class="code-block">
     <span class="label">대화 창에 입력</span>
     <span class="cmd">슬랙 연결해줘</span>
   </div>
-  <p class="small">그러면 <strong>"아래 명령을 쓰세요"</strong> 하고 안내해줘요.
-  토큰 같은 비밀번호는 대화 창에서 받지 않게 돼 있거든요 — <span class="accent">가려서 입력받으려고요.</span></p>
+  <p class="small">그다음 <strong>물어보는 대로 토큰 두 개를 알려주면</strong> 연결돼요.
+  메모장에 복사해둔 <span class="inline-code">xoxb-</span> 와 <span class="inline-code">xapp-</span> 을 붙여넣으면 됩니다.</p>
+  <p class="small">💡 <span class="inline-code">--account</span> 같은 걸 물으면 <strong>이 슬랙을 부르는 별명</strong>을 정해주세요.
+  영문 소문자로 짧게 (예: <span class="inline-code">mycompany</span>, <span class="inline-code">test</span>).
+  나중에 회사 슬랙을 하나 더 붙일 때 이 이름으로 구분해요.</p>
 
-  <p style="margin-top:16px;">안내대로 <strong>새 창</strong>에서 아래를 실행해요:</p>
-  <div class="code-block">
-    <span class="label">새 창 (파워셸/터미널)</span>
-    <span class="cmd">openclaw channels add --channel slack --account 내슬랙이름</span>
+  <div class="error-box">
+    <div class="error-title">⚠️ "호스트 마법사가 안 뜨네요" 라고 나와도 정상이에요</div>
+    <p>원래는 토큰을 <strong>가려서 받는 전용 창</strong>이 떠야 하는데, 터미널 대화 창엔 그 기능이 없어요.
+    그래서 대신 말로 물어봐요. <strong>고장 아니에요.</strong></p>
+    <p class="error-fix">→ 다만 이 경우 <strong>토큰이 화면에 그대로 보여요.</strong>
+    화면 공유 중이거나 옆에 사람이 있으면 아래 메뉴 방식을 쓰세요.</p>
   </div>
-  <p class="small">그러면 <strong>토큰을 하나씩 물어봐요.</strong> 메모장에 복사해둔 걸 붙여넣으면 돼요.</p>
-  <p class="small">💡 입력할 때 <strong>화면에 안 보이는 게 정상</strong>이에요. 가려서 받는 거라서요. 그냥 붙여넣고 Enter!</p>
-  <p class="small">💡 <span class="inline-code">Bot token</span> 을 물으면 <span class="inline-code">xoxb-</span>,
-  <span class="inline-code">App token</span> 을 물으면 <span class="inline-code">xapp-</span> 을 넣으세요.</p>
 
-  <div class="tip-box">
-    <strong>🔀 이 방법도 있어요 — 메뉴에서 골라 넣기</strong><br>
-    명령을 외우기 싫으면 아래 한 줄로 <strong>채널 설정 메뉴</strong>를 열 수 있어요.
-    목록에서 <strong>Slack</strong> 을 고르면 똑같이 토큰을 물어봐요.
+  <div class="tip-box" style="border-color:var(--yellow);">
+    <strong>🔀 대화가 헷갈리면 — 메뉴에서 골라 넣기</strong><br>
+    <strong>새 창</strong>을 하나 열어서 아래를 실행하면 <strong>메뉴가 뜨고 토큰도 가려서</strong> 받아요.
     <div class="code-block" style="margin:10px 0 0;">
       <span class="label">새 창 (파워셸/터미널)</span>
       <span class="cmd">openclaw configure --section channels</span>
     </div>
+    <span class="small">목록에서 <strong>Slack</strong> 을 고르고, 물어보는 대로 토큰을 붙여넣으면 돼요.
+    입력할 때 <strong>화면에 안 보이는 게 정상</strong>이에요 — 가려서 받는 거라서요.</span>
   </div>
-  <div class="tip-box">
-    <strong><span class="inline-code">내슬랙이름</span> 만 바꾸면 돼요</strong><br>
-    이 슬랙을 부르는 별명이에요. 영문 소문자로 짧게
-    (예: <span class="inline-code">mycompany</span>, <span class="inline-code">nodak</span>, <span class="inline-code">test</span>).<br>
-    <span class="small">나중에 회사 슬랙을 하나 더 붙일 때 이 이름으로 구분해요. 지금은 아무거나 정해도 괜찮아요.</span>
-  </div>
+
   <div class="success-box">
     설정이 <strong>바로 반영</strong>돼요. 게이트웨이를 다시 켤 필요 없어요!
   </div>
