@@ -1473,22 +1473,47 @@
   <h2>오픈클로에 텔레그램 연결하기</h2>
   <p>방금 만든 봇 토큰을 오픈클로에 등록해요.</p>
 
-  <div class="step-title"><span class="step-number">1</span> 채널 추가 명령어</div>
+  <div class="step-title"><span class="step-number">1</span> 채널 추가 — 메뉴에서 고르기</div>
+  <p>토큰을 명령어에 직접 쓰지 않아요. <strong>메뉴가 뜨고, 물어보는 대로 붙여넣으면</strong> 됩니다.</p>
   <div class="code-block">
-    <span class="label">Ubuntu 터미널 / 맥 터미널</span>
-    <span class="cmd">openclaw channels add --channel telegram --token <span class="highlight">여기에_봇토큰_붙여넣기</span></span>
+    <span class="label">Ubuntu 터미널 / 맥 터미널 / 파워셸</span>
+    <span class="cmd">openclaw channels add</span>
   </div>
 
-  <p>실제 예시:</p>
-  <div class="code-block">
-    <span class="label">예시</span>
-    <span class="cmd">openclaw channels add --channel telegram --token 1234567890:ABCDefGhIjKlMnOpQrStUvWxYz</span>
+  <div class="error-box">
+    <div class="error-title">⚠️ 뒤에 아무것도 붙이지 마세요</div>
+    <p><span class="inline-code">openclaw channels add --channel telegram</span> 처럼 <strong>옵션을 하나라도 붙이면 메뉴가 안 떠요.</strong>
+    오픈클로는 "옵션을 직접 준 사람 = 다 알아서 넣겠다는 뜻"으로 보고 <strong>묻지 않고 바로 실행</strong>하거든요.</p>
+    <p class="error-fix">→ 메뉴를 보려면 <span class="inline-code">openclaw channels add</span> <strong>딱 여기까지만</strong> 치세요.</p>
+  </div>
+
+  <p class="small">그다음 순서대로 이렇게 흘러가요:</p>
+  <div class="card" style="background:#0d1117; border-color:#21262d;">
+    <table style="margin:0;">
+      <tr><td style="color:var(--text-muted);">① 채널 목록</td><td>방향키로 <strong>Telegram</strong> 찾아서 <strong>Enter</strong></td></tr>
+      <tr><td style="color:var(--text-muted);">② <span class="inline-code">Enter Telegram bot token</span></td><td>BotFather에서 받은 토큰 붙여넣기</td></tr>
+    </table>
+  </div>
+  <div class="tip-box">
+    <strong>화면에 안 보여도 정상이에요.</strong> 토큰은 가려서 받거든요. 붙여넣고 그냥 <strong>Enter</strong> 치세요.<br>
+    <span class="small">토큰은 <span class="inline-code">1234567890:ABCDefGh...</span> 처럼 <strong>숫자 : 문자</strong> 모양이에요.</span>
   </div>
 
   <div class="success-box">
-    ✅ 이런 메시지가 나오면 성공!<br>
-    "Telegram channel added (account: default)"
+    ✅ 채널 목록에 텔레그램이 <strong>추가됐다고 나오면 성공!</strong>
   </div>
+
+  <details class="error-accordion">
+    <summary>🔧 메뉴 말고 명령어 한 줄로 하고 싶다면 (클릭하면 열려요)</summary>
+    <div class="error-accordion-content">
+      <p>토큰을 직접 넣는 방식도 돼요. 자동화 스크립트를 짤 때 이렇게 씁니다.</p>
+      <div class="code-block">
+        <span class="label">터미널</span>
+        <span class="cmd">openclaw channels add --channel telegram --token <span class="highlight">1234567890:ABCDefGhIjKlMnOpQrStUvWxYz</span></span>
+      </div>
+      <p class="small">⚠️ 다만 토큰이 <strong>화면과 터미널 기록에 그대로 남아요.</strong> 화면을 공유하는 자리에선 위 메뉴 방식을 쓰세요.</p>
+    </div>
+  </details>
 
   <div class="step-title"><span class="step-number">2</span> 연결 확인</div>
   <div class="code-block">
@@ -1867,8 +1892,8 @@
         <p>봇 토큰 문제일 가능성이 높아요.</p>
         <p class="error-fix">→ 해결법:</p>
         <div class="code-block" style="margin-bottom:0;">
-          <span class="comment"># 토큰 재등록</span><br>
-          <span class="cmd">openclaw channels add --channel telegram --token 새토큰</span><br><br>
+          <span class="comment"># 토큰 재등록 (메뉴에서 Telegram 다시 고르기)</span><br>
+          <span class="cmd">openclaw channels add</span><br><br>
           <span class="comment"># 게이트웨이 재시작</span><br>
           <span class="cmd">openclaw gateway</span>
         </div>
