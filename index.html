@@ -1697,24 +1697,37 @@
     <span class="small">⚠️ 토큰은 비밀번호와 같아요. 채팅방이나 카톡에 붙여넣지 마세요.</span>
   </div>
 
-  <div class="step-title"><span class="step-number">5</span> 오픈클로에 연결 — 명령어 한 줄</div>
+  <div class="step-title"><span class="step-number">5</span> 오픈클로에 연결 — 메뉴에서 고르기</div>
 
-  <p>텔레그램 때와 똑같아요. <strong>토큰 두 개를 그대로 넣어주면</strong> 끝나요.</p>
+  <p>토큰을 명령어에 직접 쓰지 않아요. <strong>메뉴가 뜨고, 물어보는 대로 붙여넣으면</strong> 됩니다.</p>
   <div class="code-block">
     <span class="label">Ubuntu 터미널 / 맥 터미널 / 파워셸</span>
-    <span class="cmd">openclaw channels add --channel slack --bot-token <span class="highlight">xoxb-로_시작하는_봇토큰</span> --app-token <span class="highlight">xapp-로_시작하는_앱토큰</span></span>
+    <span class="cmd">openclaw channels add</span>
+  </div>
+
+  <div class="error-box">
+    <div class="error-title">⚠️ 뒤에 아무것도 붙이지 마세요</div>
+    <p><span class="inline-code">openclaw channels add --channel slack</span> 처럼 <strong>옵션을 하나라도 붙이면 메뉴가 안 떠요.</strong>
+    오픈클로는 "옵션을 직접 준 사람 = 다 알아서 넣겠다는 뜻"으로 보고 <strong>묻지 않고 바로 실행</strong>하거든요.</p>
+    <p class="error-fix">→ 메뉴를 보려면 <span class="inline-code">openclaw channels add</span> <strong>딱 여기까지만</strong> 치세요.</p>
+  </div>
+
+  <p class="small">그다음 순서대로 이렇게 흘러가요:</p>
+  <div class="card" style="background:#0d1117; border-color:#21262d;">
+    <table style="margin:0;">
+      <tr><td style="color:var(--text-muted);">① 채널 목록</td><td>방향키로 <strong>Slack</strong> 찾아서 <strong>Enter</strong></td></tr>
+      <tr><td style="color:var(--text-muted);">② <span class="inline-code">Enter Slack bot token (xoxb-...)</span></td><td><span class="accent">xoxb-</span> 봇 토큰 붙여넣기 <span class="dim">(4단계)</span></td></tr>
+      <tr><td style="color:var(--text-muted);">③ <span class="inline-code">Enter Slack app token (xapp-...)</span></td><td><span class="accent">xapp-</span> 앱 토큰 붙여넣기 <span class="dim">(3단계)</span></td></tr>
+    </table>
+  </div>
+  <div class="tip-box">
+    <strong>화면에 안 보여도 정상이에요.</strong> 토큰은 가려서 받거든요. 붙여넣고 그냥 <strong>Enter</strong> 치세요.<br>
+    <span class="small">괄호 안에 <span class="inline-code">xoxb-</span> / <span class="inline-code">xapp-</span> 라고 쓰여 있으니, 그 앞글자만 보고 넣으면 헷갈릴 일이 없어요.</span>
   </div>
 
   <div class="tip-box" style="border-color:var(--yellow);">
-    <strong>두 토큰의 자리를 바꿔 넣는 게 제일 흔한 사고예요.</strong><br>
-    <span class="inline-code">--bot-token</span> 에는 <span class="inline-code">xoxb-</span>,
-    <span class="inline-code">--app-token</span> 에는 <span class="inline-code">xapp-</span>.
-    <span class="small">바꿔 넣으면 에러도 없이 그냥 조용히 대답을 안 해요. 앞 글자로 꼭 확인하세요.</span>
-  </div>
-
-  <div class="success-box">
-    ✅ 이런 메시지가 나오면 성공!<br>
-    "Slack channel added (account: default)"
+    <strong>이 방식이 더 안전해요.</strong> 토큰을 명령어에 직접 쓰면 터미널 기록에 그대로 남고,
+    화면 공유 중이면 옆 사람한테 보여요. 메뉴 방식은 가려서 받으니 그럴 일이 없어요.
   </div>
 
   <div class="step-title"><span class="step-number">5-1</span> 연결 확인</div>
@@ -1724,10 +1737,18 @@
     <span class="output">slack  default  ✓ configured</span>
   </div>
 
-  <div class="tip-box">
-    <strong>슬랙을 두 개 이상 붙일 거라면</strong> 뒤에 <span class="inline-code">--account 별명</span> 을 붙여요.<br>
-    <span class="small">예: <span class="inline-code">--account mycompany</span> · 영문 소문자로 짧게. 나중에 회사 슬랙을 추가할 때 이 이름으로 구분해요.</span>
-  </div>
+  <details class="error-accordion">
+    <summary>🔧 메뉴 말고 명령어 한 줄로 하고 싶다면 (클릭하면 열려요)</summary>
+    <div class="error-accordion-content">
+      <p>토큰을 직접 넣는 방식도 돼요. 자동화 스크립트를 짤 때 이렇게 씁니다.</p>
+      <div class="code-block">
+        <span class="label">터미널</span>
+        <span class="cmd">openclaw channels add --channel slack --bot-token <span class="highlight">xoxb-...</span> --app-token <span class="highlight">xapp-...</span></span>
+      </div>
+      <p class="small">⚠️ 다만 토큰이 <strong>화면과 터미널 기록에 그대로 남아요.</strong> 워크숍처럼 화면을 공유하는 자리에선 위 메뉴 방식을 쓰세요.</p>
+      <p class="small">💡 슬랙을 두 개 이상 붙일 거면 <span class="inline-code">--account 별명</span> 을 붙여요. (예: <span class="inline-code">--account mycompany</span>)</p>
+    </div>
+  </details>
 
   <div class="success-box">
     설정이 <strong>바로 반영</strong>돼요. 게이트웨이를 다시 켤 필요 없어요!
