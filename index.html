@@ -250,8 +250,8 @@
   /* ── Typography ── */
   h1 { font-family: var(--nodak-font-display); font-size: 2.6em; font-weight: 900; color: var(--text); margin-bottom: 16px; letter-spacing: -0.03em; line-height: 1.3; }
   h2 { font-family: var(--nodak-font-display); font-size: 2em; font-weight: 900; color: var(--text); margin-bottom: 12px; letter-spacing: -0.03em; line-height: 1.3; }
-  h3 { font-size: 1.3em; font-weight: 600; color: #ccc; margin-bottom: 10px; margin-top: 28px; }
-  p { font-size: 1.05em; color: #bbb; margin-bottom: 12px; }
+  h3 { font-size: 1.3em; font-weight: 600; color: var(--text); margin-bottom: 10px; margin-top: 28px; }
+  p { font-size: 1.05em; color: var(--text-dim); margin-bottom: 12px; }
   .accent { color: var(--accent); font-weight: 700; }
   .teal { color: var(--teal); font-weight: 600; }
   .dim { color: var(--text-muted); font-size: 0.9em; }
@@ -262,16 +262,16 @@
   .ppoya-says {
     background: var(--accent-soft); border-left: 4px solid var(--accent);
     border-radius: 0 12px 12px 0; padding: 20px 24px; margin: 20px 0;
-    font-size: 1.05em; color: #ddd; position: relative;
+    font-size: 1.05em; color:var(--text-dim); position: relative;
   }
   .ppoya-says::before { content: '🐾'; position: absolute; top: -12px; left: -12px; font-size: 1.4em; background: var(--bg); padding: 2px 6px; border-radius: 50%; }
 
-  .warning-box { background: var(--yellow-soft); border-left: 4px solid var(--yellow); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; color: #ddd; }
+  .warning-box { background: var(--yellow-soft); border-left: 4px solid var(--yellow); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; color: var(--text); }
   .warning-box strong:first-child::before { content: '⚠️ '; }
-  .success-box { background: var(--green-soft); border-left: 4px solid var(--green); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; color: #ddd; }
-  .tip-box { background: var(--blue-soft); border-left: 4px solid var(--blue); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; color: #ddd; }
+  .success-box { background: var(--green-soft); border-left: 4px solid var(--green); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; color: var(--text); }
+  .tip-box { background: var(--blue-soft); border-left: 4px solid var(--blue); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; color: var(--text); }
   .tip-box::before { content: '💡 '; }
-  .error-box { background: var(--red-soft); border-left: 4px solid var(--red); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; color: #ddd; }
+  .error-box { background: var(--red-soft); border-left: 4px solid var(--red); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 16px 0; color: var(--text); }
   .error-box .error-title { color: var(--red); font-weight: 700; font-size: 1em; margin-bottom: 6px; }
   .error-box .error-fix { color: var(--green); font-weight: 600; }
 
@@ -306,14 +306,16 @@
   .os-content { display: none; padding-top: 16px; }
   .os-content.active { display: block; }
 
-  .step-number { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: var(--accent); color: #fff; border-radius: 50%; font-weight: 800; font-size: 0.85em; margin-right: 10px; flex-shrink: 0; }
-  .step-title { display: flex; align-items: center; font-size: 1.2em; font-weight: 700; color: #fff; margin: 28px 0 12px; }
+  /* 다크에선 --accent가 골드 판 → 그 위 글자는 먹색 (브랜드 규칙). 크림에선 벽돌색 판 → 흰 글자. */
+  .step-number { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: var(--accent); color: var(--nodak-ink); border-radius: 50%; font-weight: 800; font-size: 0.85em; margin-right: 10px; flex-shrink: 0; }
+  .light .step-number { color: #fff; }
+  .step-title { display: flex; align-items: center; font-size: 1.2em; font-weight: 700; color: var(--text); margin: 28px 0 12px; }
 
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 16px 0; }
   .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
 
   .checklist { list-style: none; margin: 12px 0; }
-  .checklist li { padding: 10px 0 10px 32px; position: relative; color: #ccc; border-bottom: 1px solid #1a1a1a; }
+  .checklist li { padding: 10px 0 10px 32px; position: relative; color: var(--text); border-bottom: 1px solid var(--border); }
   .checklist li::before { content: '☐'; position: absolute; left: 0; color: var(--teal); font-size: 1.1em; }
 
   .flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 24px 0; }
@@ -331,14 +333,14 @@
 
   table { width: 100%; border-collapse: collapse; margin: 16px 0; }
   th { background: #1a1a1a; color: var(--teal); padding: 12px 16px; text-align: left; font-weight: 600; border-bottom: 2px solid #333; font-size: 0.9em; }
-  td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: #ccc; font-size: 0.95em; }
+  td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--text); font-size: 0.95em; }
   tr:hover { background: #0d0d0d; }
 
   .toc-list { list-style: none; margin: 16px 0; }
   .toc-list li { padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; cursor: pointer; transition: background 0.2s; }
   .toc-list li:hover { background: var(--surface); }
   .toc-num { color: var(--accent); font-weight: 800; font-size: 1.1em; min-width: 28px; }
-  .toc-text { color: #ccc; font-weight: 500; }
+  .toc-text { color: var(--text); font-weight: 500; }
   .toc-time { color: var(--text-muted); font-size: 0.8em; margin-left: auto; }
 
   .inline-code { background: #1a1a2e; color: var(--teal); padding: 2px 8px; border-radius: 4px; font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; font-size: 0.9em; }
@@ -391,7 +393,7 @@
     transform: translateX(-50%);
     background: #1a2a2a; border: 1px solid var(--teal);
     border-radius: 8px; padding: 12px 16px;
-    color: #ddd; font-size: 0.85em; font-weight: 400;
+    color:var(--text-dim); font-size: 0.85em; font-weight: 400;
     width: 300px; max-width: 80vw;
     z-index: 300; line-height: 1.6;
     transition: opacity 0.2s;
@@ -789,7 +791,7 @@
   <div class="os-content active" data-os="win" data-group="nodejs">
     <div class="success-box" style="text-align:center; padding:24px;">
       ✅ <strong>별도 설치 필요 없어요!</strong><br><br>
-      앞 단계에서 <span class="cmd" style="background:var(--code-bg);padding:2px 8px;border-radius:4px;">curl -fsSL https://openclaw.ai/install.sh | bash</span> 를 실행하면<br>
+      앞 단계에서 <span class="cmd" style="background:var(--code-bg);color:#FFC233;padding:2px 8px;border-radius:4px;">curl -fsSL https://openclaw.ai/install.sh | bash</span> 를 실행하면<br>
       Node.js가 없을 경우 <span class="accent">자동으로 설치</span>해줘요.<br><br>
       <span class="small">이미 Chapter 1-1을 완료했다면 → 바로 Chapter 3 (온보딩)으로!</span>
     </div>
@@ -957,7 +959,7 @@
         <div class="error-title">❌ "curl: (6) Could not resolve host" / 네트워크 에러</div>
         <p>인터넷 연결 문제예요.</p>
         <p class="error-fix">→ 해결법:</p>
-        <ul style="margin:4px 0;padding-left:20px;color:#ccc;">
+        <ul style="margin:4px 0;padding-left:20px;color:var(--text-dim);">
           <li>인터넷 연결 확인 (Wi-Fi, 이더넷)</li>
           <li>VPN을 끄고 다시 시도</li>
           <li>회사/학교 네트워크라면 방화벽 확인</li>
@@ -1119,7 +1121,7 @@
       <span style="position:absolute; top:-10px; right:12px; background:var(--green); color:#0d1117; font-size:0.72em; font-weight:700; padding:2px 8px; border-radius:6px;">🥇 1순위 추천</span>
       <h3 style="margin-top:0; color:var(--green);">Anthropic → Claude CLI</h3>
       <p style="font-size:0.92em;"><strong>Claude Max/Pro 구독자라면 이거!</strong> Provider에서 <strong>Anthropic</strong>을 고른 다음, 인증 방식에서 <strong>Claude CLI</strong>를 선택하세요.</p>
-      <ul style="padding-left:16px; font-size:0.88em; color:#ccc;">
+      <ul style="padding-left:16px; font-size:0.88em; color:var(--text-dim);">
         <li>인증: <strong>토큰 자동 공유</strong> (이미 <span class="inline-code">claude</span>로 로그인돼있으면 끝)</li>
         <li>비용: <strong>구독 한도 내에서 무료</strong> (API 토큰 안 씀!)</li>
         <li>사전조건: <a href="https://docs.anthropic.com/claude/docs/claude-code" target="_blank" style="color:var(--accent);">Claude Code CLI</a> 설치 + <span class="inline-code">claude /login</span> 완료</li>
@@ -1128,7 +1130,7 @@
     <div class="card" style="border-color:var(--accent);">
       <h3 style="margin-top:0; color:var(--accent);">Anthropic → OAuth</h3>
       <p style="font-size:0.92em;">Claude 모델을 OAuth로. 구독자 아닌 분도 OK. Provider에서 <strong>Anthropic</strong> → 인증 방식에서 <strong>OAuth</strong>.</p>
-      <ul style="padding-left:16px; font-size:0.88em; color:#ccc;">
+      <ul style="padding-left:16px; font-size:0.88em; color:var(--text-dim);">
         <li>인증: <strong>OAuth</strong> (브라우저 로그인만 하면 끝)</li>
         <li>비용: Anthropic API 사용량 기준</li>
         <li>모델: Claude Sonnet/Opus 자동 설정</li>
@@ -1140,7 +1142,7 @@
     <div class="card" style="border-color:var(--teal);">
       <h3 style="margin-top:0; color:var(--teal);">OpenAI</h3>
       <p style="font-size:0.92em;">GPT 모델 사용. Codex OAuth로 간편하게.</p>
-      <ul style="padding-left:16px; font-size:0.88em; color:#ccc;">
+      <ul style="padding-left:16px; font-size:0.88em; color:var(--text-dim);">
         <li>인증: <strong>Codex OAuth</strong> 또는 API 키</li>
         <li>비용: OpenAI 구독/크레딧 기준</li>
         <li>모델: GPT-4o 등 자동 설정</li>
@@ -1149,7 +1151,7 @@
     <div class="card" style="border-color:var(--text-dim);">
       <h3 style="margin-top:0;">기타 / 무료 옵션</h3>
       <p style="font-size:0.92em;">Ollama(로컬), Chutes(무료 크레딧), OpenRouter, Google, xAI, Mistral 등.</p>
-      <ul style="padding-left:16px; font-size:0.88em; color:#ccc;">
+      <ul style="padding-left:16px; font-size:0.88em; color:var(--text-dim);">
         <li>대부분 <strong>API 키 붙여넣기</strong> 방식</li>
         <li>Ollama는 로컬 실행 — 인증 불필요</li>
       </ul>
@@ -1219,7 +1221,7 @@
       <div class="error-box">
         <div class="error-title">❌ OAuth 로그인이 안 돼요 / 브라우저가 안 열려요</div>
         <p class="error-fix">→ 해결법:</p>
-        <ul style="margin:4px 0;padding-left:20px;color:#ccc;">
+        <ul style="margin:4px 0;padding-left:20px;color:var(--text-dim);">
           <li>WSL에서는 브라우저 URL이 터미널에 표시돼요 → URL을 복사해서 윈도우 브라우저에 붙여넣기</li>
           <li>맥에서 안 열리면 터미널에 표시된 URL을 직접 브라우저에 입력</li>
           <li>로그인 후에도 진행 안 되면 <span class="inline-code">openclaw onboard --install-daemon</span> 재실행</li>
@@ -1228,7 +1230,7 @@
       <div class="error-box">
         <div class="error-title">❌ API 키를 어디서 구하나요?</div>
         <p class="error-fix">→ 각 서비스의 API 키 발급 페이지:</p>
-        <ul style="margin:4px 0;padding-left:20px;color:#ccc;">
+        <ul style="margin:4px 0;padding-left:20px;color:var(--text-dim);">
           <li>Anthropic: <span class="inline-code">console.anthropic.com → API Keys</span></li>
           <li>OpenAI: <span class="inline-code">platform.openai.com → API Keys</span></li>
           <li>Google: <span class="inline-code">aistudio.google.com → API Keys</span></li>
@@ -1243,7 +1245,7 @@
         <div class="error-title">❌ Claude CLI 인증 방식이 보이지 않거나 "Claude CLI not found"</div>
         <p>Claude CLI는 <strong>Provider 1티어 메뉴가 아니라 Anthropic 안의 인증 방식</strong>이에요. 또 Claude Code CLI가 설치/로그인되지 않았으면 표시되지 않을 수 있어요.</p>
         <p class="error-fix">→ 체크리스트:</p>
-        <ol style="margin:4px 0;padding-left:20px;color:#ccc;font-size:0.88em;">
+        <ol style="margin:4px 0;padding-left:20px;color:var(--text-dim);font-size:0.88em;">
           <li>Provider 단계에서 <strong>Anthropic</strong>을 고른 다음 단계로 넘어갔나요?</li>
           <li><span class="inline-code">claude --version</span>이 정상적으로 돌아가나요? 안 되면 아래 명령으로 설치/로그인:</li>
         </ol>
@@ -1255,7 +1257,7 @@
           <span class="comment"># 3) 설치 확인</span><br>
           <span class="cmd">claude --version</span>
         </div>
-        <p style="font-size:0.88em;color:#ccc;">설치/로그인 끝나면 <span class="inline-code">openclaw onboard ...</span>를 재실행하세요.</p>
+        <p style="font-size:0.88em;color:var(--text-dim);">설치/로그인 끝나면 <span class="inline-code">openclaw onboard ...</span>를 재실행하세요.</p>
       </div>
       <div class="error-box">
         <div class="error-title">❌ Claude CLI 골랐는데 "토큰 만료" / "credentials.json not found"</div>
@@ -1493,7 +1495,7 @@
       <div class="error-box">
         <div class="error-title">❌ BotFather가 아무 반응이 없어요</div>
         <p class="error-fix">→ 해결법:</p>
-        <ul style="margin:4px 0;padding-left:20px;color:#ccc;">
+        <ul style="margin:4px 0;padding-left:20px;color:var(--text-dim);">
           <li>가짜 BotFather가 아닌지 확인 (파란 체크 ✅ 있어야 함)</li>
           <li>"Start" 버튼을 먼저 눌러보세요</li>
           <li>인터넷 연결 확인</li>
@@ -1573,7 +1575,7 @@
         <div class="error-title">❌ "Invalid bot token" / "401: Unauthorized"</div>
         <p>봇 토큰이 잘못됐어요.</p>
         <p class="error-fix">→ 해결법:</p>
-        <ul style="margin:4px 0;padding-left:20px;color:#ccc;">
+        <ul style="margin:4px 0;padding-left:20px;color:var(--text-dim);">
           <li>토큰을 복사할 때 앞뒤 공백이 포함되지 않았는지 확인</li>
           <li>BotFather에서 <span class="inline-code">/mybots</span> → 봇 선택 → "API Token"으로 토큰 재확인</li>
           <li>그래도 안 되면 BotFather에서 <span class="inline-code">/revokentoken</span>으로 새 토큰 발급</li>
@@ -1650,7 +1652,7 @@
   </div>
 
   <div class="step-title"><span class="step-number">3</span> 텔레그램에서 첫 메시지 보내기!</div>
-  <ol style="margin: 12px 0; padding-left: 20px; color: #ccc; line-height: 2;">
+  <ol style="margin: 12px 0; padding-left: 20px; color:var(--text-dim); line-height: 2;">
     <li>텔레그램 검색창에 <span class="inline-code">@내봇유저네임</span> 검색 (예: @ppoya_test_bot)</li>
     <li><strong>/start</strong> 버튼을 누르거나 직접 입력</li>
     <li>아무 말이나 보내보세요! 예: "안녕 뽀야!"</li>
@@ -1702,7 +1704,7 @@
       <div class="error-box">
         <div class="error-title">❌ 응답이 너무 느려요 (30초 이상)</div>
         <p class="error-fix">→ 해결법:</p>
-        <ul style="margin:4px 0;padding-left:20px;color:#ccc;">
+        <ul style="margin:4px 0;padding-left:20px;color:var(--text-dim);">
           <li>첫 응답은 좀 걸릴 수 있어요 (모델 로딩). 30초~1분 기다려보세요.</li>
           <li>그래도 안 오면 인터넷 연결 확인</li>
           <li>API 크레딧이 남아있는지 console.anthropic.com에서 확인</li>
