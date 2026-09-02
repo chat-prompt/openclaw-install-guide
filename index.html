@@ -402,6 +402,7 @@
     <li class="sidebar-item" data-slide="1">목차</li>
     <li class="sidebar-item" data-slide="2">01 준비물 챙기기</li>
     <li class="sidebar-item sub" data-slide="3">1-1 WSL2 설치 (윈도우)</li>
+    <li class="sidebar-item sub" data-slide="3a">1-1 대안: 파워셸로 설치 (윈도우)</li>
     <li class="sidebar-item sub" data-slide="4">1-2 Node.js 설치</li>
     <li class="sidebar-item" data-slide="6">02 오픈클로 설치</li>
     <li class="sidebar-item" data-slide="7">03 온보딩 — 보안 동의</li>
@@ -419,7 +420,7 @@
 <!-- ── Navigation ── -->
 <div class="nav">
   <span class="nav-title">🦞 오픈클로 설치 가이드</span>
-  <span class="nav-slide-counter" id="slideCounter">1 / 13</span>
+  <span class="nav-slide-counter" id="slideCounter">1 / 16</span>
   <div style="display:flex;align-items:center;">
     <div class="font-controls">
       <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="라이트/다크 모드 전환">🌙</button>
@@ -473,7 +474,7 @@
   <div style="margin-top: 24px;">
     <p class="dim">⏱ 걸리는 시간: 커피 한 잔 마시는 동안 (약 20~30분)</p>
     <p class="dim">💻 필요한 것: 윈도우 10 이상 또는 맥 아무거나</p>
-    <p class="dim">📖 기준: 오픈클로 공식 문서 (docs.openclaw.ai) · v2026.3.28</p>
+    <p class="dim">📖 기준: 오픈클로 공식 문서 (docs.openclaw.ai) · v2026.7.1-2</p>
     <p class="dim">🤝 윈도우 전용 상세 가이드: <a href="https://slashpage.com/conanssam/n5w9812gkpw3g24kpgze" target="_blank" style="color:var(--teal);">코난쌤의 WSL 설치 가이드</a> · <a href="https://www.dmssolution.co.kr/works/ai-skill/openclaw-windows-guide/" target="_blank" style="color:var(--teal);">Reedo(리도)님의 윈도우 완전 가이드</a> 참고</p>
   </div>
 </div>
@@ -514,19 +515,27 @@
   <div class="card-grid">
     <div class="card" style="border:2px solid var(--teal);position:relative;">
       <h3 style="margin-top:0;">🪟 윈도우 사용자는 여길 먼저 봐주세요!</h3>
-      <p><span class="accent">다음 슬라이드에서 WSL + Ubuntu 설치부터 진행해주세요.</span></p>
-      <p>파워셸(관리자)에서 아래 명령어 한 줄이면 끝!</p>
+      <p><span class="accent">두 가지 길이 있어요. 하나만 고르면 돼요.</span></p>
+      <p><strong>🅐 WSL2 (권장)</strong> — 윈도우 안에 리눅스를 깔아서, 그 다음부터는 맥과 완전히 동일하게 진행해요.</p>
       <div class="code-block" style="margin:8px 0;">
         <span class="label">파워셸 (관리자)</span>
         <span class="cmd">wsl --install -d Ubuntu</span>
       </div>
-      <p class="small">이것만 깔면 그 다음은 맥과 동일해요. → 다음 슬라이드에서 상세 안내!</p>
+      <p><strong>🅑 파워셸만 쓰기</strong> — WSL이 안 되거나 부담스러우면 윈도우 그대로 설치해도 돼요.</p>
+      <div class="code-block" style="margin:8px 0;">
+        <span class="label">파워셸 (관리자 권한 불필요)</span>
+        <span class="cmd">iwr -useb https://openclaw.ai/install.ps1 | iex</span>
+      </div>
+      <p class="small">🅐는 다음 슬라이드, 🅑는 그 다음 슬라이드에서 상세 안내!</p>
     </div>
     <div class="card">
       <h3 style="margin-top:0;">⚙️ 윈도우·맥 둘 다</h3>
       <p><span class="accent"><span class="term-tooltip">Node.js<span class="tooltip-text">자동차한테 엔진이 필요하듯, 오픈클로한테 Node.js가 필요해요. 한 번만 깔면 끝이고, 이후엔 신경 안 써도 돼요!</span></span></span></p>
       <p>오픈클로의 엔진이에요.<br>
       이게 있어야 오픈클로가 돌아가요. 한 번만 깔면 끝!</p>
+      <p class="small" style="margin-top:10px;">✅ <strong>Node.js는 여전히 필수예요.</strong> 다만 설치 스크립트가
+      없으면 알아서 깔아주니, 직접 신경 안 쓰셔도 돼요. (24 LTS 권장 · <strong>23은 지원 안 함</strong>)</p>
+      <p class="small">❌ <strong>Git은 필요 없어요.</strong> 기본 설치는 npm 방식이라 Git 없이 돌아가요.</p>
     </div>
   </div>
 
@@ -537,7 +546,7 @@
 
   <div class="ppoya-says">
     맥 유저는 Node.js만 챙기면 끝!<br>
-    윈도우 유저도 명령어 2줄이면 설치 끝나요 🐾<br><br>
+    윈도우 유저는 WSL2 또는 파워셸 중 하나만 고르면 돼요 🐾<br><br>
     <strong>모르는 용어가 나오면 밑줄 친 단어에 마우스를 올려보세요.</strong><br>
     쉬운 설명이 팝업으로 나올 거예요!
   </div>
@@ -553,6 +562,8 @@
   <strong>wsl --install -d Ubuntu</strong> 명령어 한 줄로 리눅스 환경이 세팅되고,<br>
   그 다음은 맥과 완전히 동일합니다!</p>
   <p><span class="dim">🍎 맥 사용자는 이 페이지 스킵! → "다음" 버튼 누르세요</span></p>
+
+  <div class="tip-box">💡 WSL이 안 깔리거나 부담스러우면? <strong>다음 슬라이드(1-1 대안)</strong>의 파워셸 방식으로 하셔도 돼요. <span class="accent">둘 중 하나만</span> 하면 됩니다.</div>
 
   <div class="step-title"><span class="step-number">1</span> 파워셸을 <strong>관리자 권한</strong>으로 실행</div>
   <p>키보드에서 <strong>Windows 키</strong> → "PowerShell" 검색 → <span class="accent">"관리자로 실행"</span> 클릭</p>
@@ -629,12 +640,101 @@
 </div>
 
 <!-- ═══════════════════════════════════════════ -->
+<!-- 슬라이드 3a: WSL2 없이 파워셸로 설치 (윈도우 대안) -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="slide" id="slide-3a">
+  <span class="chapter-badge">Chapter 1-1 대안 · 윈도우만</span>
+  <h2>🪟 WSL 없이, 파워셸에서 바로 설치하기</h2>
+  <p>앞 슬라이드의 WSL2가 잘 안 되거나 부담스러우면 <span class="accent">이 방법만 해도 돼요.</span><br>
+  윈도우에 원래 들어있는 <strong>파워셸</strong>에서 명령어 한 줄이면 끝나요.</p>
+  <p><span class="dim">🍎 맥 사용자는 이 페이지 스킵! → "다음" 버튼 누르세요</span></p>
+
+  <div class="tip-box">
+    <strong>둘 중 하나만 하면 돼요.</strong> WSL2(앞 슬라이드)와 파워셸(이 슬라이드)은 <span class="accent">양자택일</span>이에요.<br>
+    <span class="small">WSL2 = 윈도우 안에 리눅스를 깔아서 맥과 똑같이 쓰는 방식 · 파워셸 = 윈도우에서 그대로 쓰는 방식</span>
+  </div>
+
+  <div class="step-title"><span class="step-number">1</span> 파워셸 열기 (관리자 권한 필요 없어요)</div>
+  <p>키보드에서 <strong>Windows 키</strong> → "PowerShell" 검색 → <span class="accent">그냥 클릭</span></p>
+  <p class="small">💡 파워셸은 윈도우에 기본으로 들어있어요. 따로 설치할 필요 없어요. (PowerShell 5 이상이면 OK)</p>
+  <p class="small">💡 파워셸에서 <strong>붙여넣기는 마우스 오른쪽 클릭</strong>이에요. Ctrl+V가 아니에요!</p>
+
+  <div class="step-title"><span class="step-number">2</span> 설치 명령어 한 줄 실행</div>
+  <div class="code-block">
+    <span class="label">파워셸</span>
+    <span class="cmd">iwr -useb https://openclaw.ai/install.ps1 | iex</span>
+  </div>
+  <p>공식 윈도우 설치 스크립트예요. <span class="accent">Node.js가 없으면 알아서 같이 깔아줘요.</span></p>
+  <p class="small">winget → Chocolatey → Scoop 순서로 시도하고, 셋 다 없으면 공식 Node 24를 통째로 내려받아 PATH에 넣어줘요. 그래서 Node를 미리 안 깔아도 돼요.</p>
+
+  <div class="step-title"><span class="step-number">3</span> 파워셸 창을 닫고 새로 열기</div>
+  <p>설치 직후엔 <span class="inline-code">openclaw</span> 를 못 찾는 게 <strong>정상</strong>이에요. PATH가 새 창부터 적용되거든요.</p>
+
+  <div class="step-title"><span class="step-number">4</span> 설치 확인</div>
+  <div class="code-block">
+    <span class="label">파워셸 (새 창)</span>
+    <span class="cmd">openclaw --version</span><br>
+    <span class="output">OpenClaw 2026.7.1-2 (0790d9f)</span> <span class="comment">← 성공! 🎉</span>
+  </div>
+
+  <div class="success-box">
+    ✅ 여기까지 됐으면 <strong>Chapter 1-2(Node.js)와 Chapter 2(오픈클로 설치)는 건너뛰어도 돼요.</strong><br>
+    바로 <span class="accent">Chapter 3 — 온보딩</span>으로 가시면 됩니다!
+  </div>
+
+  <details class="error-accordion">
+    <summary>🔧 여기서 막히는 경우 (클릭하면 열려요)</summary>
+    <div class="error-accordion-content">
+      <div class="error-box">
+        <div class="error-title">❌ "이 시스템에서 스크립트를 실행할 수 없으므로" (실행 정책 오류)</div>
+        <p>파워셸이 외부 스크립트를 막고 있는 거예요.</p>
+        <p class="error-fix">→ 해결법: 이 창에서만 잠깐 허용하고 다시 실행하세요.</p>
+        <div class="code-block" style="margin-bottom:0;">
+          <span class="cmd">Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass</span>
+        </div>
+        <p class="small" style="margin-top:8px;">현재 창에만 적용돼서 안전해요. 창을 닫으면 원래대로 돌아가요.</p>
+      </div>
+
+      <div class="error-box">
+        <div class="error-title">❌ "openclaw: 용어를 인식할 수 없습니다" (설치는 됐는데)</div>
+        <p class="error-fix">→ 해결법: 파워셸 창을 <strong>완전히 닫고 새로 열어보세요.</strong> 제일 흔한 케이스예요.</p>
+        <p class="small">그래도 안 되면 Node가 제대로 깔렸는지 먼저 확인:</p>
+        <div class="code-block" style="margin-bottom:0;">
+          <span class="cmd">node --version</span> <span class="comment"># 22.22.3+ 또는 24.15+ 여야 해요</span>
+        </div>
+      </div>
+
+      <div class="error-box">
+        <div class="error-title">❌ Node 23이 깔려 있어요</div>
+        <p>오픈클로는 <strong>Node 23을 지원하지 않아요.</strong></p>
+        <p class="error-fix">→ 해결법: 24 LTS로 바꿔주세요.</p>
+        <div class="code-block" style="margin-bottom:0;">
+          <span class="cmd">winget install OpenJS.NodeJS.LTS</span>
+        </div>
+      </div>
+
+      <div class="error-box">
+        <div class="error-title">❓ Git도 미리 깔아야 하나요?</div>
+        <p><strong>아니요, 필요 없어요.</strong> 기본 설치는 npm 방식이라 Git 없이 돌아가요.</p>
+        <p class="small">개발자용 git 설치 방식(<span class="inline-code">-InstallMethod git</span>)을 고를 때만 필요하고, 그마저도 없으면 스크립트가 알아서 챙겨줘요.</p>
+      </div>
+    </div>
+  </details>
+
+  <div class="ppoya-says">
+    WSL이 안 깔려서 헤맸다면 이쪽이 훨씬 편해요 🐾<br>
+    둘 다 할 필요 없어요. 하나만 성공하면 그걸로 끝!
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
 <!-- 슬라이드 4: Node.js 설치 -->
 <!-- ═══════════════════════════════════════════ -->
 <div class="slide" id="slide-4">
   <span class="chapter-badge">Chapter 1-2</span>
   <h2>Node.js 설치하기</h2>
-  <p>오픈클로가 돌아가려면 <span class="accent">Node.js 24</span>(권장)가 필요해요.</p>
+  <p>오픈클로가 돌아가려면 <span class="accent">Node.js</span>가 필요해요. <strong>24 LTS 권장</strong>이고, 22.22.3 이상도 괜찮아요.</p>
+  <div class="tip-box" style="margin-top:12px;">⚠️ <strong>Node 23은 지원하지 않아요.</strong> 공식 지원 범위는 <span class="inline-code">22.22.3+</span> · <span class="inline-code">24.15+</span> · <span class="inline-code">25.9+</span> 예요. 짝수 버전(22 또는 24)을 고르면 안전해요.</div>
 
   <div class="os-tabs" data-group="nodejs">
     <button class="os-tab active" onclick="switchOS(this, 'win')">🪟 윈도우 (WSL/Ubuntu)</button>
@@ -647,6 +747,11 @@
       앞 단계에서 <span class="cmd" style="background:var(--code-bg);padding:2px 8px;border-radius:4px;">curl -fsSL https://openclaw.ai/install.sh | bash</span> 를 실행하면<br>
       Node.js가 없을 경우 <span class="accent">자동으로 설치</span>해줘요.<br><br>
       <span class="small">이미 Chapter 1-1을 완료했다면 → 바로 Chapter 3 (온보딩)으로!</span>
+    </div>
+    <div class="tip-box" style="margin-top:16px;">
+      🅑 <strong>파워셸 방식(1-1 대안)으로 설치한 분도 마찬가지예요.</strong>
+      <span class="inline-code">install.ps1</span> 이 Node.js를 같이 깔아주기 때문에 여기서 할 일이 없어요.
+      바로 <span class="accent">Chapter 3 (온보딩)</span>으로 가세요!
     </div>
   </div>
 
@@ -743,7 +848,16 @@
     <div class="code-block">
       <span class="label">Ubuntu 터미널</span>
       <span class="cmd">openclaw --version</span><br>
-      <span class="output">OpenClaw 2026.3.28 (f9b1079)</span> <span class="comment">← 성공! 🎉</span>
+      <span class="output">OpenClaw 2026.7.1-2 (0790d9f)</span> <span class="comment">← 성공! 🎉</span>
+    </div>
+
+    <div class="tip-box" style="margin-bottom:12px;">
+      🅑 <strong>WSL 없이 파워셸로 하는 중이라면?</strong> 이 슬라이드는 건너뛰세요.
+      Chapter 1-1 대안에서 이미 설치가 끝났어요. → 바로 <span class="accent">Chapter 3 (온보딩)</span>으로!
+      <div class="code-block" style="margin:8px 0 0;">
+        <span class="label">파워셸</span>
+        <span class="cmd">iwr -useb https://openclaw.ai/install.ps1 | iex</span>
+      </div>
     </div>
 
     <div class="tip-box">
@@ -764,7 +878,7 @@
     <div class="code-block">
       <span class="label">터미널</span>
       <span class="cmd">openclaw --version</span><br>
-      <span class="output">OpenClaw 2026.3.28 (f9b1079)</span> <span class="comment">← 성공! 🎉</span>
+      <span class="output">OpenClaw 2026.7.1-2 (0790d9f)</span> <span class="comment">← 성공! 🎉</span>
     </div>
   </div>
 
@@ -808,9 +922,9 @@
       <div class="error-box">
         <div class="error-title">❌ "npm ERR! engine Unsupported engine" / Node 버전 문제</div>
         <p>Node.js 버전이 너무 낮아요.</p>
-        <p class="error-fix">→ 해결법: Chapter 1-2로 돌아가서 Node.js 24를 설치하세요.</p>
+        <p class="error-fix">→ 해결법: Chapter 1-2로 돌아가서 Node.js 24 LTS를 설치하세요. (23 버전은 지원 안 함!)</p>
         <div class="code-block" style="margin-bottom:0;">
-          <span class="cmd">node --version</span> <span class="comment"># 22.14 이상인지 확인</span>
+          <span class="cmd">node --version</span> <span class="comment"># 22.22.3+ 또는 24.15+ 인지 확인</span>
         </div>
       </div>
     </div>
@@ -1607,6 +1721,19 @@
       <tr><td>no distributions</td><td>Ubuntu 미설치</td><td><span class="inline-code">wsl --install -d Ubuntu</span></td></tr>
       <tr><td>wsl not found</td><td>윈도우 버전 낮음</td><td>Windows Update 실행</td></tr>
     </table>
+    <p class="small" style="margin-top:10px;">💡 WSL이 끝내 안 되면 <strong>Chapter 1-1 대안(파워셸 방식)</strong>으로 우회하세요. WSL 없이도 설치됩니다.</p>
+  </div>
+
+  <div class="card" style="margin-bottom:12px;">
+    <h3 style="margin-top:0;">🪟 윈도우 파워셸(WSL 없이) 관련</h3>
+    <table>
+      <tr><th>에러</th><th>원인</th><th>해결</th></tr>
+      <tr><td>스크립트를 실행할 수 없으므로</td><td>실행 정책 차단</td><td><span class="inline-code">Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass</span></td></tr>
+      <tr><td>openclaw 용어를 인식할 수 없습니다</td><td>PATH가 새 창부터 적용</td><td>파워셸 닫고 새로 열기</td></tr>
+      <tr><td>npm ERR! engine Unsupported</td><td>Node 23 사용 중</td><td><span class="inline-code">winget install OpenJS.NodeJS.LTS</span></td></tr>
+      <tr><td>iwr 명령을 찾을 수 없음</td><td>PowerShell 4 이하</td><td>Windows Update로 PowerShell 5+ 확보</td></tr>
+    </table>
+    <p class="small" style="margin-top:10px;">💡 Git은 안 깔아도 돼요. 기본 npm 설치 방식은 Git 없이 동작해요.</p>
   </div>
 
   <div class="card" style="margin-bottom:12px;">
