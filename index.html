@@ -5,77 +5,96 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🦞 오픈클로 설치 가이드 — 뽀야와 함께하는 첫 세팅</title>
 <style>
+  /* 노닥컴퍼니 브랜드 토큰 기준 — projects/nodak-company/brand/tokens.css (SSOT) */
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
   @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
+  /* ─────────────────────────────────────────────────────────
+     노닥컴퍼니 브랜드 토큰 (SSOT: projects/nodak-company/brand/tokens.css)
+       gold  #FFC233  바탕·포인트 전용 — 글자색으로 쓰지 않는다
+       ink   #1A1916  모든 글자
+       cream #F3F2EE  페이지 바탕
+       gray  #56544D  캡션·보조
+     강조 텍스트는 골드가 아니라 벽돌색(#B23A2C) — 노닥 사이트와 동일.
+     ───────────────────────────────────────────────────────── */
   :root {
-    --bg: #0a0a0a;
-    --surface: #111;
-    --border: #222;
-    --text: #e0e0e0;
-    --text-dim: #888;
-    --text-muted: #666;
-    --accent: #ff6b4a;
-    --accent-soft: #2a1a15;
-    --teal: #4ecdc4;
-    --teal-soft: #1a2a2a;
-    --green: #6bcb77;
-    --green-soft: #0a1a0a;
-    --yellow: #ffd93d;
-    --yellow-soft: #2a2a1a;
-    --blue: #5b9bd5;
-    --blue-soft: #0a1a2a;
-    --red: #ff6b6b;
-    --red-soft: #1a0a0a;
+    --nodak-gold:  #FFC233;
+    --nodak-ink:   #1A1916;
+    --nodak-cream: #F3F2EE;
+    --nodak-gray:  #56544D;
+
+    /* 다크(먹색 판) — 골드가 살아나는 쪽 */
+    --bg: #1A1916;
+    --surface: #232119;
+    --border: #37342B;
+    --text: #F3F2EE;
+    --text-dim: #B5B1A4;
+    --text-muted: #8A8679;
+    --accent: #FFC233;
+    --accent-soft: #3A2F14;
+    --teal: #7FC8BE;
+    --teal-soft: #1E2C29;
+    --green: #8FCB86;
+    --green-soft: #1C2A19;
+    --yellow: #FFD97A;
+    --yellow-soft: #3A3218;
+    --blue: #8FB6DE;
+    --blue-soft: #1C2733;
+    --red: #E88A7D;
+    --red-soft: #33201C;
     --sidebar-width: 260px;
-    --sidebar-bg: #0d0d0d;
-    --nav-bg: rgba(10,10,10,0.95);
-    --code-bg: #0d1117;
-    --code-border: #21262d;
-    --code-text: #c9d1d9;
+    --sidebar-bg: #14130F;
+    --nav-bg: rgba(26,25,22,0.95);
+    --code-bg: #14130F;
+    --code-border: #37342B;
+    --code-text: #E7E4DA;
   }
 
   /* ── Light Mode ── */
+  /* 라이트 = 크림 판. 노닥 기본 톤. */
   .light {
-    --bg: #f8f9fa;
-    --surface: #ffffff;
-    --border: #e0e0e0;
-    --text: #1a1a1a;
-    --text-dim: #555;
-    --text-muted: #888;
-    --accent: #e85d3a;
-    --accent-soft: #fff0ec;
-    --teal: #2aa198;
-    --teal-soft: #e8f5f3;
-    --green: #4caf50;
-    --green-soft: #e8f5e9;
-    --yellow: #f9a825;
-    --yellow-soft: #fff8e1;
-    --blue: #1976d2;
-    --blue-soft: #e3f2fd;
-    --red: #e53935;
-    --red-soft: #ffebee;
-    --sidebar-bg: #ffffff;
-    --nav-bg: rgba(248,249,250,0.95);
-    --code-bg: #f6f8fa;
-    --code-border: #d0d7de;
-    --code-text: #24292f;
+    --bg: #F3F2EE;
+    --surface: #FBFAF7;
+    --border: #E3E1D9;
+    --text: #1A1916;
+    --text-dim: #56544D;
+    --text-muted: #8A8880;
+    --accent: #B23A2C;
+    --accent-soft: #FFE1DE;
+    --teal: #2A7168;
+    --teal-soft: #E4F0EE;
+    --green: #37702F;
+    --green-soft: #E7F1E5;
+    --yellow: #8A6300;
+    --yellow-soft: #FFF3D6;
+    --blue: #2C5F8F;
+    --blue-soft: #E5EDF5;
+    --red: #B23A2C;
+    --red-soft: #FFE1DE;
+    --sidebar-bg: #FBFAF7;
+    --nav-bg: rgba(243,242,238,0.95);
+    --code-bg: #14130F;
+    --code-border: #37342B;
+    --code-text: #E7E4DA;
   }
-  .light h1, .light h2 { color: #1a1a1a; }
-  .light h3 { color: #333; }
-  .light p { color: #444; }
-  .light .ppoya-says { color: #333; }
-  .light .warning-box, .light .success-box, .light .tip-box, .light .error-box { color: #333; }
+  /* 크림 판에서 글자는 전부 먹색 계열. 브랜드 규칙: 노랑은 글자색이 아니다. */
+  .light h1, .light h2 { color: var(--nodak-ink); }
+  .light h3 { color: var(--nodak-ink); }
+  .light p { color: #35332C; }
+  .light .ppoya-says { color: #35332C; }
+  .light .warning-box, .light .success-box, .light .tip-box, .light .error-box { color: #35332C; }
+  /* 코드블록은 라이트에서도 먹색 판 유지 — 터미널 화면과 같아 보여야 헷갈리지 않는다 */
   .light .code-block { background: var(--code-bg); border-color: var(--code-border); color: var(--code-text); }
-  .light .code-block .comment { color: #6a737d; }
-  .light .code-block .cmd { color: #0550ae; }
-  .light .code-block .output { color: #1a7f37; }
-  .light .code-block .highlight { color: var(--accent); }
-  .light .inline-code { background: #e8eaf6; color: #1565c0; }
-  .light .sidebar-item:hover { background: #f0f0f0; }
+  .light .code-block .comment { color: #9A9587; }
+  .light .code-block .cmd { color: #FFC233; }
+  .light .code-block .output { color: #8FCB86; }
+  .light .code-block .highlight { color: #FFD97A; }
+  .light .inline-code { background: #EDEBE3; color: #6B3A2E; }
+  .light .sidebar-item:hover { background: #EDEBE3; }
   .light .sidebar-item.active { background: var(--accent-soft); }
-  .light .checklist li { color: #333; }
+  .light .checklist li { color: #35332C; }
   .light td { color: #333; }
   .light .small { color: #777; }
   .light .dim { color: #888; }
@@ -110,6 +129,7 @@
 
   body {
     font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --nodak-font-display: 'Noto Sans KR', 'Pretendard Variable', sans-serif;
     background: var(--bg);
     color: var(--text);
     line-height: 1.8;
@@ -186,7 +206,26 @@
     border-bottom: 1px solid var(--border); z-index: 100;
     padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;
   }
-  .nav-title { font-weight: 700; font-size: 0.95em; color: var(--accent); }
+  .nav-title { font-weight: 700; font-size: 0.95em; color: var(--text-dim); display:flex; align-items:baseline; gap:10px; }
+  .nav-title .sep { color: var(--border); font-weight: 400; }
+
+  /* ─── 노닥 워드마크 — brand/tokens.css 규격 (노닥 900 / 컴퍼니 400=82% / 사이에 골드 점) ─── */
+  .nodak-wordmark{
+    font-family: var(--nodak-font-display);
+    font-weight: 900; letter-spacing: -.03em; line-height: 1;
+    white-space: nowrap; color: var(--text);
+    display: inline-block; font-style: normal;
+  }
+  .nodak-wordmark i{ font-weight: 400; font-size: .82em; letter-spacing: -.02em; font-style: normal; }
+  .nodak-wordmark i::before{
+    content:""; display:inline-block; vertical-align: baseline;
+    width: .2634em; height: .2634em; border-radius: 50%;
+    background: var(--nodak-gold);
+    margin: 0 .1957em 0 .0734em;
+  }
+  /* 노랑 판 — 그 위에선 골드 점이 사라지므로 먹색으로 (브랜드 규칙) */
+  .nodak-plate{ background: var(--nodak-gold); color: var(--nodak-ink); }
+  .nodak-plate .nodak-wordmark i::before{ background: var(--nodak-ink); }
   .nav-slide-counter {
     font-size: 0.85em; color: var(--text-dim); font-weight: 600;
     background: var(--surface); border: 1px solid var(--border);
@@ -209,8 +248,8 @@
   }
 
   /* ── Typography ── */
-  h1 { font-size: 2.6em; font-weight: 800; color: #fff; margin-bottom: 16px; letter-spacing: -1px; line-height: 1.3; }
-  h2 { font-size: 2em; font-weight: 700; color: #fff; margin-bottom: 12px; letter-spacing: -0.5px; line-height: 1.3; }
+  h1 { font-family: var(--nodak-font-display); font-size: 2.6em; font-weight: 900; color: var(--text); margin-bottom: 16px; letter-spacing: -0.03em; line-height: 1.3; }
+  h2 { font-family: var(--nodak-font-display); font-size: 2em; font-weight: 900; color: var(--text); margin-bottom: 12px; letter-spacing: -0.03em; line-height: 1.3; }
   h3 { font-size: 1.3em; font-weight: 600; color: #ccc; margin-bottom: 10px; margin-top: 28px; }
   p { font-size: 1.05em; color: #bbb; margin-bottom: 12px; }
   .accent { color: var(--accent); font-weight: 700; }
@@ -240,18 +279,18 @@
     background: #0d1117; border: 1px solid #21262d; border-radius: 8px;
     padding: 20px 24px; margin: 16px 0;
     font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-    font-size: 0.95em; color: #c9d1d9; overflow-x: auto; line-height: 1.6; position: relative;
+    font-size: 0.95em; color: var(--code-text); overflow-x: auto; line-height: 1.6; position: relative;
   }
   .code-block .label { position: absolute; top: 8px; right: 12px; font-size: 0.7em; color: var(--text-muted); font-family: inherit; text-transform: uppercase; letter-spacing: 1px; }
-  .code-block .comment { color: #8b949e; }
-  .code-block .cmd { color: #79c0ff; }
-  .code-block .output { color: #7ee787; }
-  .code-block .highlight { color: var(--accent); font-weight: 600; }
+  .code-block .comment { color: #9A9587; }
+  .code-block .cmd { color: #FFC233; }
+  .code-block .output { color: #8FCB86; }
+  .code-block .highlight { color: #FFD97A; font-weight: 600; }
 
   /* Code block copy button */
   .code-copy-btn {
     position: absolute; top: 6px; right: 12px;
-    background: #21262d; border: 1px solid #30363d; color: #8b949e;
+    background: #232119; border: 1px solid #37342B; color: #9A9587;
     padding: 3px 10px; border-radius: 4px; cursor: pointer;
     font-size: 0.7em; font-family: inherit; transition: all 0.2s;
     z-index: 2;
@@ -388,7 +427,7 @@
   }
 </style>
 </head>
-<body>
+<body class="light">
 
 <!-- ── Hamburger (mobile only) ── -->
 <button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()">☰</button>
@@ -420,7 +459,7 @@
 
 <!-- ── Navigation ── -->
 <div class="nav">
-  <span class="nav-title">🦞 오픈클로 설치 가이드</span>
+  <span class="nav-title"><span class="nodak-wordmark">노닥<i>컴퍼니</i></span><span class="sep">|</span>오픈클로 설치 가이드</span>
   <span class="nav-slide-counter" id="slideCounter">1 / 17</span>
   <div style="display:flex;align-items:center;">
     <div class="font-controls">
@@ -441,14 +480,14 @@
 <!-- 슬라이드 0: 표지 -->
 <!-- ═══════════════════════════════════════════ -->
 <div class="slide" id="slide-0">
-  <div style="background:linear-gradient(135deg,#1a1a2e,#16213e);border:1px solid var(--border);border-radius:12px;padding:20px 28px;margin-bottom:32px;text-align:center;display:flex;justify-content:center;align-items:center;gap:24px;flex-wrap:wrap;">
-    <span style="color:#fff;font-weight:800;font-size:1.2rem;">ⓒ 뽀짝이의서재</span>
-    <a href="https://bbojjak-library.gpters.org/" target="_blank" style="color:var(--teal);text-decoration:none;font-weight:600;font-size:1.15rem;">📚 뽀짝이의서재</a>
-    <a href="https://open.kakao.com/o/gWXzUtli" target="_blank" style="color:var(--yellow);text-decoration:none;font-weight:600;font-size:1.15rem;">🔥 덕후방</a>
-    <a href="https://open.kakao.com/o/pvmcFEoi" target="_blank" style="color:var(--green);text-decoration:none;font-weight:600;font-size:1.15rem;">🌱 입문방</a>
+  <div class="nodak-plate" style="border-radius:12px;padding:18px 28px;margin-bottom:32px;display:flex;justify-content:center;align-items:center;gap:22px;flex-wrap:wrap;">
+    <span class="nodak-wordmark" style="font-size:1.35rem;color:var(--nodak-ink);">노닥<i>컴퍼니</i></span>
+    <span style="color:rgba(26,25,22,.35);font-weight:400;">|</span>
+    <a href="https://bboya-academy.nodak.co.kr" target="_blank" style="color:var(--nodak-ink);text-decoration:none;font-weight:700;font-size:1.05rem;">🎓 뽀야의 사관학교</a>
+    <a href="https://nodak.co.kr" target="_blank" style="color:var(--nodak-ink);text-decoration:none;font-weight:700;font-size:1.05rem;">🏡 노닥빌리지</a>
   </div>
   <div class="big-emoji">🦞</div>
-  <p class="dim">뽀야와 함께하는 오픈클로 첫걸음 · 2026년 4월 최신판</p>
+  <p class="dim">뽀야와 함께하는 오픈클로 첫걸음 · 2026.7.1-2 기준</p>
   <h1>오픈클로 설치부터<br><span class="accent">텔레그램 · 슬랙 연동</span>까지</h1>
   <p class="subtitle">처음 해보는 분도 따라만 하면 돼요. 약속해요 🐾</p>
 
@@ -1268,7 +1307,7 @@
   </div>
 
   <div class="tip-box" style="border-left-color: var(--teal); background: var(--teal-soft);">
-    💰 <strong>비용이 궁금하시죠?</strong><br>
+    <strong>비용이 궁금하시죠?</strong><br>
     - OAuth(Anthropic/OpenAI): 해당 서비스 구독 플랜 기준으로 사용돼요<br>
     - API 키: 사용한 만큼 과금 (토큰 기반)<br>
     - Ollama: 내 컴퓨터에서 돌리니까 완전 무료!
@@ -1351,7 +1390,7 @@
   <p class="dim">전체 진행률: 70% — 거의 다 왔어요!</p>
 
   <div class="tip-box" style="border-left-color: var(--teal); background: var(--teal-soft);">
-    📱 <strong>텔레그램이 없다면 먼저 설치하세요!</strong><br>
+    <strong>텔레그램이 없다면 먼저 설치하세요!</strong><br>
     앱스토어(iOS) 또는 플레이스토어(Android)에서 "Telegram"을 검색하거나,<br>
     PC에서는 <a href="https://desktop.telegram.org" target="_blank" style="color:var(--teal);">desktop.telegram.org</a>에서 데스크톱 버전을 설치할 수 있어요.
   </div>
@@ -1413,7 +1452,7 @@
       <tr>
         <td>봇 유저네임<br><span class="small">(고유 ID, 영문)</span></td>
         <td>영문 + 반드시 <span class="accent">bot</span>으로 끝나야 함</td>
-        <td>bbojjaketbot</td>
+        <td>nodakcatbot</td>
       </tr>
     </table>
   </div>
@@ -1550,7 +1589,7 @@
   </details>
 
   <div class="tip-box" style="margin-top:16px;">
-    💬 <strong>슬랙은 나중에요.</strong> 먼저 <strong>Chapter 5</strong>에서 게이트웨이를 켜고
+    <strong>슬랙은 나중에요.</strong> 먼저 <strong>Chapter 5</strong>에서 게이트웨이를 켜고
     <strong>텔레그램이 실제로 대답하는 걸 확인</strong>한 다음, <strong>Chapter 6</strong>에서 슬랙을 붙여요.
     <span class="small">하나씩 성공을 확인하고 넘어가야 어디서 막혔는지 알 수 있거든요.</span>
   </div>
@@ -1678,7 +1717,7 @@
   </div>
 
   <div class="tip-box">
-    💬 <strong>팀이랑 같이 쓰고 싶다면</strong> — 다음 <strong>Chapter 6</strong>에서 슬랙에도 붙여요.
+    <strong>팀이랑 같이 쓰고 싶다면</strong> — 다음 <strong>Chapter 6</strong>에서 슬랙에도 붙여요.
     게이트웨이는 이미 켜져 있으니 <strong>토큰만 넣으면 바로 됩니다.</strong>
     <span class="small">텔레그램만 쓸 거면 여기서 끝내도 돼요!</span>
   </div>
@@ -1993,8 +2032,8 @@
       <tr><td>Tone</td><td>말투 스타일</td><td>"항상 존댓말, ~해요 체"</td></tr>
     </table>
     <div class="tip-box">
-      자세한 내용은 <strong>뽀짝이의 서재 수업 #2 "SOUL.md의 비밀"</strong>을 참고하세요!<br>
-      <a href="https://bbojjak-library.gpters.org/lessons/lesson-02" target="_blank" style="color:var(--teal);">https://bbojjak-library.gpters.org/lessons/lesson-02</a>
+      더 자세한 건 <strong>뽀야의 사관학교</strong>에서 이어서 다뤄요.<br>
+      <a href="https://bboya-academy.nodak.co.kr" target="_blank" style="color:var(--accent);font-weight:700;">bboya-academy.nodak.co.kr</a>
     </div>
     <p class="small">SOUL.md 파일 위치: <span class="inline-code">~/.openclaw/workspace/SOUL.md</span></p>
   </div>
@@ -2201,15 +2240,15 @@
   }
 
   // Theme toggle (dark/light)
-  let isLight = false;
+  let isLight = true;   // 노닥 기본은 크림 판
   function toggleTheme() {
     isLight = !isLight;
     document.body.classList.toggle('light', isLight);
     document.getElementById('themeToggle').textContent = isLight ? '🌙' : '☀️';
     localStorage.setItem('openclaw-guide-theme', isLight ? 'light' : 'dark');
   }
-  // Restore saved theme
-  if (localStorage.getItem('openclaw-guide-theme') === 'light') {
+  // Restore saved theme — 저장값이 'dark'일 때만 전환 (기본은 크림)
+  if (localStorage.getItem('openclaw-guide-theme') === 'dark') {
     toggleTheme();
   }
 
