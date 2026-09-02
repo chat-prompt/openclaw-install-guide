@@ -456,6 +456,7 @@
     <li class="sidebar-item" data-slide="10b">06 슬랙에 데려오기</li>
     <li class="sidebar-item" data-slide="12">완료!</li>
     <li class="sidebar-item" data-slide="13">부록: 트러블슈팅</li>
+    <li class="sidebar-item" data-slide="14">부록: 슬랙 설정 4줄</li>
   </ul>
 </nav>
 
@@ -2148,6 +2149,72 @@
     그래도 안 되면 당황하지 마세요!<br>
     카톡방에 에러 메시지 캡처해서 올려주시면 같이 해결해드릴게요 🐾<br>
     처음이 가장 어려운 거예요. 한 번만 넘기면 다신 안 해도 됩니다!
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- 슬라이드 14: 부록 — 슬랙 설정 4줄 -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="slide" id="slide-14">
+  <span class="chapter-badge">부록</span>
+  <h2>슬랙 설정 4줄 마무리 ⚙️</h2>
+  <p class="subtitle">설치가 끝났으면, 이 네 줄까지 넣어야 워크숍 때처럼 굴러가요</p>
+
+  <div class="tip-box">
+    <strong>직접 파일을 고치지 마세요.</strong> 방금 만든 내 오픈클로한테 그대로 시키면 돼요.
+    설정 파일 위치도, 형식도 걔가 압니다.
+  </div>
+
+  <div class="code-block" style="max-height:none;">
+    <span class="label">내 봇(오픈클로)한테 이렇게 말하세요</span>
+    <pre style="margin:0;white-space:pre-wrap;font-size:0.82em;line-height:1.6;">내 openclaw.json의 슬랙 설정(channels.slack)에 아래 네 개 넣어줘.
+
+{
+  "dmPolicy": "pairing",
+  "groupPolicy": "open",
+  "allowBots": true,
+  "replyToMode": "all"
+}</pre>
+  </div>
+
+  <h3>각각 무슨 뜻이냐면</h3>
+  <div class="card">
+    <table>
+      <tr><th>설정</th><th>한 줄 설명</th></tr>
+      <tr>
+        <td><span class="inline-code">"dmPolicy": "pairing"</span></td>
+        <td>모르는 사람이 DM을 걸면 <strong>바로 대답하지 않고 승인 코드부터</strong> 뱉어요. 주인이 <span class="inline-code">openclaw pairing approve slack &lt;코드&gt;</span> 를 해줘야 대화가 열려요.</td>
+      </tr>
+      <tr>
+        <td><span class="inline-code">"groupPolicy": "open"</span></td>
+        <td>채널에 <strong>초대만 하면 바로 동작</strong>해요. 이게 없으면 채널 ID를 하나하나 등록해야 하고, 빠뜨린 채널에선 <strong>에러도 없이 조용히 무시</strong>돼요.</td>
+      </tr>
+      <tr>
+        <td><span class="inline-code">"allowBots": true</span></td>
+        <td><strong>다른 봇이 한 말도 알아들어요.</strong> 사람만 상대하는 게 아니라 봇끼리 주고받게 하려면 필요해요.</td>
+      </tr>
+      <tr>
+        <td><span class="inline-code">"replyToMode": "all"</span></td>
+        <td>대답을 채널 본문에 툭 떨구지 않고 <strong>그 말에 스레드 답글</strong>로 달아요. 여러 대화가 섞이지 않아요.</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="error-box">
+    <div class="error-title">⚠️ <span class="inline-code">groupPolicy: "open"</span> 은 "느슨한 쪽" 이에요</div>
+    <p>내가 들어가 있는 <strong>모든 채널</strong>이 열린다는 뜻이라, 개인·팀 워크스페이스에 쓰기 좋아요.
+    회사 슬랙처럼 사람이 많은 곳에 붙일 땐 <span class="inline-code">"allowlist"</span> 로 두고 쓸 채널만 등록하세요.</p>
+    <p class="error-fix">→ <span class="inline-code">allowBots</span> 도 마찬가지예요. 봇끼리 무한히 대답을 주고받지 않도록
+    오픈클로가 횟수 제한을 걸어두지만, <strong>필요할 때만 켜는 게</strong> 안전해요.</p>
+  </div>
+
+  <div class="success-box">
+    설정은 <strong>바로 반영</strong>돼요. 반영이 안 된 것 같으면 <span class="inline-code">openclaw gateway restart</span> 한 번.
+  </div>
+
+  <div class="ppoya-says">
+    이 네 줄이 있어야 저희가 채널에서 사람처럼 굴어요 🐾<br>
+    스레드로 답하고, 옆 봇 말도 알아듣고, 모르는 사람은 문 앞에서 한 번 세우고요.
   </div>
 </div>
 
